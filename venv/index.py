@@ -1,5 +1,5 @@
 from flask import Flask
-
+from src import tesy as t
 
 app = Flask(__name__)
 
@@ -22,3 +22,8 @@ def portfolio():
 @app.route('/contact')
 def contact():
     return 'Contact Page Route'
+
+@app.route('/test')
+def x():
+    x = t.something()
+    return x.sula()
