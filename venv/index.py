@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from src import tesy as t
+from src import Customer as C
 
 app = Flask(__name__)
 CORS(app)
@@ -24,7 +24,7 @@ def portfolio():
 def contact():
     return 'Contact Page Route'
 
-@app.route('/test')
+@app.route('/customer')
 def x():
-    x = t.something()
-    return x.sula()
+    Customer = C.Customer()
+    return Customer.getAllCustomer()
