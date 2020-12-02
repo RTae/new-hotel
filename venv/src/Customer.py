@@ -4,6 +4,15 @@ from .helper import *
 class Customer():
     def getAllCustomer(self):
         session = initDatabase()
-        for customer in session.query(TBL_Customer).order_by(TBL_Customer.customerID):
-            print(customer.customerID)
-        return "Done"
+        customers = session.query(TBL_Customer).all()
+        return [Customer.serialize(customer) for customer in customers]
+    
+    def serialize(self,customer):
+        return {
+            'customerID': customer.customerID,
+            'firstname': customer.firstname,
+            'email': customer.email,
+            'phoneNumber': customer.phoneNumber,
+            'creditCardNumber': customer.creditCardNumber,
+            'point': customer.point
+        }
