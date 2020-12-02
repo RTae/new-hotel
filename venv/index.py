@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from src import Customer as C
 
@@ -27,4 +27,4 @@ def contact():
 @app.route('/customer')
 def x():
     Customer = C.Customer()
-    return Customer.getAllCustomer()
+    return jsonify(Customer.getAllCustomer())
