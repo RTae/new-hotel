@@ -5,7 +5,7 @@ class Customer():
     def getAllCustomer(self):
         session = initDatabase()
         customers = session.query(TBL_Customer).all()
-        return [Customer.serialize(customer) for customer in customers]
+        return [self.serialize(customer) for customer in customers]
     
     def serialize(self,customer):
         return {
