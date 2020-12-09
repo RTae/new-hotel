@@ -188,7 +188,6 @@
             <v-row justify="center" style="margin-top:20px">
               <lable>detail</lable>
             </v-row>
-          </div>
         </v-col>  
       </v-row>
       <v-row class="containRoom">

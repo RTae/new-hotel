@@ -6,9 +6,9 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="../../assets/logoHotel.png"
           transition="scale-transition"
-          width="40px"
+          width="250"
         />
       </div>
       <v-spacer></v-spacer>
