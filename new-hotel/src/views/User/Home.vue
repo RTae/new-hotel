@@ -3,13 +3,14 @@
     <v-row class="bg">
       <v-toolbar
         src="../../../dist/img/mainFirst.png"
-        height="1000px"
+        height="800px"
         width="100vw"   
         flat
       >
         <div class="cardContain" align="center"> 
-            <v-row justify="center" class="cardChoose">             
-              <v-col cols="2">
+            <v-row justify="center" class="cardChoose">
+              <v-col cols="1"></v-col>          
+              <v-col class="ChooseContain">
                 <v-row justify="start">
                   <label>Room Type</label>
                 </v-row>
@@ -24,7 +25,7 @@
                   </div>
                 </v-row>
               </v-col>
-              <v-col cols="2">
+              <v-col class="ChooseContain">
                 <v-row justify="start">
                   <label>Arrival Date</label>
                 </v-row>
@@ -56,7 +57,7 @@
                   </v-menu>
                 </v-row>
               </v-col>
-              <v-col cols="2">
+              <v-col class="ChooseContain">
                 <v-row justify="start">
                 <label>Departure Date</label>
                 </v-row>
@@ -88,7 +89,7 @@
                   </v-menu>
                 </v-row>
               </v-col>
-              <v-col cols="2">
+              <v-col class="ChooseContain">
                 <v-row justify="start">
                 <label>Number of room</label>
                 </v-row>
@@ -103,7 +104,7 @@
                   </div>
                 </v-row>
               </v-col>
-              <v-col cols="2">
+              <v-col class="ChooseContain">
                 <v-row justify="start">
                 <label>Guest</label>
                 </v-row>
@@ -118,6 +119,18 @@
                   </div>
                 </v-row>
               </v-col>
+              <v-col  cols="1">
+                <v-btn
+                    class="ma-2"
+                    text
+                    icon
+                    color="black"
+                    x-large
+                  ><span class="material-icons">
+                    search
+                </span></v-btn>
+              </v-col>
+               <v-col cols="1"></v-col> 
             </v-row>
             <v-row justify="center" align="center">
               <v-card class="cardAbout" style="border-radius: 30px;">
@@ -139,7 +152,7 @@
           <label class="textType">Single</label>
         </v-row>
         <v-row justify="center">
-          <label class="textType">12</label>
+          <label class="textType">{{ this.numRoomSingle }}</label>
         </v-row>
       </v-col>
       <v-col cols="2">
@@ -147,7 +160,7 @@
           <label class="textType">Double</label>
         </v-row>
         <v-row justify="center">
-          <label class="textType">12</label>
+          <label class="textType">{{ this.numRoomDouble }}</label>
         </v-row>
       </v-col>
       <v-col cols="2">
@@ -155,7 +168,7 @@
           <label class="textType">Suite</label>
         </v-row>
         <v-row justify="center">
-          <label class="textType">3</label>
+          <label class="textType">{{ this.numRoomSuite }}</label>
         </v-row>        
       </v-col>
       <v-col cols="2">
@@ -163,7 +176,7 @@
           <label class="textType">Deluxe</label>
         </v-row>
         <v-row justify="center">
-          <label class="textType">4</label>
+          <label class="textType">{{ this.numRoomDeluxe }}</label>
         </v-row>
       </v-col>
       <v-col cols="2">
@@ -171,7 +184,7 @@
           <label class="textType">Premier</label>
         </v-row>
         <v-row justify="center">
-          <label class="textType">2</label>
+          <label class="textType">{{ this.numRoomPremier }}</label>
         </v-row>
       </v-col>
     </v-row>
@@ -179,66 +192,66 @@
     <v-card class="room"> 
       <v-row class="containRoom">
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/singleRoom.png"></v-img>
+          <v-img class="imgRoom" src="../../../dist/img/single.png"></v-img>
         </v-col>
         <v-col cols="6">
             <v-row justify="center" style="margin-top:80px">
-              <lable class="textHead">Single</lable>
+              <lable class="textHead">Single Room</lable>
             </v-row>
             <v-row justify="center" style="margin-top:20px">
-              <lable>detail</lable>
+              <lable>This 22 sqm Single Room has single bed positioned near a window offering natural light and pleasant views of the city.  Guests can help themselves to complimentary hot drinks and drinking water</lable>
             </v-row>
         </v-col>  
       </v-row>
       <v-row class="containRoom">
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px"> 
-            <lable class="textHead">Double</lable>
+            <lable class="textHead">Double Room</lable>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <lable>detail</lable>
+            <lable>This 26 sqm Superior Room has twin single beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</lable>
           </v-row>
         </v-col>
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/Double.png"></v-img>
+          <v-img class="imgRoom" src="../../../dist/img/double.png"></v-img>
         </v-col>
       </v-row>
       <v-row class="containRoom">
+        <v-col cols="6">
+          <v-img class="imgRoom" src="../../../dist/img/suite.png"></v-img>
+        </v-col>
+        <v-col cols="6">
+          <v-row justify="center" style="margin-top:80px">
+            <lable class="textHead">Suite Room</lable>
+          </v-row>
+          <v-row justify="center" style="margin-top:20px">
+            <lable>This 50 sqm Superior Room has 2 room that it has a guest room and  a queen bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</lable>
+          </v-row>
+        </v-col>
+      </v-row>
+      <v-row class="containRoom">
+        <v-col cols="6">
+          <v-row justify="center" style="margin-top:80px">
+            <lable class="textHead">Deluxe Room</lable>
+          </v-row>
+          <v-row justify="center" style="margin-top:20px">
+            <lable justify="center" style="margin-top:20px">This 60 sqm deluxe Room has 2 room that it has a guest room and  a king bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</lable>
+          </v-row>
+        </v-col>
         <v-col cols="6">
           <v-img class="imgRoom" src="../../../dist/img/deluxe.png"></v-img>
-        </v-col>
-        <v-col cols="6">
-          <v-row justify="center" style="margin-top:80px">
-            <lable class="textHead">Suit</lable>
-          </v-row>
-          <v-row justify="center" style="margin-top:20px">
-            <lable>detail</lable>
-          </v-row>
-        </v-col>
-      </v-row>
-      <v-row class="containRoom">
-        <v-col cols="6">
-          <v-row justify="center" style="margin-top:80px">
-            <lable class="textHead">Deluxe</lable>
-          </v-row>
-          <v-row justify="center" style="margin-top:20px">
-            <lable justify="center" style="margin-top:20px">detail</lable>
-          </v-row>
-        </v-col>
-        <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/premier.png"></v-img>
         </v-col>
       </v-row>
        <v-row class="containRoom">
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/Double.png"></v-img>
+          <v-img class="imgRoom" src="../../../dist/img/premier.png"></v-img>
         </v-col>
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
             <lable class="textHead">Premier</lable>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <lable>detail</lable>
+            <lable>This 60 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</lable>
           </v-row>
         </v-col>
         
@@ -259,6 +272,14 @@ export default {
     dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
     menu1: false,
     menu2: false,
+    numRoomSingle: "12",
+    numRoomDouble: "12",
+    numRoomSuite: "3",
+    numRoomDeluxe: "4",
+    numRoomPremier: "2",
+    roomValue:"",
+    numValue:"",
+    peopelValue:"",
   }),
   computed: {
       computedDateFormatted () {
@@ -303,7 +324,6 @@ export default {
   height: 465px;
   width: 100vw;
   background-color: black;
-
 }
 .cardContain{
   justify-content: center;
@@ -311,10 +331,8 @@ export default {
   height: 650px;
   width: 100vw;
   border-radius: 50px;
-
 }
 .cardChoose {
-  display: flex;
   background-color: #CADFFF;
   height: 150px;
   width: 1400px;
@@ -322,9 +340,21 @@ export default {
   align-items: center;
   border-radius: 50px;
 }
+.ChooseContain{
+  height: 100px;
+  width: 80px;
+  justify-content: center;
+  align-items: center;
+  margin-left:10px;
+  margin-right:10px;
+}
+.SubChooseContain{
+  height: 100px;
+  width: 10px; 
+}
 .cardAbout{
   background-color: white;
-  opacity:  70%;
+  opacity:  80%;
   width: 1400px;
   height: 450px;
   margin-top: 50px;
@@ -336,12 +366,12 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: #CADFFF;
-  height: 156px;
+  height: 120px;
   width: 100vw;
-  margin-top: 536px;
+  margin-top: 335px;
 }
 .textType{
-  font-size: 30px;
+  font-size: 25px;
   font-family: roboto ;
 }
 .textAbout{
@@ -352,7 +382,8 @@ export default {
 }
 .textDetailAboutUs{
   font-size: 25px;
-  font-family: roboto ;  
+  font-family: roboto ; 
+  color: black; 
 } 
 .textHead{
   font-size: 45px;
@@ -365,10 +396,10 @@ export default {
 }
 .containRoom{
   background-color:white;
-  height:500px;
+  height:510px;
   width: 100vw;
 }
 .imgRoom{
-  height:485px;  
+  height:490px;  
 }
 </style>
