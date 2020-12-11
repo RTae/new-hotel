@@ -1,118 +1,249 @@
 <template>
   <v-container fluid class="main" id="Home">
-    <v-row
-      align="center"
-      justify="center"
-      style="margin-top: 70px; margin-bottom: 500px"
-    >
-      <div class="cardSmallContainer">
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 16"
-            :class="{ 'on-hover-review': hover }"
-            class="cardReviewContainer"
-          >
-            <div class="cardInReviewContainer">
-              <v-card-text class="cardInSmallText">ดีมากๆ เลยครับ</v-card-text>
-            </div>
-            <div class="cardInReviewNameContainer">
-              <v-list-item>
-                <v-list-item-avatar color="grey darken-3">
-                  <v-img
-                    alt="pravit"
-                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                  ></v-img>
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                  <v-list-item-title>ประวิต ยืมเพื่อน</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </div>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover-review': hover }"
-            class="cardReviewContainer"
-          >
-            <div class="cardInReviewContainer">
-              <v-card-text class="cardInSmallText"
-                >เป็น Platfrom ที่ผมรักมากครับ</v-card-text
-              >
-            </div>
-            <div class="cardInReviewNameContainer">
-              <v-list-item>
-                <v-list-item-avatar color="grey darken-3">
-                  <v-img
-                    alt="pravit"
-                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                  ></v-img>
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                  <v-list-item-title>ประยุทธ์ สีบุญเรือง</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </div>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover-review': hover }"
-            class="cardReviewContainer"
-          >
-            <div class="cardInReviewContainer">
-              <v-card-text class="cardInSmallText"
-                >สร้างประสบการณ์ใหม่ ในการเรียนรู้มากเลยครับ</v-card-text
-              >
-            </div>
-            <div class="cardInReviewNameContainer">
-              <v-list-item>
-                <v-list-item-avatar color="grey darken-3">
-                  <v-img
-                    alt="pravit"
-                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                  ></v-img>
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                  <v-list-item-title>ธนาธร สวนพึ่ง</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </div>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover-review': hover }"
-            class="cardReviewContainer"
-          >
-            <div class="cardInReviewContainer">
-              <v-card-text class="cardInSmallText"
-                >เรียนเข้าใจมากขึ้นเลยครับ</v-card-text
-              >
-            </div>
-            <div class="cardInReviewNameContainer">
-              <v-list-item>
-                <v-list-item-avatar color="grey darken-3">
-                  <v-img
-                    alt="pravit"
-                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                  ></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>ไพรบูร วันวานยังหวานชืน</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </div>
-          </v-card>
-        </v-hover>
-      </div>
+    <v-row class="bg">
+      <v-toolbar
+        src="../../../dist/img/mainFirst.png"
+        height="1000px"
+        width="100vw"   
+        flat
+      >
+        <div class="cardContain" align="center"> 
+            <v-row justify="center" class="cardChoose">             
+              <v-col cols="2">
+                <v-row justify="start">
+                  <label>Room Type</label>
+                </v-row>
+                <v-row>
+                  <div class="inputFiled">
+                    <v-select
+                      v-model="roomValue"
+                      :items="roomType"
+                      :rules="[v => !!v || 'Item is required']"
+                      autocomplete="roomType"
+                    />
+                  </div>
+                </v-row>
+              </v-col>
+              <v-col cols="2">
+                <v-row justify="start">
+                  <label>Arrival Date</label>
+                </v-row>
+                <v-row justify="start">
+                  <v-menu
+                    ref="menu1"
+                    v-model="menu1"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="dateFormatted"
+                        persistent-hint
+                        append-icon="mdi-calendar"
+                        v-bind="attrs"
+                        @blur="date = parseDate(dateFormatted)"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="date"
+                      no-title
+                      @input="menu1 = false"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-row>
+              </v-col>
+              <v-col cols="2">
+                <v-row justify="start">
+                <label>Departure Date</label>
+                </v-row>
+                <v-row justify="start" >
+                  <v-menu
+                    ref="menu2"
+                    v-model="menu2"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="dateFormatted"
+                        persistent-hint
+                        append-icon="mdi-calendar"
+                        v-bind="attrs"
+                        @blur="date = parseDate(dateFormatted)"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="date"
+                      no-title
+                      @input="menu2 = false"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-row>
+              </v-col>
+              <v-col cols="2">
+                <v-row justify="start">
+                <label>Number of room</label>
+                </v-row>
+                <v-row>
+                  <div class="inputFiled">
+                    <v-select
+                      v-model="numValue"
+                      :items="numOfRoom"
+                      :rules="[v => !!v || 'Item is required']"
+                      autocomplete="numOfRoom"
+                    />
+                  </div>
+                </v-row>
+              </v-col>
+              <v-col cols="2">
+                <v-row justify="start">
+                <label>Guest</label>
+                </v-row>
+                <v-row>
+                  <div class="inputFiled">
+                    <v-select
+                      v-model="peopelValue"
+                      :items="peopel"
+                      :rules="[v => !!v || 'Item is required']"
+                      autocomplete="roomType"
+                    />
+                  </div>
+                </v-row>
+              </v-col>
+            </v-row>
+            <v-row justify="center" align="center">
+              <v-card class="cardAbout" style="border-radius: 30px;">
+                <v-row justify="center"><p class="textAbout">ABOUT US</p></v-row>
+                <v-row justify="center" class="textDetailAboutUs">
+                  <p>ในปี พ. ศ. 2563 บริษัท กลุ่ม Newway จำกัด ซึ่งเป็นกลุ่มค้าปลีกชั้นนำของประเทศไทยได้ก่อตั้ง</p>
+                  <p>บริษัท นิวโฮเทลส์แอนด์รีสอร์ท และได้เปิดตัวโรงแรมแห่งแรก ซึ่งเป็นโรงแรมระดับ 5 ดาวสุดหรู</p>
+                  <p>ที่ชื่อ New Hotel ตั้งอยู่ใจกลางเมืองกรุงเทพ โดยวิสัยทัศน์ของบริษัทคือการทุ่มเทให้กับการบริการที่ดีเลิศ</p>
+                  <p>ในฐานะที่เป็นบริษัทบริหารและการจัดการโรงแรมสัญชาติไทย จึงให้ความสำคัญกับการต้อนรับแบบไทยที่อบอุ่น</p>
+                </v-row>
+              </v-card>
+            </v-row>
+        </div>
+      </v-toolbar>
     </v-row>
+    <v-row class="numRoom"> 
+      <v-col cols="2">
+        <v-row justify="center">
+          <label class="textType">Single</label>
+        </v-row>
+        <v-row justify="center">
+          <label class="textType">12</label>
+        </v-row>
+      </v-col>
+      <v-col cols="2">
+        <v-row justify="center">
+          <label class="textType">Double</label>
+        </v-row>
+        <v-row justify="center">
+          <label class="textType">12</label>
+        </v-row>
+      </v-col>
+      <v-col cols="2">
+        <v-row justify="center">
+          <label class="textType">Suite</label>
+        </v-row>
+        <v-row justify="center">
+          <label class="textType">3</label>
+        </v-row>        
+      </v-col>
+      <v-col cols="2">
+        <v-row justify="center">
+          <label class="textType">Deluxe</label>
+        </v-row>
+        <v-row justify="center">
+          <label class="textType">4</label>
+        </v-row>
+      </v-col>
+      <v-col cols="2">
+        <v-row justify="center">
+          <label class="textType">Premier</label>
+        </v-row>
+        <v-row justify="center">
+          <label class="textType">2</label>
+        </v-row>
+      </v-col>
+    </v-row>
+    <!--Detail-->
+    <v-card class="room"> 
+      <v-row class="containRoom">
+        <v-col cols="6">
+          <v-img class="imgRoom" src="../../../dist/img/singleRoom.png"></v-img>
+        </v-col>
+        <v-col cols="6">
+            <v-row justify="center" style="margin-top:80px">
+              <lable class="textHead">Single</lable>
+            </v-row>
+            <v-row justify="center" style="margin-top:20px">
+              <lable>detail</lable>
+            </v-row>
+        </v-col>  
+      </v-row>
+      <v-row class="containRoom">
+        <v-col cols="6">
+          <v-row justify="center" style="margin-top:80px"> 
+            <lable class="textHead">Double</lable>
+          </v-row>
+          <v-row justify="center" style="margin-top:20px">
+            <lable>detail</lable>
+          </v-row>
+        </v-col>
+        <v-col cols="6">
+          <v-img class="imgRoom" src="../../../dist/img/Double.png"></v-img>
+        </v-col>
+      </v-row>
+      <v-row class="containRoom">
+        <v-col cols="6">
+          <v-img class="imgRoom" src="../../../dist/img/deluxe.png"></v-img>
+        </v-col>
+        <v-col cols="6">
+          <v-row justify="center" style="margin-top:80px">
+            <lable class="textHead">Suit</lable>
+          </v-row>
+          <v-row justify="center" style="margin-top:20px">
+            <lable>detail</lable>
+          </v-row>
+        </v-col>
+      </v-row>
+      <v-row class="containRoom">
+        <v-col cols="6">
+          <v-row justify="center" style="margin-top:80px">
+            <lable class="textHead">Deluxe</lable>
+          </v-row>
+          <v-row justify="center" style="margin-top:20px">
+            <lable justify="center" style="margin-top:20px">detail</lable>
+          </v-row>
+        </v-col>
+        <v-col cols="6">
+          <v-img class="imgRoom" src="../../../dist/img/premier.png"></v-img>
+        </v-col>
+      </v-row>
+       <v-row class="containRoom">
+        <v-col cols="6">
+          <v-img class="imgRoom" src="../../../dist/img/Double.png"></v-img>
+        </v-col>
+        <v-col cols="6">
+          <v-row justify="center" style="margin-top:80px">
+            <lable class="textHead">Premier</lable>
+          </v-row>
+          <v-row justify="center" style="margin-top:20px">
+            <lable>detail</lable>
+          </v-row>
+        </v-col>
+        
+      </v-row>
+    </v-card>
   </v-container>
 </template>
 
@@ -120,25 +251,37 @@
 export default {
   name: "Home",
   components: {},
-  data: () => ({
-    items: ["Mathematics", "Economics", "Chemistry", "Computer", "Electric"],
-    model: null,
-    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-    computer: "https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg",
-    langauge: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
-    econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+  data: vm => ({
+    roomType: ["Single", "Double", "Suite", "Delux", "Premier"],
+    numOfRoom: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    peopel: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    date: new Date().toISOString().substr(0, 10),
+    dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
+    menu1: false,
+    menu2: false,
   }),
-  mounted () {
-    this.$store.dispatch({ type: "enterHome" });
+  computed: {
+      computedDateFormatted () {
+        return this.formatDate(this.date)
+      },
+    },
+  watch: {
+    date (val) {
+      this.dateFormatted = this.formatDate(this.date)
+    },
   },
   methods: {
-    onClickCourse (name) {
-      this.$router.push({ name: "CoursesPage", params: { title: name } })
+    formatDate (date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+      return `${day}/${month}/${year}`
     },
-    onClickSubject (n) {
-      this.model = n - 1;
-      this.$router.push({ name: "CoursesPage", params: { titleName: this.items[n - 1] } })
-    }
+    parseDate (date) {
+      if (!date) return null
+      const [month, day, year] = date.split('/')
+      return `${year}-${day.padStart(2, '0')}-${month.padStart(2, '0')}`
+    },
   }
 };
 </script>
@@ -148,164 +291,84 @@ export default {
   background: rgb(239, 239, 239);
   min-height: 100vh;
 }
-
-.cardContainer {
+.a{
+  background-color: blue;
+}
+.bg {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 280px;
-  width: 100vw;
-  background-color: #70CCFF;
-}
-.courseCard {
-  border-radius: 32px;
-  width: 464px;
-  height: 233px;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  align-items: center;
-  opacity: 0.6;
-  transition: opacity 0.2s ease-in;
-}
-
-.courseCard:not(.on-hover) {
-  opacity: 1;
-}
-
-.cardTextTitle {
-  font-size: 72px;
-  font-family: "Average Sans", sans-serif;
-}
-
-a {
-  text-decoration: none;
-}
-
-.textTitle {
-  font-size: 96px;
-  font-family: "Average Sans", sans-serif;
-  align-content: center;
   justify-content: center;
-  margin-top: 40px;
-}
-
-.textDetail {
-  font-weight: normal;
-  color: black;
-  font-size: 30px;
-  font-family: Delius;
-}
-
-.cardSmallContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  height: 465px;
   width: 100vw;
-}
+  background-color: black;
 
-.cardCourseSmall {
-  border-radius: 10px;
-  width: 303px;
-  height: 279px;
-  background-color: white;
-  opacity: 0.6;
-  transition: opacity 0.2s ease-in;
 }
-
-.cardCourseSmall:not(.on-hover) {
-  opacity: 1;
-}
-
-.cardInSmallContainer {
-  background-color: #70CCFF;
-  display: flex;
-  align-items: center;
-  width: 303px;
-  height: 79px;
-}
-
-.cardInSmallText {
-  margin-left: 40px;
-  font-family: "THSarabunNewRegular";
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.subjectContainer {
-  display: flex;
-  flex-direction: row;
+.cardContain{
   justify-content: center;
   align-items: center;
-  height: 474px;
+  height: 650px;
   width: 100vw;
-  background-color: #70CCFF;
-}
-
-.subjectCard {
-  height: 300px;
-  width: 642px;
   border-radius: 50px;
+
+}
+.cardChoose {
+  display: flex;
+  background-color: #CADFFF;
+  height: 150px;
+  width: 1400px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+}
+.cardAbout{
+  background-color: white;
+  opacity:  70%;
+  width: 1400px;
+  height: 450px;
+  margin-top: 50px;
+}
+.numRoom{
   display: flex;
   flex-direction: row;
-  align-items: center;
-  text-align: center;
-  opacity: 0.6;
-  transition: opacity 0.2s ease-in;
-}
-
-.subjectCard:not(.on-hover) {
-  opacity: 1;
-}
-
-.studentReviewContainner {
-  display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   justify-content: center;
   align-items: center;
+  background-color: #CADFFF;
+  height: 156px;
+  width: 100vw;
+  margin-top: 536px;
 }
-
-.textTitleStudnetReview {
-  font-size: 40px;
-  font-family: "Delius", cursive;
+.textType{
+  font-size: 30px;
+  font-family: roboto ;
 }
-
-.textDetailStudnetReview {
-  font-size: 18px;
-  font-family: "Delius", cursive;
+.textAbout{
+  font-size: 45px;
+  font-weight: bolder;
+  font-family: roboto ;
+  margin-top: 60px;
 }
-
-.cardReviewContainer {
-  height: 343px;
-  width: 373px;
-  border-radius: 5px;
-  opacity: 1;
-  transition: opacity 0.2s ease-in;
+.textDetailAboutUs{
+  font-size: 25px;
+  font-family: roboto ;  
+} 
+.textHead{
+  font-size: 45px;
+  font-weight: bolder;
+  font-family: roboto ;
 }
-
-.cardReviewContainer:not(.on-hover-review) {
-  height: 343px;
-  width: 373px;
-  border-radius: 5px;
-  opacity: 0.5;
+.room{
+  background-color: red;
+  height: 2050px;
 }
-
-.cardInReviewContainer {
-  height: 243px;
-  width: 373px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.containRoom{
+  background-color:white;
+  height:500px;
+  width: 100vw;
 }
-.cardInReviewNameContainer {
-  background-color: #70CCFF;
-  height: 100px;
-  width: 373px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.imgRoom{
+  height:485px;  
 }
 </style>
