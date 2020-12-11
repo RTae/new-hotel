@@ -11,32 +11,37 @@
                         <v-col cols="6"><label class="textDetail">Customer name : {{ this.user.firstName }} {{ this.user.familyName  }}</label></v-col>
                         <v-col cols="6"><label class="textDetail">Payment Method: {{ this.user.paymentMethod  }}</label></v-col>
                     </v-row>
-                    <v-row>
-                        <v-col cols="5" >
-                            <label class="textDetail2">CreditCard Number</label>
-                            <v-text-field
-                                ref="creaditNumber"
-                                :rules="[v => !!v || 'Credit card Number is required']"
-                                v-model="user.firtname"
-                                solo
-                                rounded
-                                outlined
-                                autocomplete="creaditNumber"
-                            />
-                        </v-col>
-                        <v-col cols="1"></v-col>
-                        <v-col cols="5">
-                            <label class="textDetail2">CreditCard Number</label>
-                            <v-text-field
-                                ref="creaditNumber"
-                                :rules="[v => !!v || 'Credit card Number is required']"
-                                v-model="user.firtname"
-                                solo
-                                rounded
-                                outlined
-                                autocomplete="creaditNumber"
-                            />    
-                        </v-col>        
+                    <v-row justify="center">
+                      <v-card class="cardInput" elevation="0">
+                        <v-row>
+                          <div style="background-color: blue;">
+                              <label class="textDetail2">CreditCard Number </label>
+                          </div>
+                              <v-text-field
+                                  ref="creaditNumber"
+                                  :rules="[v => !!v || 'Credit card Number is required']"
+                                  v-model="user.creaditNumber"
+                                  solo
+                                  rounded
+                                  outlined
+                                  autocomplete="creaditNumber"
+                              />
+                          <div>
+                              <label class="textDetail2">CVV</label>
+                          </div>
+                          <div>
+                              <v-text-field
+                                  ref="cvv"
+                                  :rules="[v => !!v || 'CVV is required']"
+                                  v-model="user.cvv"
+                                  solo
+                                  rounded
+                                  outlined
+                                  autocomplete="cvv"
+                              />    
+                          </div> 
+                        </v-row>
+                      </v-card>       
                     </v-row>
                     <v-row>
                     </v-row>
@@ -57,7 +62,7 @@ export default {
         familyName: "Sunthon",
         paymentMethod: "Credit Card",
         creaditNumber: "4859-4785-5899-696",
-        CVV: "896",
+        cvv: "896",
       }
     }
   }
@@ -80,6 +85,12 @@ export default {
   height: 180px;
   margin-top: 5vh;
  }
+
+.cardInput{
+  border-radius: 20px;
+  width: 720px;
+  height: 80px;
+}
 
 .text {
   font-size: 30px;
