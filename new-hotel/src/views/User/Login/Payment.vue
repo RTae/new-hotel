@@ -14,9 +14,11 @@
                     <v-row justify="center">
                       <v-card class="cardInput" elevation="0">
                         <v-row>
-                          <div style="background-color: blue;">
+                          <div style="margin-top: 15px;">
                               <label class="textDetail2">CreditCard Number </label>
                           </div>
+                          <div></div>
+                          <div>
                               <v-text-field
                                   ref="creaditNumber"
                                   :rules="[v => !!v || 'Credit card Number is required']"
@@ -26,7 +28,8 @@
                                   outlined
                                   autocomplete="creaditNumber"
                               />
-                          <div>
+                          </div>
+                          <div style="margin-top: 15px;">
                               <label class="textDetail2">CVV</label>
                           </div>
                           <div>
