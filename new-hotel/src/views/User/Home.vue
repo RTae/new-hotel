@@ -77,7 +77,7 @@
                         persistent-hint
                         append-icon="mdi-calendar"
                         v-bind="attrs"
-                        @blur="date = parseDate2(dateFormatted)"
+                        @blur="date = parseDate(dateFormatted)"
                         v-on="on"
                       ></v-text-field>
                     </template>
@@ -196,20 +196,20 @@
         </v-col>
         <v-col cols="6">
             <v-row justify="center" style="margin-top:80px">
-              <lable class="textHead">Single Room</lable>
+              <label class="textHead">Single Room</label>
             </v-row>
             <v-row justify="center" style="margin-top:20px">
-              <lable>This 22 sqm Single Room has single bed positioned near a window offering natural light and pleasant views of the city.  Guests can help themselves to complimentary hot drinks and drinking water</lable>
+              <label>This 22 sqm Single Room has single bed positioned near a window offering natural light and pleasant views of the city.  Guests can help themselves to complimentary hot drinks and drinking water</label>
             </v-row>
         </v-col>  
       </v-row>
       <v-row class="containRoom">
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px"> 
-            <lable class="textHead">Double Room</lable>
+            <label class="textHead">Double Room</label>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <lable>This 26 sqm Superior Room has twin single beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</lable>
+            <label>This 26 sqm Superior Room has twin single beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
           </v-row>
         </v-col>
         <v-col cols="6">
@@ -222,20 +222,20 @@
         </v-col>
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
-            <lable class="textHead">Suite Room</lable>
+            <label class="textHead">Suite Room</label>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <lable>This 50 sqm Superior Room has 2 room that it has a guest room and  a queen bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</lable>
+            <label>This 50 sqm Superior Room has 2 room that it has a guest room and  a queen bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
           </v-row>
         </v-col>
       </v-row>
       <v-row class="containRoom">
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
-            <lable class="textHead">Deluxe Room</lable>
+            <label class="textHead">Deluxe Room</label>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <lable justify="center" style="margin-top:20px">This 60 sqm deluxe Room has 2 room that it has a guest room and  a king bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</lable>
+            <label justify="center" style="margin-top:20px">This 60 sqm deluxe Room has 2 room that it has a guest room and  a king bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
           </v-row>
         </v-col>
         <v-col cols="6">
@@ -248,10 +248,10 @@
         </v-col>
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
-            <lable class="textHead">Premier</lable>
+            <label class="textHead">Premier</label>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <lable>This 60 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</lable>
+            <label>This 60 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
           </v-row>
         </v-col>
         
