@@ -1,137 +1,148 @@
 <template>
   <v-container fluid class="main" id="signUp">
-    <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer2">
-        <v-row style="margin-top: 10vh" align="center" justify="center">
-        <p class="textTitle">SIGN UP</p>
-        </v-row>
-        <v-row align="center" justify="center">
-        <v-form
-            ref="form"
-            v-model="valid"
-            @submit.prevent="submitRegister"
-            lazy-validation
-        >
-            <!-- Name -->
+    <v-row class="bg">
+    <v-toolbar
+        src="../../../dist/img/mainFirst.png"
+        height="800px"
+        width="100vw"   
+        flat
+      >
+      <v-row justify="center" align="center">
+        <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer2">
+          <v-row style="margin-top: 10vh" align="center" justify="center">
+            <p class="textTitle">SIGN UP</p>
+            </v-row>
             <v-row align="center" justify="center">
-            <v-col>
-                <v-row class="ml-8" justify="start">
-                <label>First Name :</label>
+              <v-form
+                ref="form"
+                v-model="valid"
+                @submit.prevent="submitRegister"
+                lazy-validation
+            >
+                <!-- Name -->
+                <v-row align="center" justify="center">
+                <v-col>
+                    <v-row class="ml-8" justify="start">
+                    <label>First Name :</label>
+                    </v-row>
+                    <div class="inputFiled">
+                    <v-text-field
+                        ref="FirstName"
+                        :rules="[v => !!v || 'Firstname is required']"
+                        v-model="user.firtname"
+                        solo
+                        rounded
+                        outlined
+                        autocomplete="firstname"
+                    />
+                    </div>
+                </v-col>
+                <v-col>
+                    <v-row class="ml-8" justify="start">
+                    <label>Family Name :</label>
+                    </v-row>
+                    <div class="inputFiled">
+                    <v-text-field
+                        :rules="[v => !!v || 'Familyname is required!']"
+                        v-model="user.familyname"
+                        color="primary"
+                        solo
+                        rounded
+                        outlined
+                        autocomplete="familyname"
+        />
+                    </div>
+                </v-col>
                 </v-row>
-                <div class="inputFiled">
-                <v-text-field
-                    ref="FirstName"
-                    :rules="[v => !!v || 'Firstname is required']"
-                    v-model="user.firtname"
-                    solo
-                    rounded
-                    outlined
-                    autocomplete="firstname"
-                />
-                </div>
-            </v-col>
-            <v-col>
-                <v-row class="ml-8" justify="start">
-                <label>Family Name :</label>
+
+
+                <!-- Email -->
+                <v-row align="center" justify="start">
+                <v-col>
+                    <v-row class="ml-8" justify="start">
+                    <label>Email :</label>
+                    </v-row>
+                    <div class="inputFiled">
+                    <v-text-field
+                        solo
+                        rounded
+                        outlined
+                        required
+                        :rules="emailRules"
+                        v-model="user.email"
+                        autocomplete="email"
+                    />
+                    </div>
+                </v-col>
+                <v-col>
+                    <v-row class="ml-8" justify="start">
+                    <label>Phone Number :</label>
+                    </v-row>
+                    <div class="inputFiled">
+                    <v-text-field
+                        solo
+                        rounded
+                        outlined
+                        required
+                        :rules="emailRules"
+                        v-model="user.phone"
+                        autocomplete="phone"
+                    />
+                    </div>
+                </v-col>
                 </v-row>
-                <div class="inputFiled">
-                <v-text-field
-                    :rules="[v => !!v || 'Familyname is required!']"
-                    v-model="user.familyname"
-                    color="primary"
-                    solo
-                    rounded
-                    outlined
-                    autocomplete="familyname"
-    />
-                </div>
-            </v-col>
+
+                <!-- Password -->
+                <v-row align="center" justify="start">
+                <v-col col="6">
+                    <v-row class="ml-8" justify="start">
+                    <label class="">Password :</label>
+                    </v-row>
+                    <div></div>
+                    <div class="inputFiled">
+                    <v-text-field
+                        solo
+                        rounded
+                        outlined
+                        v-model="user.password"
+                        :rules="passwordRules"
+                        type="password"
+                        autocomplete="password"
+                    />
+                    </div>
+                </v-col>
+                <v-col col="6">
+                    <v-row class="ml-8" justify="start">
+                    <label>Confirm Password :</label>
+                    </v-row>
+                    <div class="inputFiled">
+                    <v-text-field
+                        solo
+                        rounded
+                        outlined
+                        :rules="passwordRules"
+                        v-model="passwordCon"
+                        type="password"
+                        autocomplete="con-password"
+                    />
+                    </div>
+                </v-col>
+                </v-row>
+
+
+
+                <!-- Button -->
+                <v-row justify="center">
+                <button :disabled="!valid" class="signUpBtn" type="submit">
+                    Sign Up
+                </button>
+                </v-row>
+            </v-form>
             </v-row>
-
-
-            <!-- Email -->
-            <v-row align="center" justify="start">
-            <v-col>
-                <v-row class="ml-8" justify="start">
-                <label>Email :</label>
-                </v-row>
-                <div class="inputFiled">
-                <v-text-field
-                    solo
-                    rounded
-                    outlined
-                    required
-                    :rules="emailRules"
-                    v-model="user.email"
-                    autocomplete="email"
-                />
-                </div>
-            </v-col>
-            <v-col>
-                <v-row class="ml-8" justify="start">
-                <label>Phone Number :</label>
-                </v-row>
-                <div class="inputFiled">
-                <v-text-field
-                    solo
-                    rounded
-                    outlined
-                    required
-                    :rules="emailRules"
-                    v-model="user.phone"
-                    autocomplete="phone"
-                />
-                </div>
-            </v-col>
-            </v-row>
-
-            <!-- Password -->
-            <v-row align="center" justify="start">
-            <v-col col="6">
-                <v-row class="ml-8" justify="start">
-                <label class="">Password :</label>
-                </v-row>
-                <div></div>
-                <div class="inputFiled">
-                <v-text-field
-                    solo
-                    rounded
-                    outlined
-                    v-model="user.password"
-                    :rules="passwordRules"
-                    type="password"
-                    autocomplete="password"
-                />
-                </div>
-            </v-col>
-            <v-col col="6">
-                <v-row class="ml-8" justify="start">
-                <label>Confirm Password :</label>
-                </v-row>
-                <div class="inputFiled">
-                <v-text-field
-                    solo
-                    rounded
-                    outlined
-                    :rules="passwordRules"
-                    v-model="passwordCon"
-                    type="password"
-                    autocomplete="con-password"
-                />
-                </div>
-            </v-col>
-            </v-row>
-
-
-
-            <!-- Button -->
-            <v-row justify="center">
-            <button :disabled="!valid" class="signUpBtn" type="submit">
-                Sign Up
-            </button>
-            </v-row>
-        </v-form>
-        </v-row>
-    </v-card>
+        </v-card>
+      </v-row>
+    </v-toolbar>  
+    </v-row>
   </v-container>
 </template>
 
@@ -220,14 +231,14 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .cardContainer2 {
   color: #A0C6FF;
   border-radius: 20px;
   width: 900px;
-  height: 650px;
+  height: 720px;
   margin-top: 8vh;
-  margin-left: 250px;
+
  }
 .tectcondit {
   color: red;
@@ -282,9 +293,9 @@ label {
 }
 
 .signUpBtn {
-  background-color: #5cbbf6;
+  background-color: #C4C4C4;
   background-position: center;
-  font-family: "Average Sans", sans-serif;
+  font-family: "Roboto";
   border-radius: 100px;
   margin-right: 20px;
   width: 130px;
@@ -293,7 +304,7 @@ label {
   transition: 0.3s;
   font-size: 13px;
   text-transform: uppercase;
-  color: white;
+  color: black;
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;
@@ -301,7 +312,7 @@ label {
 }
 
 .signUpBtn:hover {
-  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+  background: #989191 radial-gradient(circle, transparent 1%, #47a7f5 1%)
     center/15000%;
 }
 

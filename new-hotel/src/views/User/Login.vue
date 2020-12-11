@@ -1,103 +1,77 @@
 <template>
   <v-container fluid class="main" id="login">
-    <div align="center" justify="center">
-      <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer" >
-        <v-row style="margin-top: 10vh" align="center" justify="center">
-          <p class="textTitle">LOGIN</p>
-        </v-row>
-        <v-row align="center" justify="center">
-          <v-form
-            ref="form"
-            v-model="valid"
-            @submit.prevent="submit"
-            lazy-validation
-          >
-            <!-- Username field -->
-            <div class="input_button">
-              <v-text-field
-                color="primary"
-                solo
-                rounded
-                outlined
-                v-model="account.email"
-                required
-                autocomplete="username"
-                :rules="emailRules"
-                placeholder="Email"
-                name="email"
-              />
-            </div>
-            <!-- Password field -->
-            <div class="input_button">
-              <v-text-field
-                solo
-                rounded
-                outlined
-                placeholder="Password"
-                required
-                min="9"
-                autocomplete="password"
-                :rules="passwordRules"
-                v-model="account.password"
-                :type="showPassword ? 'text' : 'password'"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="showPassword = !showPassword"
-                name="password"
-              />
-            </div>
-
-            <!-- ETC -->
-            <v-row justify="center">
-              <p style="margin-right: 10px" class="text">Don't have an account?</p>
-              <router-link to="/signup">
-                <p class="text">Sign up</p>
-              </router-link>
+    <v-row class="bg">
+      <v-toolbar
+        src="../../../dist/img/mainFirst.png"
+        height="800px"
+        width="100vw"   
+        flat
+      >
+        <v-row justify="center" align="center">
+          <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer" >
+            <v-row style="margin-top: 10vh" align="center" justify="center">
+              <p class="textTitle">LOGIN</p>
             </v-row>
-
-            <!-- Button -->
-            <v-row justify="center">
-              <button :disabled="!valid" class="signInBtn" type="submit">Sign In</button>
-            </v-row>
-
-          </v-form>
-        </v-row>
-      </v-card>
-    </div>
-
-        <!-- Image -->
-        <div class="d-flex flex-column justify-bottom align-center">
-          <v-img
-            alt="bitButton"
-            contain
-            style="margin-top: 100px"
-            width="1290"
-          />
-        </div>
-
-        <!-- Dialog -->
-        <v-dialog v-model="$store.getters.getDialogState" width="500">
-          <v-card>
-            <v-card-title class="primary mb-6"> Alert </v-card-title>
-            <v-card-text class="popUpText">
-              {{ $store.getters.getDialogMsg }}
-            </v-card-text>
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="primary"
-                text
-                @click="
-                  $store.dispatch({ type: 'dialogPopup', value: false, msg: '' })
-                "
+            <v-row align="center" justify="center">
+              <v-form
+                ref="form"
+                v-model="valid"
+                @submit.prevent="submit"
+                lazy-validation
               >
-                OK
-              </v-btn>
-            </v-card-actions>
+                <!-- Username field -->
+                <div class="input_button">
+                  <v-text-field
+                    color="primary"
+                    solo
+                    rounded
+                    outlined
+                    v-model="account.email"
+                    required
+                    autocomplete="username"
+                    :rules="emailRules"
+                    placeholder="Email"
+                    name="email"
+                  />
+                </div>
+                <!-- Password field -->
+                <div class="input_button">
+                  <v-text-field
+                    solo
+                    rounded
+                    outlined
+                    placeholder="Password"
+                    required
+                    min="9"
+                    autocomplete="password"
+                    :rules="passwordRules"
+                    v-model="account.password"
+                    :type="showPassword ? 'text' : 'password'"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
+                    name="password"
+                  />
+                </div>
+
+                <!-- ETC -->
+                <v-row justify="center">
+                  <p style="margin-right: 10px" class="text">Don't have an account?</p>
+                  <router-link to="/signup">
+                    <p class="text">Sign up</p>
+                  </router-link>
+                </v-row>
+
+                <!-- Button -->
+                <v-row justify="center">
+                  <button :disabled="!valid" class="signInBtn" type="submit">Sign In</button>
+                </v-row>
+
+              </v-form>
+            </v-row>
           </v-card>
-      </v-dialog>
+        </v-row>
+      </v-toolbar>
+    </v-row>
   </v-container>
 </template>
 
@@ -137,7 +111,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
@@ -147,8 +121,8 @@ export default {
   color: #A0C6FF;
   border-radius: 20px;
   width: 900px;
-  height: 500px;
-  margin-top: 15vh;
+  height: 600px;
+  margin-top: 1vh;
  }
  
 .input_button {
@@ -181,7 +155,7 @@ export default {
   transition: 0.3s;
   font-size: 13px;
   text-transform: uppercase;
-  color: white;
+  color: black;
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;
