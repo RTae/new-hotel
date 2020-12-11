@@ -5,6 +5,7 @@ import Login from '../views/User/Login'
 import Profile from '../views/User/Login/Profile.vue'
 import Payment from '../views/User/Login/Payment.vue'
 import Signup from '../views/User/Signup.vue'
+import BookingHistory from '../views/User/Login/BookingHistory.vue'
 
 
 Vue.use(VueRouter)
@@ -34,6 +35,11 @@ const routes = [
     path: "/payment",
     name: "Payment",
     component: Payment
+  },
+  {
+    path: "/bookinghistory",
+    name: "BookingHistory",
+    component: BookingHistory
   },
 ]
 
