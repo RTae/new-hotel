@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="Home">
     <v-row class="bg">
       <v-toolbar
-        src="../../../dist/img/mainFirst.png"
+        src="../../../dist/img/mainFirst.svg"
         height="800px"
         width="100vw"   
         flat
@@ -14,22 +14,20 @@
                 <v-row justify="start">
                   <label>Room Type</label>
                 </v-row>
-                <v-row>
-                  <div class="inputFiled">
+                <v-row style="margin-top:20px;">
                     <v-select
                       v-model="roomValue"
                       :items="roomType"
                       :rules="[v => !!v || 'Item is required']"
                       autocomplete="roomType"
                     />
-                  </div>
                 </v-row>
               </v-col>
               <v-col class="ChooseContain">
                 <v-row justify="start">
                   <label>Arrival Date</label>
                 </v-row>
-                <v-row justify="start">
+                <v-row justify="start" style="margin-top:20px;">
                   <v-menu
                     ref="menu1"
                     v-model="menu1"
@@ -61,7 +59,7 @@
                 <v-row justify="start">
                 <label>Departure Date</label>
                 </v-row>
-                <v-row justify="start" >
+                <v-row justify="start" style="margin-top:20px;" >
                   <v-menu
                     ref="menu2"
                     v-model="menu2"
@@ -93,30 +91,26 @@
                 <v-row justify="start">
                 <label>Number of room</label>
                 </v-row>
-                <v-row>
-                  <div class="inputFiled">
-                    <v-select
-                      v-model="numValue"
-                      :items="numOfRoom"
-                      :rules="[v => !!v || 'Item is required']"
-                      autocomplete="numOfRoom"
-                    />
-                  </div>
+                <v-row style="margin-top:20px;">
+                  <v-select
+                    v-model="numValue"
+                    :items="numOfRoom"
+                    :rules="[v => !!v || 'Item is required']"
+                    autocomplete="numOfRoom"
+                  />
                 </v-row>
               </v-col>
               <v-col class="ChooseContain">
                 <v-row justify="start">
                 <label>Guest</label>
                 </v-row>
-                <v-row>
-                  <div class="inputFiled">
-                    <v-select
-                      v-model="peopelValue"
-                      :items="peopel"
-                      :rules="[v => !!v || 'Item is required']"
-                      autocomplete="roomType"
-                    />
-                  </div>
+                <v-row style="margin-top:20px;">
+                  <v-select
+                    v-model="peopelValue"
+                    :items="peopel"
+                    :rules="[v => !!v || 'Item is required']"
+                    autocomplete="roomType"
+                  />
                 </v-row>
               </v-col>
               <v-col  cols="1">
@@ -192,7 +186,7 @@
     <v-card class="room"> 
       <v-row class="containRoom">
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/single.png"></v-img>
+          <v-img class="imgRoom" src="../../../dist/img/single.svg"></v-img>
         </v-col>
         <v-col cols="6">
             <v-row justify="center" style="margin-top:80px">
@@ -213,12 +207,12 @@
           </v-row>
         </v-col>
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/double.png"></v-img>
+          <v-img class="imgRoom" src="../../../dist/img/double.svg"></v-img>
         </v-col>
       </v-row>
       <v-row class="containRoom">
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/suite.png"></v-img>
+          <v-img class="imgRoom" src="../../../dist/img/suite.svg"></v-img>
         </v-col>
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
@@ -239,12 +233,12 @@
           </v-row>
         </v-col>
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/deluxe.png"></v-img>
+          <v-img class="imgRoom" src="../../../dist/img/deluxe.svg"></v-img>
         </v-col>
       </v-row>
        <v-row class="containRoom">
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/premier.png"></v-img>
+          <v-img class="imgRoom" src="../../../dist/img/premier.svg"></v-img>
         </v-col>
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
@@ -254,7 +248,6 @@
             <label>This 60 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
           </v-row>
         </v-col>
-        
       </v-row>
     </v-card>
   </v-container>

@@ -6,37 +6,41 @@
                 <p class="text">Payment</p>
             </v-row>
             <v-row align="center" justify="center" >
-                <v-card style= "border-radius: 20px;" class="cardDetailContainer" >
-                    <v-row>
+                <v-card style= "border-radius: 20px;" class="cardDetailContainer">
+                    <v-row style="margin-top:20px;" >
                         <v-col cols="6"><label class="textDetail">Customer name : {{ this.user.firstName }} {{ this.user.familyName  }}</label></v-col>
                         <v-col cols="6"><label class="textDetail">Payment Method: {{ this.user.paymentMethod  }}</label></v-col>
                     </v-row>
-                    <v-row justify="center">
+                    <v-row justify="center" style="margin-top:20px;">
                       <v-card class="cardInput" elevation="0">
                         <v-row>
                           <div style="margin-top: 15px;">
                               <label class="textDetail2">CreditCard Number </label>
                           </div>
-                          <div></div>
+                          <v-spacer></v-spacer>
                           <div>
                               <v-text-field
                                   ref="creaditNumber"
                                   :rules="[v => !!v || 'Credit card Number is required']"
-                                  v-model="user.creaditNumber"
+                                  v-model="creaditNumber"
                                   solo
                                   rounded
                                   outlined
                                   autocomplete="creaditNumber"
                               />
                           </div>
+                          <v-spacer></v-spacer>
+                          <v-spacer></v-spacer>
+                          <v-spacer></v-spacer>
                           <div style="margin-top: 15px;">
                               <label class="textDetail2">CVV</label>
                           </div>
+                          <v-spacer></v-spacer>
                           <div>
                               <v-text-field
                                   ref="cvv"
                                   :rules="[v => !!v || 'CVV is required']"
-                                  v-model="user.cvv"
+                                  v-model="cvv"
                                   solo
                                   rounded
                                   outlined
@@ -46,16 +50,23 @@
                         </v-row>
                       </v-card>       
                     </v-row>
-                    <v-row>
+                    <v-row align="center" justify="end" class="cardTotal" >
+                      <label class="textTotal">Total : {{ this.totalPrice }} bath</label>
                     </v-row>
                 </v-card>
             </v-row>
         </v-card>
+        <v-row align="center" justify="center" style="margin-top:30px;">
+          <div class="cardTotal" >
+            <v-btn class="btnCancel" type="submit" style="background-color:#EB5769;">Cancle</v-btn>
+            <v-btn class="btnPayment" type="submit" style="background-color:#A0C6FF;">Payment</v-btn>
+          </div>
+        </v-row>
     </div>
   </v-container>
 </template>
 
-<script>
+<script scoped>
 export default {
   name: "Profile",
   data () {
@@ -64,9 +75,11 @@ export default {
         firstName: "Thunwara",
         familyName: "Sunthon",
         paymentMethod: "Credit Card",
-        creaditNumber: "4859-4785-5899-696",
-        cvv: "896",
-      }
+
+      },        
+      creaditNumber: "4859-4785-5899-696",
+      cvv: "896",  
+      totalPrice: "5000"
     }
   }
 };
@@ -96,7 +109,7 @@ export default {
 }
 
 .text {
-  font-size: 30px;
+  font-size: 40px;
   color: #FFFFFF;
   font-family: "Roboto";
   margin-top: 50px;
@@ -105,22 +118,46 @@ export default {
 }
 .textDetail {
   font-size: 19px;
+  color: #5c5c5c;
+  font-family: "Roboto";
+  margin-top: 50px;
+}
+.textDetail2 {
+  font-size: 19px;
+  color: #5c5c5c;
+  font-family: "Roboto";
+  margin-top: 40px;
+}
+.cardTotal{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 850px;
+  height: 50px;
+  margin-top: 20px;
+}
+.textTotal{
+  font-size: 20px;
   color: black;
   font-family: "Roboto";
   margin-top: 30px;
 }
-.textDetail2 {
-  font-size: 19px;
-  color: black;
-  font-family: "Roboto";
-  margin-top: 40px;
+.btnCancel{
+  font-family: "Average Sans", sans-serif;
+  border-radius: 100px;
+  width: 130px;
+  height: 60px;
+  font-size: 20px;
+  color: white;
+  outline: none;
 }
-.inputFiled{
-  width: 200px;
-  height: 25px;
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 35px;
+.btnPayment{
+  font-family: "Average Sans", sans-serif;
+  border-radius: 100px;
+  width: 130px;
+  height: 60px;
+  font-size: 20px;
+  color: white;
+  outline: none;
 }
 </style>
