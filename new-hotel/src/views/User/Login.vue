@@ -49,7 +49,7 @@
           <v-row justify="center">
             <p style="margin-right: 10px" class="text">Don't have an account?</p>
             <router-link to="/signup">
-              <p class="text">Sign up</p>
+              <p style="color:#FFFFFF" class="text">Sign up</p>
             </router-link>
           </v-row>
 
