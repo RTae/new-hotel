@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="bookingHistory">
     <v-row class="bg">
     <v-toolbar
-        src="../../../../dist/img/mainFirst.png"
+        src="../../../../dist/img/mainFirst.svg"
         height="800px"
         width="100vw"   
         flat
