@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="main" id="Home">
+  <v-container app class="main" id="Home">
     <v-row class="bg">
       <v-toolbar
         src="../../../dist/img/mainFirst.svg"
@@ -312,8 +312,9 @@ export default {
 
 <style scoped>
 .main {
-  background: rgb(239, 239, 239);
+  background: blue;
   min-height: 100vh;
+  min-width: 2000vh;
 }
 .a{
   background-color: blue;
@@ -326,7 +327,6 @@ export default {
   justify-content: center;
   height: 465px;
   width: 100vw;
-  background-color: black;
 }
 .cardContain{
   justify-content: center;
