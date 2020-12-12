@@ -7,7 +7,7 @@
         width="100vw"   
         flat
       >
-      <v-row justify="center">
+      <v-row justify="center" align="top">
         <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer">
             <v-row >
                 <p class="text">Payment</p>

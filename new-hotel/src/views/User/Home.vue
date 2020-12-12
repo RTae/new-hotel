@@ -18,7 +18,7 @@
                     <v-select
                       v-model="roomValue"
                       :items="roomType"
-                      :rules="[v => !!v || 'Item is required']"
+                      :rules="[v => !!v || 'Plase choose is room type']"
                       autocomplete="roomType"
                     />
                 </v-row>
@@ -95,7 +95,7 @@
                   <v-select
                     v-model="numValue"
                     :items="numOfRoom"
-                    :rules="[v => !!v || 'Item is required']"
+                    :rules="[v => !!v || 'Plase choose is number of Room']"
                     autocomplete="numOfRoom"
                   />
                 </v-row>
@@ -108,21 +108,21 @@
                   <v-select
                     v-model="peopelValue"
                     :items="peopel"
-                    :rules="[v => !!v || 'Item is required']"
+                    :rules="[v => !!v || 'Plase choose is number of Guest']"
                     autocomplete="roomType"
                   />
                 </v-row>
               </v-col>
               <v-col  cols="1">
                 <v-btn
-                    class="ma-2"
-                    text
-                    icon
-                    color="black"
+                    depressed
+                    color="#A0C6FF"
+                    elevation="2"
                     x-large
-                  ><span class="material-icons">
-                    search
-                </span></v-btn>
+                    rounded
+                  > 
+                  BOOK
+                </v-btn>
               </v-col>
                <v-col cols="1"></v-col> 
             </v-row>

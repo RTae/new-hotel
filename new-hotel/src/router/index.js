@@ -6,6 +6,8 @@ import Profile from '../views/User/Login/Profile.vue'
 import Payment from '../views/User/Login/Payment.vue'
 import Signup from '../views/User/Signup.vue'
 import BookingHistory from '../views/User/Login/BookingHistory.vue'
+import Receipt from '../views/User/Login/Receipt.vue'
+
 
 
 Vue.use(VueRouter)
@@ -40,6 +42,11 @@ const routes = [
     path: "/bookinghistory",
     name: "BookingHistory",
     component: BookingHistory
+  },
+  {
+    path: "/receipt",
+    name: "Receipt",
+    component: Receipt
   },
 ]
 

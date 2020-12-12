@@ -1,85 +1,108 @@
 <template>
   <div id="header">
-    <v-app-bar app color="primary" dark height="70px">
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="../../assets/logoHotel.png"
-          transition="scale-transition"
-          width="200"
-        />
-      </div>
-      <v-spacer></v-spacer>
-      <v-row align="center" justify="end">
-        <v-toolbar-items >
-          <router-link to="/">
-            <span>
-              <v-icon x-large class="btnHome">home</v-icon>
-            </span>
-          </router-link>
-          <router-link to="/signup"><button class="btnHeader">Sign Up</button></router-link>
-          <router-link to="/login"><button class="btnHeader">LogIn</button></router-link>
-        </v-toolbar-items>
-      </v-row>
-    </v-app-bar>
+      <v-app-bar color="primary" dark app height="70px">
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      </v-app-bar>
+      <v-navigation-drawer 
+        v-model="drawer"
+        absolute
+        bottom
+        temporary>
+					<template>
+						<v-list         
+              nav
+              dense
+              >
+							<v-subheader class="text">MENU</v-subheader>
+							<v-list-item-group v-model="group"
+                 active-class="deep-purple--text text--accent-4">
+								<v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large
+                      rounded
+                    >
+                    Booking
+                    </v-btn></v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large>Room
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large>Task
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large>Manage
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large>Report
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
+							</v-list-item-group>
+						</v-list>
+					</template>
+			</v-navigation-drawer>
   </div>
 </template>
 
 <script>
 export default {
   name: "Header",
+  data: () => ({
+    drawer: false,
+    group: null,
+  }),
+  watch: {
+    group () {
+      this.drawer = false
+    },
+  },
 };
 </script>
 
 <style>
-.input_serach {
-  width: 600px;
-  height: 10px;
-  margin-top: 10px;
-  margin-right: 20px;
-}
-.btnHeader {
-  background-color: white;
-  font-family: Roboto;
-  border-radius: 100px;
-  width: 140px;
-  height: 45px;
-  opacity: 1;
-  transition: 0.3s;
-  font-size: 15px;
-  text-transform: uppercase;
-  color: black;
-  box-shadow: 0 0 4px #999;
-  cursor: pointer;
-  outline: none;
-  margin-right: 10px;
-  margin-top: 4px;
-}
-
-.btnHeader:hover {
-  background: #47a7f5
-    radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
-}
-
-.btnHeader:active {
-  background-color: #6eb9f7;
-  background-size: 100%;
-  transition: background 0s;
-}
-.btnHome {
+.cardMenu{
   width: 50px;
-  height: 45px;
-  margin-right: 20px;
-  margin-top: 5px;
+  height: 80px;
 }
-
 .text {
   color: black;
-  margin-top: 18px;
   font-family: "Average Sans", sans-serif;
-  font-size: 30px;
+  font-size: 50px;
+}
+.textMenu {
+  color: black;
+  font-family: "Average Sans", sans-serif;
+  font-size: 50px;
 }
 .imgHome{
   width: 50px;
