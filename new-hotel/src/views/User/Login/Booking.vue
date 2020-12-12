@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="main" id="bookingHistory">
+  <v-container fluid class="main" id="booking">
     <v-row class="bg">
     <v-toolbar
         src="../../../../dist/img/mainFirst.png"
@@ -9,20 +9,21 @@
       >
       <v-row justify="center">
         <v-card class="cardContainer" style="background-color:#A0C6FF; border-radius: 20px;" >
-          <v-row><p class="text">Booking History</p></v-row>
+          <v-row><p class="text">Booking</p></v-row>
            <v-col>
-            <div v-for="history in historys" :key="history.historyID">
-              <v-card style= "border-radius: 40px;" class="cardDetailContainer">
-                <p class="textDetail">Room Type : {{ history.roomtype }}</p>
-                <p class="textDetail">Number of room : {{ history.numberofroom  }}</p>
-                <p class="textDetail">Total : {{ history.total  }}</p>
-                <p class="textDetail">Status : {{ history.status  }}</p>
+            <div>
+            <v-row justify="center">
+              <v-card style= "border-radius: 40px;"  class="cardDetailContainer">
+                <p class="textDetail">Room Type : {{ this.booking.roomtype }}</p>
+                <p class="textDetail">Arrival Date : {{ this.booking.arrivaldate  }}</p>
+                <p class="textDetail">Period of stay : {{ this.booking.periodofstay  }}</p>
+                <p class="textDetail">Number of room : {{ this.booking.numberofroom  }}</p>
+                <p class="textDetail">Departure Date : {{ this.booking.departuredate  }}</p>
+                <p class="textDetail">Total : {{ this.booking.total  }}</p>
               </v-card>
+              </v-row>
             </div>
           </v-col>
-                <v-row justify="center">
-                  <button class="paymentBtn" type="submit">Payment</button>
-                </v-row>
         </v-card>
       </v-row>
       </v-toolbar>
@@ -32,26 +33,19 @@
 
 <script>
 export default {
-  name: "bookingHistory",
-  id: "historyID",
+  name: "booking",
   data () {
     return {
-      historys: [
-        {
+      booking: {
         roomtype: "Deluxe",
-        numberofroom:  "2",
-        total: "5000",
-        status: "ว่าง"
-        },
-        {
-        roomtype: "Deluxe",
-        numberofroom: "5",
-        total: "6000",
-        status: "ว่าง"
-        }
-      ]
+        arrivaldate: "10/11/2020",
+        periodofstay: "5",
+        numberofroom: "2",
+        departuredate: "15/11/2020",
+        total: "5000"
+      }
     }
-  }
+  },
 };
 </script>
 
@@ -73,7 +67,7 @@ export default {
   margin-top: 5vh;
   margin-left: 50px;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
  }
 
 .text {

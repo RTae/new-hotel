@@ -155,14 +155,11 @@ export default {
     emailCon: "",
     passwordCon: "",
     user: {
-      role: "",
-      sex: "",
       firtname: "",
       familyname: "",
-      birthday: null,
-      edu: "",
       email: "",
-      password: ""
+      password: "",
+      phonenumber: ""
     },
     passwordRules: [
       v => !!v || "Password is required",
@@ -175,24 +172,9 @@ export default {
     date: null,
     menu: false
   }),
-  watch: {
-    menu (val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
-    }
-  },
   computed: {
   },
   methods: {
-    eduTypeMapValue (eduName) {
-      Object.values(this.eduType).forEach(value => {
-        if (value.name === eduName) {
-          this.user.edu = value.id
-        }
-      });
-    },
-    save (date) {
-      this.$refs.menu.save(date);
-    },
     async submitRegister () {
       this.$refs.FirstName.focus();
       var state = this.$refs.form.validate();
@@ -202,14 +184,11 @@ export default {
             this.eduTypeMapValue(this.eduValue)
             this.$store.dispatch({
               type: "doRegister",
-              firtname: this.user.firtname,
+              firstname: this.user.firstname,
               familyname: this.user.familyname,
-              birthday: this.user.birthday,
-              sex: this.user.sex,
               email: this.user.email,
               password: this.user.password,
-              role: this.user.role,
-              edu: this.user.edu
+              phonenumber: this.user.phonenumber
             });
           }
         } else {
