@@ -188,12 +188,14 @@
         <v-col cols="6">
           <v-img class="imgRoom" src="../../../dist/img/single.svg"></v-img>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="6" justify="center"> 
             <v-row justify="center" style="margin-top:80px">
               <label class="textHead">Single Room</label>
             </v-row>
-            <v-row justify="center" style="margin-top:20px">
-              <label>This 22 sqm Single Room has single bed positioned near a window offering natural light and pleasant views of the city.  Guests can help themselves to complimentary hot drinks and drinking water</label>
+            <v-row justify="center" class="textDetailAboutUs">
+              <div class="textDetaiRoomContain">
+                <label class="textDetaiRoom">This 22 sqm Single Room has single bed positioned near a window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+              </div>
             </v-row>
         </v-col>  
       </v-row>
@@ -203,7 +205,9 @@
             <label class="textHead">Double Room</label>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <label>This 26 sqm Superior Room has twin single beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            <div class="textDetaiRoomContain">
+                <label class="textDetaiRoom">This 26 sqm Superior Room has twin single beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            </div>
           </v-row>
         </v-col>
         <v-col cols="6">
@@ -219,7 +223,9 @@
             <label class="textHead">Suite Room</label>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <label>This 50 sqm Superior Room has 2 room that it has a guest room and  a queen bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            <div class="textDetaiRoomContain">
+              <label class="textDetaiRoom">This 50 sqm Superior Room has 2 room that it has a guest room and  a queen bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            </div>
           </v-row>
         </v-col>
       </v-row>
@@ -229,7 +235,9 @@
             <label class="textHead">Deluxe Room</label>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <label justify="center" style="margin-top:20px">This 60 sqm deluxe Room has 2 room that it has a guest room and  a king bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            <div class="textDetaiRoomContain">
+              <label class="textDetaiRoom">This 60 sqm deluxe Room has 2 room that it has a guest room and a king bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            </div>
           </v-row>
         </v-col>
         <v-col cols="6">
@@ -242,10 +250,12 @@
         </v-col>
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
-            <label class="textHead">Premier</label>
+            <label class="textHead">Premier Room</label>
           </v-row>
           <v-row justify="center" style="margin-top:20px">
-            <label>This 60 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            <div class="textDetaiRoomContain">
+              <label class="textDetaiRoom">This 70 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            </div>
           </v-row>
         </v-col>
       </v-row>
@@ -392,7 +402,15 @@ export default {
   height:510px;
   width: 100vw;
 }
+.textDetaiRoomContain{
+  height: 200px;
+  width: 800px; 
+}
 .imgRoom{
   height:490px;  
+}
+.textDetaiRoom{
+  font-size: 20px;
+  font-family: roboto ;
 }
 </style>

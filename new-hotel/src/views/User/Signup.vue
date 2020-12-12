@@ -2,8 +2,8 @@
   <v-container fluid class="main" id="signUp">
     <v-row class="bg">
     <v-toolbar
-        src="../../../dist/img/mainFirst.png"
-        height="800px"
+        src="../../../dist/img/mainFirst.svg"
+        height="1000px"
         width="100vw"   
         flat
       >
