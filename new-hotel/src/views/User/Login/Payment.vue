@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="aboutus">
     <div class="bg">
     <v-toolbar
-        src="../../../../dist/img/mainFirst.png"
+        src="../../../../dist/img/mainFirst.svg"
         height="1000px"
         width="100vw"   
         flat
