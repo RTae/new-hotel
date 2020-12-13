@@ -1,18 +1,28 @@
 <template>
   <div id="header">
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="primary" dark height="70px">
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="../../assets/logoHotel.png"
           transition="scale-transition"
-          width="40"
+          width="200"
         />
       </div>
-
       <v-spacer></v-spacer>
+      <v-row align="center" justify="end">
+        <v-toolbar-items >
+          <router-link to="/">
+            <span>
+              <v-icon x-large class="btnHome">home</v-icon>
+            </span>
+          </router-link>
+          <router-link to="/signup"><button class="btnHeader">Sign Up</button></router-link>
+          <router-link to="/login"><button class="btnHeader">LogIn</button></router-link>
+        </v-toolbar-items>
+      </v-row>
     </v-app-bar>
   </div>
 </template>
@@ -31,20 +41,21 @@ export default {
   margin-right: 20px;
 }
 .btnHeader {
-  background-color: #5cbbf6;
-  font-family: "Average Sans", sans-serif;
+  background-color: white;
+  font-family: Roboto;
   border-radius: 100px;
-  width: 130px;
+  width: 140px;
   height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 14px;
+  font-size: 15px;
   text-transform: uppercase;
-  color: white;
+  color: black;
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;
   margin-right: 10px;
+  margin-top: 4px;
 }
 
 .btnHeader:hover {
@@ -57,11 +68,24 @@ export default {
   background-size: 100%;
   transition: background 0s;
 }
+.btnHome {
+  width: 50px;
+  height: 45px;
+  margin-right: 20px;
+  margin-top: 5px;
+}
 
 .text {
   color: black;
-  margin-top: 20px;
+  margin-top: 18px;
   font-family: "Average Sans", sans-serif;
-  font-size: 20px;
+  font-size: 30px;
+}
+.imgHome{
+  width: 50px;
+}
+.btnHome {
+  margin-left: 20px;
+  margin-top: 8px;
 }
 </style>
