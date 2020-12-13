@@ -3,7 +3,7 @@
     <v-row class="bg" >
     <v-toolbar
         src="../../../../dist/img/bgPayment.svg"
-        height="1000px"
+        height="1200px"
         width="100vw"   
       >
       <v-row justify="center" class="cardBigContainer">
@@ -12,7 +12,7 @@
             <v-col>
               <p class="text">Booking</p>
             </v-col>
-            <v-col style="margin-top: 50px; margin-right:20px;" align="end" justify="center">
+            <v-col style="margin-top: 50px; margin-right:50px;" align="end" justify="center">
               <v-dialog
                 v-model="dialog1"
                 persistent
@@ -186,11 +186,11 @@
                 <label class="textDetail">Period of stay : {{ books.periodofstay  }}</label>
                 <label class="textDetail">Number of room : {{ books.numberofroom  }}</label>
                 <label class="textDetail">Departure Date : {{ books.departuredate  }}</label>
-                <label class="textDetail">Total : {{ dayLive * priceRoom   }} bath</label>
+                <label class="textDetail">Total : {{ calculateTotal  }} bath</label>
               </v-card>
             </div>
           </v-row>
-          <v-row justify="center" style="margin-top:150px;">
+          <v-row justify="center" style="margin-top:80px;">
               <div class="cardTotal" >
                 <v-dialog
                   v-model="dialog2"
@@ -240,16 +240,12 @@
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
-                <v-btn 
-                  @click="onClickNext()"
+                <v-btn  
+                  @click="onClickNext()" 
                   class="btnPayment" 
                   type="submit" 
                   style="background-color:#28BC49;" 
-                  dark 
-                  x-large
-                  >
-                NEXT
-                </v-btn>
+                  dark x-large>NEXT</v-btn>
               </div>
           </v-row> 
         </v-card>
@@ -290,8 +286,9 @@ export default {
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
     onClickNext () {
-      this.$router.push({ name: "Invoice" });
-    },
+      this.$router.push({ name: "PaymentMethod" 
+      });
+    }
   },
 };
 </script>
@@ -303,7 +300,7 @@ export default {
 
 .bg {
   display: flex;
-  height: 800px;
+  max-height: 1500px;
   width: 100vw;
 }
 
@@ -317,7 +314,7 @@ export default {
   background-color: #A0C6FF;
   border-radius: 200px;
   width: 1030px;
-  min-height: 800px;
+  max-height: 200vh;
   margin-top: 20px;
   
  }
@@ -328,7 +325,6 @@ export default {
   width: 850px;
   height: 100px;
   margin-top: 2vh;
-  margin-left: 50px;
   display: grid;
   grid-template-columns: auto auto auto;
  }
@@ -358,6 +354,7 @@ export default {
   justify-content: space-around;
   width: 850px;
   height: 50px;
+  margin-bottom:50px;
 }
 .btnCancel{
   font-family: "Average Sans", sans-serif;

@@ -1,51 +1,54 @@
 <template>
-  <v-container fluid class="main" id="aboutus">
+  <v-container fluid class="main" id="invoice">
     <div class="bg">
     <v-toolbar
         src="../../../../dist/img/bgPayment.svg"
-        height="1000px"
+        height="1200px"
         width="100vw"   
         flat
       >
       <v-row justify="center" align="center">
         <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer" justify="center" align="center">
             <v-row style="width:1000px;"  justify="start" align="start">
-              <p class="text">Invoice</p>
+              <p class="text">Invoice</p> 
             </v-row>
-            <v-row style="width:1000px;">
+            <v-row style="width:950px;">
                 <p class="textTotal">Invoice ID : {{ invoiceID }}</p>
             </v-row>
             <v-row align="center" justify="center" style="margin-top:10px;" >
                 <v-card  class="cardDetailContrin" style="border-radius: 20px;">
-                    <v-row class="ml-12" justify="center" style="margin-top:30px;">
-                        <div><label class="textPayment" >Payment Method: {{ this.user.paymentMethod  }}</label></div>
+                    <v-row class="ml-12"  style="margin-top:40px;">
+                        <div><label class="textPayment" >Payment Method : {{ this.user.paymentMethod  }}</label></div>
                     </v-row>
                     <v-row justify="center" style="margin-top:20px;">
                       <v-row justify="start" align="center">
-                        <div style="width:500px; ">
-                          <v-col width="200px">
-                            <v-row class="ml-10" justify="start">
-                              <label class="textDetail">Name on card</label>
+                        <div style="width:400px; ">
+                          <v-col style="width:400px;">
+                            <v-row class="ml-10" justify="start" >
+                              <label class="textDetail">Name on card :</label>
                             </v-row>
                             <v-row class="ml-10" justify="start">
+                             <div class="inputFiled"  style="width: 200px;">
                               <v-text-field
                                   ref="creaditNumber"
-                                  :rules="[v => !!v || 'Credit card Number is required']"
+                                  :rules="[v => !!v || 'Name on card is required']"
                                   v-model="creaditNumber"
                                   solo
                                   rounded
                                   outlined
                                   autocomplete="creaditNumber"
                               />   
+                              </div>
                             </v-row>
                           </v-col>
                         </div>
-                        <div style="width:500px;">
-                          <v-col>
-                            <v-row class="ml-10" justify="start">
-                              <label class="textDetail" >Expire date</label>
+                        <div style="width:300px;">
+                          <v-col style="width:300px;" >
+                            <v-row class="ml-8" justify="start">
+                              <label class="textDetail" >Expire date :</label>
                             </v-row>
-                            <v-row class="ml-10" justify="start">
+                            <v-row class="ml-8" justify="start">
+                              <div class="inputFiled"  style="width: 200px;">
                               <v-text-field
                                 ref="expireDate"
                                 :rules="[v => !!v || 'Expire date is required']"
@@ -55,17 +58,19 @@
                                 outlined
                                 autocomplete="expireDate"
                               />
+                              </div>
                             </v-row>
                           </v-col>
                         </div>    
                       </v-row>
                       <v-row justify="start" align="center">
-                        <div style="width:500px;">
-                          <v-col>
-                            <v-row class="ml-8" justify="start">
-                              <label class="textDetail">CreditCard Number</label>
+                        <div style="width:400px;">
+                          <v-col style="width:400px;" >
+                            <v-row class="ml-10" justify="start">
+                              <label class="textDetail" >CreditCard Number :</label>
                             </v-row>
                             <v-row class="ml-10" justify="start">
+                              <div class="inputFiled" style="width: 400px;">
                               <v-text-field
                                   ref="creaditNumber"
                                   :rules="[v => !!v || 'Credit card Number is required']"
@@ -75,15 +80,17 @@
                                   outlined
                                   autocomplete="creaditNumber"
                               />   
+                              </div>
                             </v-row>
                           </v-col>
                         </div>
-                        <div style="width:500px;">
-                          <v-col>
+                        <div style="width:200px;">
+                          <v-col style="width:200px;">
                             <v-row class="ml-8" justify="start">
-                              <label class="textDetail">CVV</label>
+                              <label class="textDetail">CVV :</label>
                             </v-row>
-                            <v-row class="ml-10" justify="start">
+                            <v-row class="ml-8" justify="start">
+                              <div class="inputFiled"  style="width: 100px;">
                               <v-text-field
                                 ref="cvv"
                                 :rules="[v => !!v || 'CVV is required']"
@@ -93,23 +100,24 @@
                                 outlined
                                 autocomplete="cvv"
                               />
+                              </div>
                             </v-row>
                           </v-col>
                         </div>
                       </v-row>     
                     </v-row>
                     <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:30px;">Total : {{ this.total }} bath</label>
+                      <label class="textTotal" style="margin-top:50px;">Total : {{ this.total }} bath</label>
                     </v-row>
                     <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:20px;">Vat : {{ (parseInt(this.total) * 70)/100 }} bath</label>
+                      <label class="textTotal" style="margin-top:50px;">Vat : {{ (parseInt(this.total) * 70)/100 }} bath</label>
                     </v-row>
                     <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:10px;">Amount Due : {{ (parseInt(this.total) * 170)/100 }} bath</label>
+                      <label class="textTotal" style="margin-top:50px;">Amount Due : {{ (parseInt(this.total) * 170)/100 }} bath</label>
                     </v-row>
                 </v-card>
             </v-row>
-            <v-row justify="center" style="margin-top:230px;">
+            <v-row justify="center" style="margin-top:220px;">
                 <div class="cardTotal" >
                    <v-dialog
                       v-model="dialog"
@@ -195,10 +203,7 @@ export default {
   },
   methods: {
     onClickPayment () {
-      this.$store.dispatch({
-        type: "submit",
-        userId: this.$store.getters.getUserName,
-        total: this.totalPrice,
+      this.$router.push({ name: "Receipt" 
       });
     }
   },
@@ -217,7 +222,6 @@ export default {
 <style scoped>
 .main {
   background-color: #C0D9FF;
-  height: 1000px;
 }
 
 .bg {
@@ -225,24 +229,23 @@ export default {
   justify-content: space-around;
   align-items: center;
   justify-content: center;
-  height: 800px;
+  height: 1100px;
   width: 100vw;
-  background-color: black;
-  margin-top: 9.5vh;
 }
 
 
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
-  width: 1200px;
+  width: 900px;
   height: 900px;
+
  }
  .cardDetailContrin {
   background-color: #A0C6FF;
   border-radius: 200px;
-  width: 1000px;
-  height: 350px;
+  width: 690px;
+  height: 360px;
  }
 
 .cardDetailContainer {
@@ -258,31 +261,30 @@ export default {
   height: 100px;
 }
 .inputFiled {
-  width: 375px;
+  width: 250px;
   height: 32px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 20px;
   margin-right: 20px;
   margin-bottom: 35px;
+  
 }
 .text {
   font-size: 40px;
   color: #FFFFFF;
   font-family: "Roboto";
   margin-top: 50px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  margin-left: 80px;
 }
 .textDetail {
   font-size: 19px;
   color: #5c5c5c;
   font-family: "Roboto";
-  margin-left:50px;
+  margin-left: 20px;
+  
 }
-.textDetail2 {
-  font-size: 19px;
-  color: #5c5c5c;
-  font-family: "Roboto";
-}
+
 .cardTotal{
   display: flex;
   flex-direction: row;
@@ -291,9 +293,11 @@ export default {
   height: 50px;
 }
 .textTotal{
-  font-size: 25px;
-  color: black;
+  font-size: 22px;
+  color:  #5c5c5c;
   font-family: "Roboto";
+  margin-left: 90px;
+
 }
 .btnCancel{
   font-family: "Average Sans", sans-serif;
@@ -328,8 +332,13 @@ export default {
   border-color:white;
 }
 .textPayment{
-  font-size: 25px;
-  color: black;
+  font-size: 24px;
+  color: #5c5c5c;
+  font-family: "Roboto";
+}
+label {
+  font-size: 15px;
+  color: #5c5c5c;
   font-family: "Roboto";
 }
 </style>

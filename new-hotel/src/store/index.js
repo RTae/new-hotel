@@ -56,7 +56,6 @@ export default new Vuex.Store({
           commit("SET_LOGO_HEADER", false)
           commit("SET_LOGIN_HEADER_USER", true)
           commit("SET_LOGIN_HEADER_ADMIN", false)
-          commit("SET_STATE_LOGIN_DIALOG", true)
         } else if (userType === "Admin") {
           commit("SET_USERNAME", username);
           commit("SET_USER_TYPE", userType);
