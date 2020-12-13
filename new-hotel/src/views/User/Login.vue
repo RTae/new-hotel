@@ -1,101 +1,77 @@
 <template>
-  <v-container fluid class="main" id="login">
-    <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer">
-      <v-row style="margin-top: 10vh" align="center" justify="center">
-        <p class="textTitle">LOGIN</p>
-      </v-row>
-      <v-row align="center" justify="center">
-        <v-form
-          ref="form"
-          v-model="valid"
-          @submit.prevent="submit"
-          lazy-validation
-        >
-          <!-- Username field -->
-          <div class="input_button">
-            <v-text-field
-              color="primary"
-              solo
-              rounded
-              outlined
-              v-model="account.email"
-              required
-              autocomplete="username"
-              :rules="emailRules"
-              placeholder="Email"
-              name="email"
-            />
-          </div>
-          <!-- Password field -->
-          <div class="input_button">
-            <v-text-field
-              solo
-              rounded
-              outlined
-              placeholder="Password"
-              required
-              min="9"
-              autocomplete="password"
-              :rules="passwordRules"
-              v-model="account.password"
-              :type="showPassword ? 'text' : 'password'"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="showPassword = !showPassword"
-              name="password"
-            />
-          </div>
+ <v-container fluid class="main" id="login">
+    <v-row class="bg">
+      <v-toolbar
+        src="../../../dist/img/mainFirst.svg"
+        height="800px"
+        width="100vw"   
+        flat
+      >
+        <v-row justify="center" align="center">
+          <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer" >
+            <v-row style="margin-top: 10vh" align="center" justify="center">
+              <p class="textTitle">LOGIN</p>
+            </v-row>
+            <v-row align="center" justify="center">
+              <v-form
+                ref="form"
+                v-model="valid"
+                @submit.prevent="submit"
+                lazy-validation
+              >
+                <!-- Username field -->
+                <div class="input_button">
+                  <v-text-field
+                    color="primary"
+                    solo
+                    rounded
+                    outlined
+                    v-model="account.email"
+                    required
+                    autocomplete="username"
+                    :rules="emailRules"
+                    placeholder="Email"
+                    name="email"
+                  />
+                </div>
+                <!-- Password field -->
+                <div class="input_button">
+                  <v-text-field
+                    solo
+                    rounded
+                    outlined
+                    placeholder="Password"
+                    required
+                    min="9"
+                    autocomplete="password"
+                    :rules="passwordRules"
+                    v-model="account.password"
+                    :type="showPassword ? 'text' : 'password'"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
+                    name="password"
+                  />
+                </div>
 
-          <!-- ETC -->
-          <v-row justify="center">
-            <p style="margin-right: 10px" class="text">Don't have an account?</p>
-            <router-link to="/signup">
-              <p class="text">Sign up</p>
-            </router-link>
-          </v-row>
+                <!-- ETC -->
+                <v-row justify="center">
+                  <p style="margin-right: 10px" class="text">Don't have an account?</p>
+                  <router-link to="/signup">
+                    <p class="text" style="color:red;">Sign up</p>
+                  </router-link>
+                </v-row>
 
-          <!-- Button -->
-          <v-row justify="center">
-            <button :disabled="!valid" class="signInBtn" type="submit">Sign In</button>
-          </v-row>
+                <!-- Button -->
+                <v-row justify="center">
+                  <button :disabled="!valid" class="signInBtn" type="submit">Sign In</button>
+                </v-row>
 
-        </v-form>
-      </v-row>
-    </v-card>
-
-      <!-- Image -->
-      <div class="d-flex flex-column justify-bottom align-center">
-        <v-img
-          alt="bitButton"
-          contain
-          style="margin-top: 100px"
-          width="1290"
-        />
-      </div>
-
-      <!-- Dialog -->
-      <v-dialog v-model="$store.getters.getDialogState" width="500">
-        <v-card>
-          <v-card-title class="primary mb-6"> Alert </v-card-title>
-          <v-card-text class="popUpText">
-            {{ $store.getters.getDialogMsg }}
-          </v-card-text>
-
-          <v-divider></v-divider>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              text
-              @click="
-                $store.dispatch({ type: 'dialogPopup', value: false, msg: '' })
-              "
-            >
-              OK
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+              </v-form>
+            </v-row>
+          </v-card>
+        </v-row>
+      </v-toolbar>
+    </v-row>
   </v-container>
 </template>
 
@@ -135,19 +111,17 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .main {
-  background: rgb(239, 239, 239);
-  min-height: 100vh;
+  background: #C0D9FF;
 }
 
 .cardContainer {
   color: #A0C6FF;
   border-radius: 20px;
   width: 900px;
-  height: 500px;
-  margin-top: 15vh;
-  margin-left: 250px;
+  height: 600px;
+  margin-top: 1vh;
  }
  
 .input_button {
@@ -169,7 +143,7 @@ export default {
 }
 
 .signInBtn {
-  background-color: #C4C4C4;
+  background-color: white;
   background-position: center;
   font-family: "Roboto";
   border-radius: 100px;
@@ -178,9 +152,9 @@ export default {
   height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 13px;
+  font-size: 15px;
   text-transform: uppercase;
-  color: white;
+  color: #47a7f5;
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;
@@ -188,20 +162,15 @@ export default {
 }
 
 .signInBtn:hover {
-  background: #989191
-    radial-gradient(circle, transparent 1%, #989191 1%) center/15000%;
-}
-.signInBtn:active {
-  background-color: #6eb9f7;
-  background-size: 100%;
-  transition: background 0s;
+  background: #C0D9FF radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
 }
 
-.popUpText {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
+.signInBtn:active {
+  background-color: #6eb9f7;
+  color: white;
+  background-size: 100%;
+  transition: background 0s;
 }
 
 </style>

@@ -1,19 +1,28 @@
 <template>
-  <v-container fluid class="main" id="aboutus">
-    <v-row justify="center">
-      <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer">
-        <v-row><p class="text">Profile</p></v-row>
-          <div>
-            <v-card style= "border-radius: 20px;" class="cardDetailContainer">
-              <p class="textDetail">First name : {{ this.user.firstName }}</p>
-              <p class="textDetail">Family name : {{ this.user.familyName  }}</p>
-              <p class="textDetail">Email : {{ this.user.email }}</p>
-              <p class="textDetail">Phone Number : {{ this.user.phoneNumber }}</p>
-              <p class="textDetail">Credit Card Number : {{ this.user.creditCardNumber }}</p>
-              <p class="textDetail">Point : {{ this.user.point }}</p>
-            </v-card>
-          </div>
-      </v-card>
+  <v-container fluid class="main" id="profile">
+    <v-row class="bg">
+    <v-toolbar
+        src="../../../../dist/img/mainFirst.svg"
+        height="800px"
+        width="100vw"   
+        flat
+      >
+      <v-row justify="center">
+        <v-card class="cardContainer" style="background-color:#A0C6FF; border-radius: 20px;" >
+          <v-row><p class="text">Profile</p></v-row>
+            <div>
+              <v-card style= "border-radius: 20px;" class="cardDetailContainer">
+                <p class="textDetail">First name : {{ this.user.firstName }}</p>
+                <p class="textDetail">Family name : {{ this.user.familyName  }}</p>
+                <p class="textDetail">Email : {{ this.user.email }}</p>
+                <p class="textDetail">Phone Number : {{ this.user.phoneNumber }}</p>
+                <p class="textDetail">Credit Card Number : {{ this.user.creditCardNumber }}</p>
+                <p class="textDetail">Point : {{ this.user.point }}</p>
+              </v-card>
+            </div>
+        </v-card>
+      </v-row>
+      </v-toolbar>
     </v-row>
   </v-container>
 </template>
@@ -37,6 +46,9 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  background-color: #C0D9FF;
+}
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
@@ -58,7 +70,7 @@ export default {
  }
 
 .text {
-  font-size: 30px;
+  font-size: 40px;
   color: #FFFFFF;
   font-family: "Roboto";
   margin-top: 50px;

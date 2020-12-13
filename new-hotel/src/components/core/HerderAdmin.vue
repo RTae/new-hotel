@@ -1,85 +1,118 @@
 <template>
   <div id="header">
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+      <v-app-bar color="primary" dark app height="70px">
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      </v-app-bar>
+      <v-navigation-drawer 
+        v-model="drawer"
+        absolute
+        bottom
+        temporary>
+					<template>
+						<v-list         
+              nav
+              dense
+              >
+							<v-subheader class="text">MENU</v-subheader>
+							<v-list-item-group v-model="group"
+                 active-class="deep-purple--text text--accent-4">
+								<v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large
+                      rounded
+                    >
+                    Booking
+                    </v-btn></v-list-item-title>
+                </v-list-item>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+                <v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large>Room
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
 
-      <v-spacer></v-spacer>
+                <v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large>Task
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+                <v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large>Manage
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-title class="textMenu">
+                    <v-btn block   color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large>Report
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
+							</v-list-item-group>
+						</v-list>
+					</template>
+			</v-navigation-drawer>
   </div>
 </template>
 
 <script>
 export default {
   name: "Header",
+  data: () => ({
+    drawer: false,
+    group: null,
+  }),
+  watch: {
+    group () {
+      this.drawer = false
+    },
+  },
 };
 </script>
 
 <style>
-.input_serach {
-  width: 600px;
-  height: 10px;
-  margin-top: 10px;
-  margin-right: 20px;
+.cardMenu{
+  width: 50px;
+  height: 80px;
 }
-.btnHeader {
-  background-color: #5cbbf6;
-  font-family: "Average Sans", sans-serif;
-  border-radius: 100px;
-  width: 130px;
-  height: 45px;
-  opacity: 1;
-  transition: 0.3s;
-  font-size: 14px;
-  text-transform: uppercase;
-  color: white;
-  box-shadow: 0 0 4px #999;
-  cursor: pointer;
-  outline: none;
-  margin-right: 10px;
-}
-
-.btnHeader:hover {
-  background: #47a7f5
-    radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
-}
-
-.btnHeader:active {
-  background-color: #6eb9f7;
-  background-size: 100%;
-  transition: background 0s;
-}
-
 .text {
   color: black;
-  margin-top: 20px;
   font-family: "Average Sans", sans-serif;
-  font-size: 20px;
+  font-size: 50px;
+}
+.textMenu {
+  color: black;
+  font-family: "Average Sans", sans-serif;
+  font-size: 50px;
+}
+.imgHome{
+  width: 50px;
+}
+.btnHome {
+  margin-left: 20px;
+  margin-top: 8px;
 }
 </style>
+
+
+
+
