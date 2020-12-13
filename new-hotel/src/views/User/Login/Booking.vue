@@ -46,11 +46,6 @@
                           <v-select
                             label="Choose room type"
                             dense
-                            solo
-                            rounded
-                            outlined
-                            outline-color="#47a7f5"
-                            item-color="blue accent-2"
                             :items="['Single', 'Double', 'Suite', 'Delux', 'Premier']"
                             :rules="[v => !!v || 'Plase choose is room type']"
                             autocomplete="roomType"
@@ -69,7 +64,6 @@
                           >
                             <template v-slot:activator="{ on, attrs }">
                               <v-text-field
-                                label="Choose Arrival Date"
                                 v-model="dateFormatted"
                                 persistent-hint
                                 append-icon="mdi-calendar"
@@ -77,10 +71,6 @@
                                 @blur="date = parseDate(dateFormatted)"
                                 v-on="on"
                                 dense
-                                solo
-                                rounded
-                                outlined
-                                outline-color="#47a7f5"
                               ></v-text-field>
                             </template>
                             <v-date-picker
@@ -103,7 +93,6 @@
                             >
                               <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
-                                  label="Choose Departure Date"
                                   v-model="dateFormatted"
                                   persistent-hint
                                   append-icon="mdi-calendar"
@@ -111,10 +100,6 @@
                                   @blur="date = parseDate(dateFormatted)"
                                   v-on="on"
                                   dense
-                                  solo
-                                  rounded
-                                  outlined
-                                  outline-color=  "#47a7f5"
                                 ></v-text-field>
                               </template>
                               <v-date-picker
@@ -129,10 +114,6 @@
                           <v-select
                             label="Choose Number of room"
                             dense
-                            solo
-                            rounded
-                            outlined
-                            outline-color= "#47a7f5"
                             v-model="numValue"
                             :items="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']"
                             :rules="[v => !!v || 'Plase choose is number of Room']"
@@ -143,10 +124,6 @@
                           <label>Guest</label>
                           <v-select
                             label="Choose Guest"
-                            dense
-                            solo
-                            rounded
-                            outlined
                             outline-color="#47a7f5"
                             :items="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']"
                             :rules="[v => !!v || 'Plase choose is number of Guest']"
@@ -300,7 +277,7 @@ export default {
 
 .bg {
   display: flex;
-  max-height: 1500px;
+  max-height: 1200px;
   width: 100vw;
 }
 
@@ -315,7 +292,6 @@ export default {
   border-radius: 200px;
   width: 1030px;
   max-height: 200vh;
-  margin-top: 20px;
   
  }
 

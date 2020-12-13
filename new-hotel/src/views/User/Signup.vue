@@ -140,9 +140,9 @@
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
-                        color="#6eb9f7"
+                        color="#47a7f5"
                         outlined
-                        large
+                        x-large
                         v-bind="attrs"
                         v-on="on"
                         :disabled="!valid" class="signUpBtn" type="submit"
@@ -252,8 +252,8 @@ export default {
 .cardContainer2 {
   color: #A0C6FF;
   border-radius: 20px;
-  width: 900px;
-  height: 720px;
+  width: 1000px;
+  height: 780px;
 
  }
 .tectcondit {
@@ -281,7 +281,7 @@ export default {
 }
 
 label {
-  font-size: 20px;
+  font-size: 18px;
   color: #5c5c5c;
   font-family: "Roboto";
   

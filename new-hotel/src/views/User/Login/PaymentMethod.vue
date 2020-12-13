@@ -48,7 +48,7 @@
                       max-height="800px"
                     >
                       <template v-slot:activator="{ on, attrs }">
-                        <v-btn
+                        <v-btn @click="onClickCancel()"
                           color="#ED3636"
                           x-large
                           dark
@@ -163,9 +163,8 @@ export default {
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
-  width: 900px;
-  height: 755px;
-  margin-left: 20px;
+  width: 950px;
+  height: 800px;
  }
 
 .cardDetailContainer {
@@ -173,7 +172,7 @@ export default {
   border-radius: 20px;
   width: 750px;
   height: 270px;
-  margin-top: 5vh;
+  margin-top: 3vh;
   margin-left: 75px;
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -186,7 +185,6 @@ export default {
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 80px;
-
 }
 
 .textDetail {
@@ -198,13 +196,11 @@ export default {
 }
 
 
-
 .radioContainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   margin-left: 75px;
-
 }
 
 .radioLineContainer {
@@ -212,8 +208,8 @@ export default {
   flex-wrap: wrap;
   align-content: flex-start;
   flex-direction: row;
-  
 }
+
 .cardTotal{
   display: flex;
   flex-direction: row;
