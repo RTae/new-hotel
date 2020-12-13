@@ -8,8 +8,7 @@ import Signup from '../views/User/Signup.vue'
 import BookingHistory from '../views/User/Login/BookingHistory.vue'
 import Receipt from '../views/User/Login/Receipt.vue'
 import Booking from '../views/User/Login/Booking.vue'
-import Newtest from '../views/User/Newtest'
-
+import Test from '../views/User/test.vue'
 
 
 Vue.use(VueRouter)
@@ -56,9 +55,9 @@ const routes = [
     component: Booking
   },
   {
-    path: "/newtest",
-    name: "Newtest",
-    component: Newtest
+    path: "/test",
+    name: "Test",
+    component: Test
   },
 ]
 const router = new VueRouter({

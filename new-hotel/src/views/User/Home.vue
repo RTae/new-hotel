@@ -339,8 +339,8 @@ export default {
 <style scoped>
 .main {
   background: #C0D9FF;
-  min-height: 100vh;
-  min-width: 2000vh;
+  height: 375vh;
+  width: 2000vh;
 }
 .a{
   background-color: blue;

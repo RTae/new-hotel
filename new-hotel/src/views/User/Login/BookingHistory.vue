@@ -60,6 +60,12 @@ export default {
 .main {
   background-color: #C0D9FF;
 }
+.bg {
+  display: flex;
+  height: 800px;
+  width: 100vw;
+}
+
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
