@@ -12,11 +12,11 @@
           <v-row><p class="text">Profile</p></v-row>
             <div>
               <v-card style= "border-radius: 20px;" class="cardDetailContainer">
-                <p class="textDetail">First name : {{ this.user.firstName }}</p>
-                <p class="textDetail">Family name : {{ this.user.familyName  }}</p>
-                <p class="textDetail">Email : {{ this.user.email }}</p>
-                <p class="textDetail">Phone Number : {{ this.user.phoneNumber }}</p>
-                <p class="textDetail">Point : {{ this.user.point }}</p>
+                <label class="textDetail" >First name : {{ this.user.firstName }}</label>
+                <label class="textDetail">Family name : {{ this.user.familyName  }}</label>
+                <label class="textDetail">Email : {{ this.user.email }}</label>
+                <label class="textDetail">Phone Number : {{ this.user.phoneNumber }}</label>
+                <label class="textDetail">Point : {{ this.user.point }}</label>
               </v-card>
             </div>
         </v-card>
@@ -90,7 +90,7 @@ export default {
   font-size: 18px;
   color: #5c5c5c;
   font-family: "Roboto";
-  margin-top: 40px;
+  margin-top: 20px;
   margin-left: 40px;
 }
 </style>
