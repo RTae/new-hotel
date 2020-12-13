@@ -203,7 +203,6 @@ class Invoice():
         maxIID = session.query(func.max(TBL_Invoices.invoiceID)).one()
         newIID = increaseID(maxIID[0], "i")
         log = self.create(newIID, roomCatID, customerID, dateCreate, total, vat, checkIn, checkOut, numberOfRoom)
-        print(log)
         if (log["status"] == "1"):
             log = {
                 "result":newIID,

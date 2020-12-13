@@ -85,15 +85,24 @@ class TBL_Coupons(Base):
     exipreDate = Column('exipreDate', sa.Date)
 
 class TBL_Employees(Base):
+    __tablename__ = 'TBL_Employees'
     employeeID = Column('employeeID', sa.String(6), primary_key=True)
     employeeTypeID = Column('employeeTypeID', ForeignKey('TBL_EmployeeTypes.employeeTypeID'))
     firstname = Column('firstname', sa.String(20))
     familyname = Column('familyname', sa.String(20))
     email = Column('email', sa.String(50))
     phoneNumber = Column('phoneNumber', sa.String(10))
-    accepteDate = Column('accepteDate', sa.String(10))
+    accepteDate = Column('accepteDate', sa.Date)
 
-class TBL_EmployeeTypes(Base)
+class TBL_EmployeeTypes(Base):
+    __tablename__ = 'TBL_EmployeeTypes'
     employeeTypeID = Column('employeeTypeID', sa.String(6), primary_key=True)
     name = Column('name', sa.String(20))
     salary = Column('salary', sa.Float(precision=2))
+
+class TBL_CleaningRoomLineItem(Base):
+    __tablename__ = 'TBL_CleaningRoomLineItem'
+    employeeID = Column('employeeID', ForeignKey('TBL_Employees.employeeID'), primary_key=True)
+    roomID = Column('roomID', ForeignKey('TBL_Rooms.roomID'), primary_key=True)
+    startDateTime = Column('startDateTime', sa.Date)
+    endDateTIme = Column('endDateTIme', sa.Date)

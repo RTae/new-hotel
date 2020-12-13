@@ -1,12 +1,15 @@
-from .model import TBL_Employees
+from .model import TBL_Employees, TBL_EmployeeTypes
 from .helper import *
+import datetime
+from sqlalchemy import func
 
 session = initDatabase()
 
 class Employee():
-    def create(self, customerID, firstname, familyname, email, phoneNumber, creditCardNumber, point):
-        customer = TBL_Customers(customerID=customerID, firstname=firstname, email=email, familyname=familyname, phoneNumber=phoneNumber, creditCardNumber=creditCardNumber, point=int(point))
-        session.add(customer)
+    def create(self, employeeID, employeeTypeID, firstname, familyname, email, phoneNumber, accepteDate):
+        accepteDate = datetime.datetime.strptime(accepteDate, '%Y-%m-%d')
+        employee = TBL_Employees(employeeID=employeeID, employeeTypeID=employeeTypeID, firstname=firstname, familyname=familyname, email=email, phoneNumber=phoneNumber, accepteDate=accepteDate.date())
+        session.add(employee)
         session.commit()
         log = {
             "result":"",
@@ -15,13 +18,13 @@ class Employee():
         }
         return log
 
-    def read(self, customerID):
-        customer = session.query(TBL_Customers)
-        customer = customer.filter(TBL_Customers.customerID==customerID)
-        if customer.scalar() is not None :
-            customer = self.serialize(customer.one())
+    def read(self, employeeID):
+        employee = session.query(TBL_Employees)
+        employee = employee.filter(TBL_Employees.employeeID==employeeID)
+        if employee.scalar() is not None :
+            employee = self.serialize(employee.one())
             log = {
-                "result":customer,
+                "result":employee,
                 "msg":"",
                 "status":"1"
             }
@@ -34,18 +37,18 @@ class Employee():
             }
             return log
 
-    def update(self, customerID, firstname, familyname, email, phoneNumber, creditCardNumber, point):
-        customer = session.query(TBL_Customers)
-        customer = customer.filter(TBL_Customers.customerID==customerID)
-        if customer.scalar() is not None :
-            customer = customer.one()
-            customer.firstname = firstname
-            customer.familyname = familyname
-            customer.email = email
-            customer.phoneNumber = phoneNumber
-            customer.creditCardNumber = creditCardNumber
-            customer.firstname = firstname
-            customer.point = int(point)
+    def update(self, employeeID, employeeTypeID, firstname, familyname, email, phoneNumber, accepteDate):
+        accepteDate = datetime.datetime.strptime(accepteDate, '%Y-%m-%d')
+        employee = session.query(TBL_Employees)
+        employee = employee.filter(TBL_Employees.employeeID==employeeID)
+        if employee.scalar() is not None :
+            employee = employee.one()
+            employee.employeeTypeID = employeeTypeID
+            employee.firstname = firstname
+            employee.familyname = familyname
+            employee.email = email
+            employee.phoneNumber = phoneNumber
+            employee.accepteDate = accepteDate.date()
             session.commit()
             log = {
                 "result":"",
@@ -61,11 +64,11 @@ class Employee():
             }
             return log
 
-    def delete(self, customerID):
-        customer = session.query(TBL_Customers)
-        customer = customer.filter(TBL_Customers.customerID==customerID)
-        if customer.scalar() is not None :
-            session.delete(customer.one())
+    def delete(self, employeeID):
+        employee = session.query(TBL_Employees)
+        employee = employee.filter(TBL_Employees.employeeID==employeeID)
+        if employee.scalar() is not None :
+            session.delete(employee.one())
             session.commit()
             log = {
                 "result":"",
@@ -81,17 +84,17 @@ class Employee():
             }
             return log
 
-    def getAllCustomer(self):
-        customers = session.query(TBL_Customers).all()
-        return [self.serialize(customer) for customer in customers]
-    
-    def getUserByEmail(self, email):
-        customer = session.query(TBL_Customers)
-        customer = customer.filter(TBL_Customers.email==email)
-        if customer.scalar() is not None :
-            customer = self.serialize(customer.one())
+    def getAllEmployee(self):
+        employees = session.query(TBL_Employees).all()
+        return [self.serialize(employee) for employee in employees]
+
+    def createWithOutID(self, employeeTypeID, firstname, familyname, email, phoneNumber, accepteDate):
+        maxEID = session.query(func.max(TBL_Employees.employeeID)).one()
+        newEID = increaseID(maxEID[0], "e")
+        log = self.create(newEID, employeeTypeID, firstname, familyname, email, phoneNumber, accepteDate)
+        if (log["status"] == "1"):
             log = {
-                "result":customer,
+                "result":newEID,
                 "msg":"",
                 "status":"1"
             }
@@ -99,18 +102,101 @@ class Employee():
         else:
             log = {
                 "result":"",
-                "msg":"User not found",
+                "msg":"Error",
                 "status":"100"
             }
             return log
-    
-    def serialize(self,customer):
+
+    def createEmployeeType(self, employeeTypeID, name, salary):
+        employeeType = TBL_EmployeeTypes(employeeTypeID=employeeTypeID, name=name, salary=salary)
+        session.add(employeeType)
+        session.commit()
+        log = {
+            "result":"",
+            "msg":"",
+            "status":"1"
+        }
+        return log
+
+    def readEmployeeType(self, employeeTypeID):
+        employeeType = session.query(TBL_EmployeeTypes)
+        employeeType = employeeType.filter(TBL_EmployeeTypes.employeeTypeID==employeeTypeID)
+        if employeeType.scalar() is not None :
+            employeeType = self.serializeEmployeeType(employeeType.one())
+            log = {
+                "result":employeeType,
+                "msg":"",
+                "status":"1"
+            }
+            return log
+        else:
+            log = {
+                "result":"",
+                "msg":"Not found",
+                "status":"100"
+            }
+            return log
+
+    def updateEmployeeType(self, employeeTypeID, name, salary):
+        employeeType = session.query(TBL_EmployeeTypes)
+        employeeType = employeeType.filter(TBL_EmployeeTypes.employeeTypeID==employeeTypeID)
+        if employeeType.scalar() is not None :
+            employeeType = employeeType.one()
+            employeeType.name = name
+            employeeType.salary = salary
+            session.commit()
+            log = {
+                "result":"",
+                "msg":"",
+                "status":"1"
+            }
+            return log
+        else:
+            log = {
+                "result":"",
+                "msg":"Not found",
+                "status":"100"
+            }
+            return log
+
+    def deleteEmployeeType(self, employeeTypeID):
+        employeeType = session.query(TBL_EmployeeTypes)
+        employeeType = employeeType.filter(TBL_EmployeeTypes.employeeTypeID==employeeTypeID)
+        if employeeType.scalar() is not None :
+            session.delete(employeeType.one())
+            session.commit()
+            log = {
+                "result":"",
+                "msg":"",
+                "status":"1"
+            }
+            return log
+        else:
+            log = {
+                "result":"",
+                "msg":"Not found",
+                "status":"100"
+            }
+            return log
+
+    def getAllEmployeeType(self):
+        employeeTypes = session.query(TBL_EmployeeTypes).all()
+        return [self.serializeEmployeeType(employeeType) for employeeType in employeeTypes]
+
+    def serialize(self, employee):
         return {
-            'customerID': customer.customerID,
-            'firstname': customer.firstname,
-            'familyname': customer.familyname,
-            'email': customer.email,
-            'phoneNumber': customer.phoneNumber,
-            'creditCardNumber': customer.creditCardNumber,
-            'point': customer.point
+            'employeeID': employee.employeeID,
+            'employeeTypeID': employee.employeeTypeID,
+            'firstname': employee.firstname,
+            'familyname': employee.familyname,
+            'email': employee.email,
+            'phoneNumber': employee.phoneNumber,
+            'accepteDate': employee.accepteDate
+        }
+    
+    def serializeEmployeeType(self, employeeType):
+        return {
+            'employeeTypeID': employeeType.employeeTypeID,
+            'name': employeeType.name,
+            'salary': employeeType.salary,
         }

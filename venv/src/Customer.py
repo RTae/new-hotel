@@ -44,7 +44,6 @@ class Customer():
             customer.email = email
             customer.phoneNumber = phoneNumber
             customer.creditCardNumber = creditCardNumber
-            customer.firstname = firstname
             customer.point = int(point)
             session.commit()
             log = {

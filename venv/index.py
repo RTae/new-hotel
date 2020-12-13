@@ -5,6 +5,7 @@ from src import Auth as Au
 from src import Room as R
 from src import Invoice as I
 from src import Receipt as Re
+from src import Employee as E
 
 app = Flask(__name__)
 CORS(app)
@@ -14,6 +15,7 @@ Auth = Au.Auth()
 Room = R.Room()
 Invoice = I.Invoice()
 Receipt = Re.Receipt()
+Employee = E.Employee()
 
 @app.route('/')
 @cross_origin()
@@ -506,4 +508,114 @@ def readReceiptLineByInvoivceID():
     receiptID = request.args.get('receiptID')
     if receiptID != None:
         log = Receipt.readReceiptLineByReceiptID(receiptID)
+        return jsonify(log)
+
+# Employee
+# createEmployee use for create Employee
+@app.route('/employee',methods=["POST"])
+@cross_origin()
+def createEmployee():
+    employeeID = request.form['employeeID']
+    employeeTypeID = request.form['employeeTypeID']
+    firstname = request.form['firstname']
+    familyname = request.form['familyname']
+    email = request.form['email']
+    phoneNumber = request.form['phoneNumber']
+    accepteDate = request.form['accepteDate']
+
+    logs = Employee.create(employeeID, employeeTypeID, firstname, familyname, email, phoneNumber, accepteDate)
+    return logs
+
+@app.route('/employeeWithoutID',methods=["POST"])
+@cross_origin()
+def createEmployeeWithoutID():
+    employeeTypeID = request.form['employeeTypeID']
+    firstname = request.form['firstname']
+    familyname = request.form['familyname']
+    email = request.form['email']
+    phoneNumber = request.form['phoneNumber']
+    accepteDate = request.form['accepteDate']
+
+    logs = Employee.createWithOutID(employeeTypeID, firstname, familyname, email, phoneNumber, accepteDate)
+    return logs
+
+# readEmployee get all or get specific by employeeID from Employee
+@app.route('/employee/<employeeID>',methods=["GET"])
+@cross_origin()
+def readEmployee(employeeID=None):
+    if employeeID != None:
+        log = Employee.read(employeeID)
+        return jsonify(log)
+
+@app.route('/getAllEmployee', methods=["GET"])
+@cross_origin()
+def getAllEmployee():
+    log = Employee.getAllEmployee()
+    return jsonify(log)
+
+# updateEmployee use for update employee 
+@app.route('/employee',methods=["PUT"])
+@cross_origin()
+def updateEmployee():
+    employeeID = request.form['employeeID']
+    employeeTypeID = request.form['employeeTypeID']
+    firstname = request.form['firstname']
+    familyname = request.form['familyname']
+    email = request.form['email']
+    phoneNumber = request.form['phoneNumber']
+    accepteDate = request.form['accepteDate']
+
+    log = Employee.update(employeeID, employeeTypeID, firstname, familyname, email, phoneNumber, accepteDate)
+    return jsonify(log)
+
+# deleteEmployee use for delele employee
+@app.route('/employee/<employeeID>',methods=["DELETE"])
+@cross_origin()
+def deleteEmployee(employeeID=None):
+    if employeeID != None:
+        log = Employee.delete(employeeID)
+        return jsonify(log)
+
+# createEmployeeType use for create EmployeeType
+@app.route('/employeeType',methods=["POST"])
+@cross_origin()
+def createEmployeeType():
+    employeeTypeID = request.form['employeeTypeID']
+    name = request.form['name']
+    salary = request.form['salary']
+
+    logs = Employee.createEmployeeType(employeeTypeID, name, salary)
+    return logs
+
+# readEmployeeType get all or get specific by employeeTypeID from EmployeeType
+@app.route('/employeeType/<employeeTypeID>',methods=["GET"])
+@cross_origin()
+def readEmployeeType(employeeTypeID=None):
+    if employeeTypeID != None:
+        log = Employee.readEmployeeType(employeeTypeID)
+        return jsonify(log)
+
+@app.route('/getAllEmployeeType', methods=["GET"])
+@cross_origin()
+def getAllEmployeeType():
+    log = Employee.getAllEmployeeType()
+    return jsonify(log)
+
+# updateEmployeeType use for update EmployeeType 
+@app.route('/employeeType',methods=["PUT"])
+@cross_origin()
+def updateEmployeeType():
+    employeeTypeID = request.form['employeeTypeID']
+    name = request.form['name']
+    salary = request.form['salary']
+
+    log = Employee.updateEmployeeType(employeeTypeID, name, salary)
+    return jsonify(log)
+
+# deleteEmployeeType use for delele EmployeeType
+@app.route('/employeeType/<employeeTypeID>',methods=["DELETE"])
+@cross_origin()
+def deleteEmployeeType(employeeTypeID=None):
+    if employeeTypeID != None:
+        log = Employee.deleteEmployeeType(employeeTypeID)
         return jsonify(log)
