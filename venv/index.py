@@ -4,6 +4,7 @@ from src import Customer as C
 from src import Auth as Au
 from src import Room as R
 from src import Invoice as I
+from src import Receipt as Re
 
 app = Flask(__name__)
 CORS(app)
@@ -12,6 +13,7 @@ Customer = C.Customer()
 Auth = Au.Auth()
 Room = R.Room()
 Invoice = I.Invoice()
+Receipt = Re.Receipt()
 
 @app.route('/')
 @cross_origin()
@@ -237,4 +239,271 @@ def updateRoomCat():
 def deleteRoomCat(roomCatID=None):
     if roomCatID != None:
         log = Room.deleteRoomCat(roomCatID)
+        return jsonify(log)
+
+# Invoice
+# Invoice use for create invoice
+@app.route('/invoice',methods=["POST"])
+@cross_origin()
+def createInvoice():
+    invoiceID = request.form['invoiceID']
+    roomCatID = request.form['roomCatID']
+    customerID = request.form['customerID']
+    dateCreate = request.form['dateCreate']
+    total = request.form['total']
+    vat = request.form['vat']
+    checkIn = request.form['checkIn']
+    checkOut = request.form['checkOut']
+    numberOfRoom = request.form['numberOfRoom']
+
+    logs = Invoice.create(invoiceID, roomCatID, customerID, dateCreate, total, vat, checkIn, checkOut, numberOfRoom)
+    return logs
+
+# createInvoiceWithOutId use for create invoice with out id
+@app.route('/invoiceWithoutID',methods=["POST"])
+@cross_origin()
+def createInvoiceWithOutId():
+    roomCatID = request.form['roomCatID']
+    customerID = request.form['customerID']
+    dateCreate = request.form['dateCreate']
+    total = request.form['total']
+    vat = request.form['vat']
+    checkIn = request.form['checkIn']
+    checkOut = request.form['checkOut']
+    numberOfRoom = request.form['numberOfRoom']
+
+    logs = Invoice.createWithOutID(roomCatID, customerID, dateCreate, total, vat, checkIn, checkOut, numberOfRoom)
+    return logs
+
+# readInvovice get all or get specific by invoiceID from invoice
+@app.route('/invoice/<invoiceID>',methods=["GET"])
+@cross_origin()
+def readInvovice(invoiceID=None):
+    if invoiceID != None:
+        log = Invoice.read(invoiceID)
+        return jsonify(log)
+
+@app.route('/getAllInvoice', methods=["GET"])
+@cross_origin()
+def getAllInovice():
+    log = Invoice.getAllInvoice()
+    return jsonify(log)
+
+# updateInvoice use for update Invocie 
+@app.route('/invoice',methods=["PUT"])
+@cross_origin()
+def updateInvoice():
+    invoiceID = request.form['invoiceID']
+    roomCatID = request.form['roomCatID']
+    customerID = request.form['customerID']
+    dateCreate = request.form['dateCreate']
+    total = request.form['total']
+    vat = request.form['vat']
+    checkIn = request.form['checkIn']
+    checkOut = request.form['checkOut']
+    numberOfRoom = request.form['numberOfRoom']
+
+    log = Invoice.update(invoiceID, roomCatID, customerID, dateCreate, total, vat, checkIn, checkOut, numberOfRoom)
+    return jsonify(log)
+
+# deleteInvoice use for delele invoice
+@app.route('/invoice/<invoiceID>',methods=["DELETE"])
+@cross_origin()
+def deleteInvoice(invoiceID=None):
+    if invoiceID != None:
+        log = Invoice.delete(invoiceID)
+        return jsonify(log)
+
+# createInvoiceLine use for create invoiceLine
+@app.route('/invoiceLine',methods=["POST"])
+@cross_origin()
+def createInvoiceLine():
+    invoiceID = request.form['invoiceID']
+    roomID = request.form['roomID']
+    remark = request.form['remark']
+
+    logs = Invoice.createInvoiceLine(invoiceID, roomID, remark)
+    return logs
+
+# readInvoviceLine get all or get specific by invoiceID and roomID from invoiceLine
+@app.route('/invoiceLine',methods=["GET"])
+@cross_origin()
+def readInvoviceLine():
+    invoiceID = request.args.get('invoiceID')
+    roomID = request.args.get('roomID')
+    if invoiceID != None and roomID != None:
+        log = Invoice.readInvoiceLine(invoiceID, roomID)
+        return jsonify(log)
+
+@app.route('/getAllInvoiceLine', methods=["GET"])
+@cross_origin()
+def getAllInoviceLine():
+    log = Invoice.getAllInvoiceLine()
+    return jsonify(log)
+
+# updateInvoiceLine use for update invoiceLine 
+@app.route('/invoiceLine',methods=["PUT"])
+@cross_origin()
+def updateInvoiceLine():
+    invoiceID = request.form['invoiceID']
+    roomID = request.form['roomID']
+    remark = request.form['remark']
+
+    log = Invoice.updateInvoiceLine(invoiceID, roomID, remark)
+    return jsonify(log)
+
+# deleteInvoiceLine use for delele invoiceLine
+@app.route('/invoiceLine',methods=["DELETE"])
+@cross_origin()
+def deleteInvoiceLine():
+    invoiceID = request.args.get('invoiceID')
+    roomID = request.args.get('roomID')
+    if invoiceID != None and roomID != None:
+        log = Invoice.deleteInvoiceLine(invoiceID, roomID)
+        return jsonify(log)
+
+# deleteInvoiceLineByInvoivceID use for delele invoiceLine by invoiceID
+@app.route('/invoiceLineByInvoviceID',methods=["DELETE"])
+@cross_origin()
+def deleteInvoiceLineByInvoivceID():
+    invoiceID = request.args.get('invoiceID')
+    if invoiceID != None:
+        log = Invoice.deleteInvoiceLineByInvoivceID(invoiceID)
+        return jsonify(log)
+
+# readInvoiceLineByInvoivceID use for read invoiceLine by invoiceID
+@app.route('/invoiceLineByInvoviceID',methods=["GET"])
+@cross_origin()
+def readInvoiceLineByInvoivceID():
+    invoiceID = request.args.get('invoiceID')
+    if invoiceID != None:
+        log = Invoice.readInvoiceLineByInvoiceID(invoiceID)
+        return jsonify(log)
+
+# Receipt
+# createReceipt use for create Receipt
+@app.route('/receipt',methods=["POST"])
+@cross_origin()
+def createReceipt():
+    receiptID = request.form['receiptID']
+    customerID = request.form['customerID']
+    paymentMedId = request.form['paymentMedId']
+    cuponID = request.form['cuponID']
+    dateCreate = request.form['dateCreate']
+    paymentRef = request.form['paymentRef']
+    totalReceived = request.form['totalReceived']
+    remark = request.form['remark']
+
+    logs = Receipt.create(receiptID, customerID, paymentMedId, cuponID, dateCreate, paymentRef, totalReceived, remark)
+    return logs
+
+# createReceiptWithOutId use for create Receipt without id
+@app.route('/receiptWithoutID',methods=["POST"])
+@cross_origin()
+def createReceiptWithOutId():
+    customerID = request.form['customerID']
+    paymentMedId = request.form['paymentMedId']
+    cuponID = request.form['cuponID']
+    dateCreate = request.form['dateCreate']
+    paymentRef = request.form['paymentRef']
+    totalReceived = request.form['totalReceived']
+    remark = request.form['remark']
+
+    logs = Receipt.createWithOutID(customerID, paymentMedId, cuponID, dateCreate, paymentRef, totalReceived, remark)
+    return logs
+
+# readReceipt get all or get specific by receiptID from receipt
+@app.route('/receipt/<receiptID>',methods=["GET"])
+@cross_origin()
+def readReceipt(receiptID=None):
+    if receiptID != None:
+        log = Receipt.read(receiptID)
+        return jsonify(log)
+
+@app.route('/getAllReceipt', methods=["GET"])
+@cross_origin()
+def getAllReceipt():
+    log = Receipt.getAllReceipt()
+    return jsonify(log)
+
+# updateReceipt use for update receipt 
+@app.route('/receipt',methods=["PUT"])
+@cross_origin()
+def updateReceipt():
+    receiptID = request.form['receiptID']
+    customerID = request.form['customerID']
+    paymentMedId = request.form['paymentMedId']
+    cuponID = request.form['cuponID']
+    dateCreate = request.form['dateCreate']
+    paymentRef = request.form['paymentRef']
+    totalReceived = request.form['totalReceived']
+    remark = request.form['remark']
+
+    log = Receipt.update(receiptID, customerID, paymentMedId, cuponID, dateCreate, paymentRef, totalReceived, remark)
+    return jsonify(log)
+
+# deleteReceipt use for delele receipt
+@app.route('/receipt/<receiptID>',methods=["DELETE"])
+@cross_origin()
+def deleteReceipt(receiptID=None):
+    if receiptID != None:
+        log = Receipt.delete(receiptID)
+        return jsonify(log)
+
+# createReceiptLine use for create receiptLine
+@app.route('/receiptLine',methods=["POST"])
+@cross_origin()
+def createReceiptLine():
+    receiptID = request.form['receiptID']
+    invoiceID = request.form['invoiceID']
+    remark = request.form['remark']
+
+    logs = Receipt.createReceiptLine(receiptID, invoiceID, remark)
+    return logs
+
+# readReceiptLine get all or get specific by receiptID and invoiceID from receiptLine
+@app.route('/receiptLine',methods=["GET"])
+@cross_origin()
+def readReceiptLine():
+    receiptID = request.args.get('receiptID')
+    invoiceID = request.args.get('invoiceID')
+
+    if receiptID != None and invoiceID != None:
+        log = Receipt.readReceiptLine(receiptID, invoiceID)
+        return jsonify(log)
+
+@app.route('/getAllReceiptLine', methods=["GET"])
+@cross_origin()
+def getAllReceiptLine():
+    log = Receipt.getAllReceiptLine()
+    return jsonify(log)
+
+# updateReceiptLine use for update receiptLine 
+@app.route('/receiptLine',methods=["PUT"])
+@cross_origin()
+def updateReceiptLine():
+    receiptID = request.form['receiptID']
+    invoiceID = request.form['invoiceID']
+    remark = request.form['remark']
+
+    log = Receipt.updateReceiptLine(receiptID, invoiceID, remark)
+    return jsonify(log)
+
+# deleteReceiptLine use for delele receiptLine
+@app.route('/receiptLine',methods=["DELETE"])
+@cross_origin()
+def deleteReceiptLine():
+    receiptID = request.args.get('receiptID')
+    invoiceID = request.args.get('invoiceID')
+    if receiptID != None and invoiceID != None:
+        log = Receipt.deleteReceiptLine(receiptID, invoiceID)
+        return jsonify(log)
+
+# readReceiptLineByInvoivceID use for read invoiceLine by invoiceID
+@app.route('/receiptLineByReceiptID',methods=["GET"])
+@cross_origin()
+def readReceiptLineByInvoivceID():
+    receiptID = request.args.get('receiptID')
+    if receiptID != None:
+        log = Receipt.readReceiptLineByReceiptID(receiptID)
         return jsonify(log)
