@@ -233,7 +233,7 @@
                         dark
                         rounded
                         width="100px"
-                        @click="dialog2 = false"
+                        @click="onClickYes()"
                       >
                         YES
                       </v-btn>
@@ -287,6 +287,10 @@ export default {
     },
     onClickNext () {
       this.$router.push({ name: "PaymentMethod" 
+      });
+    },
+    onClickYes () {
+      this.$router.push({ name: "Home" 
       });
     }
   },
