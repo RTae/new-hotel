@@ -9,7 +9,7 @@
       >
       <v-row justify="center" align="center">
         <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer2">
-          <v-row style="margin-top: 10vh" align="center" justify="center">
+          <v-row style="margin-top: 5vh" align="center" justify="center">
             <p class="textTitle">SIGN UP</p>
             </v-row>
             <v-row align="center" justify="center">
@@ -20,7 +20,7 @@
                 lazy-validation
             >
                 <!-- Name -->
-                <v-row align="center" justify="center">
+                <v-row align="center" justify="center" style="margin-top: 3vh">
                 <v-col>
                     <v-row class="ml-8" justify="start">
                     <label>First Name :</label>
@@ -29,7 +29,7 @@
                     <v-text-field
                         ref="FirstName"
                         :rules="[v => !!v || 'Firstname is required']"
-                        v-model="user.firtname"
+                        v-model="user.firstname"
                         solo
                         rounded
                         outlined
@@ -50,11 +50,10 @@
                         rounded
                         outlined
                         autocomplete="familyname"
-        />
+                    />
                     </div>
                 </v-col>
                 </v-row>
-
 
                 <!-- Email -->
                 <v-row align="center" justify="start">
@@ -74,18 +73,21 @@
                     />
                     </div>
                 </v-col>
+
+                <!-- Phone Number -->
+
                 <v-col>
                     <v-row class="ml-8" justify="start">
                     <label>Phone Number :</label>
                     </v-row>
                     <div class="inputFiled">
                     <v-text-field
+                        :rules="[v => !!v || 'Phone number is required!']"
+                        v-model="user.phone"
+                        color="primary"
                         solo
                         rounded
                         outlined
-                        required
-                        :rules="emailRules"
-                        v-model="user.phone"
                         autocomplete="phone"
                     />
                     </div>
@@ -129,16 +131,49 @@
                 </v-col>
                 </v-row>
 
-
-
                 <!-- Button -->
-                <v-row justify="center">
-                <button :disabled="!valid" class="signUpBtn" type="submit">
-                    Sign Up
-                </button>
-                </v-row>
+               <v-row justify="center">
+                <div class="text-center">
+                  <v-dialog
+                    v-model="dialog"
+                    width="400px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="#6eb9f7"
+                        outlined
+                        large
+                        v-bind="attrs"
+                        v-on="on"
+                        :disabled="!valid" class="signUpBtn" type="submit"
+                      >
+                      Sigup
+                      </v-btn>
+                    </template>
+              
+                    <v-card>
+                      <v-card-title class="cardTitle">
+                        Successfully Register
+                      </v-card-title>
+                      <v-divider></v-divider>
+              
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="primary"
+                          text
+                          @click="dialog = false"
+                          block
+                        >
+                          Ok
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </div>
+              </v-row> 
             </v-form>
-            </v-row>
+          </v-row>
         </v-card>
       </v-row>
     </v-toolbar>  
@@ -211,12 +246,14 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  background: #C0D9FF;
+}
 .cardContainer2 {
   color: #A0C6FF;
   border-radius: 20px;
   width: 900px;
   height: 720px;
-  margin-top: 8vh;
 
  }
 .tectcondit {
@@ -272,7 +309,7 @@ label {
 }
 
 .signUpBtn {
-  background-color: #C4C4C4;
+  background-color: white;
   background-position: center;
   font-family: "Roboto";
   border-radius: 100px;
@@ -281,9 +318,9 @@ label {
   height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 13px;
+  font-size: 15px;
   text-transform: uppercase;
-  color: black;
+  color: #47a7f5;
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;
@@ -291,13 +328,22 @@ label {
 }
 
 .signUpBtn:hover {
-  background: #989191 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+  background: #C0D9FF radial-gradient(circle, transparent 1%, #47a7f5 1%)
     center/15000%;
 }
 
 .signUpBtn:active {
   background-color: #6eb9f7;
+  color: white;
   background-size: 100%;
   transition: background 0s;
+}
+.cardTitle{
+  background-color:#6eb9f7;
+  width:400px;
+  height:100px;
+  size:40px;
+  display: flex;
+  justify-content: center;
 }
 </style>

@@ -8,9 +8,12 @@
         flat
       >
       <v-row justify="center" align="center">
-        <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer">
-          <v-row align="center" justify="start" style="margin-top:30px;">
+        <v-card style="background-color:#A0C6FF; border-radius: 20px;" class="cardContainer" justify="center" align="center"> 
+          <v-row style="width:840px;">
             <p class="textTitle">Receipt</p>
+            </v-row>
+            <v-row style="width:840px;">
+                <p class="textTotal" >Invoice ID : {{ invoiceID }}</p>
             </v-row>
             <v-row align="center" justify="center">
                 <v-card style= "border-radius: 20px;" class="cardDetailCotainer">
@@ -75,7 +78,6 @@ name: "Receipt",
   border-radius: 200px;
   width: 1000px;
   height: 500px;
-  margin-top: 80px;
  }
 
 .cardDetailCotainer{
@@ -91,7 +93,6 @@ name: "Receipt",
   font-family: "Roboto";
   margin-top: 30px;
   margin-bottom: 40px;
-  margin-left: 80px;
 }
 
 label{
@@ -99,7 +100,11 @@ label{
   color: #5c5c5c;
   font-family: "Roboto"; 
 }
-
+.textTotal{
+  font-size: 25px;
+  color: black;
+  font-family: "Roboto";
+}
 .signUpBtn {
   background-color: #C4C4C4;
   background-position: center;

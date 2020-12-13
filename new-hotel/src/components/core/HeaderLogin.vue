@@ -64,15 +64,18 @@ export default {
   name: "Header",
   data: () => ({
     items: [
+      { title: "My Profile" },
       { title: "My Booking" },
-      { title: "Log Out" }
+      { title: "Logout" }
     ]
   }),
   methods: {
     onClickHover (functionName) {
-      if (functionName === "My Booking") {
+      if (functionName === "My Profile") {
+        this.$router.push({ name: "ProfileUser" })
+      }else if (functionName === "My Booking") {
         this.$router.push({ name: "BookingUser" })
-      } else if (functionName === "Log Out") {
+      } else if (functionName === "Logout") {
         this.$store.dispatch({
           type: "doLogout"
         });

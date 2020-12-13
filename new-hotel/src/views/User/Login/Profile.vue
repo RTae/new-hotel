@@ -46,6 +46,9 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  background-color: #C0D9FF;
+}
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;

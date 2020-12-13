@@ -2,17 +2,18 @@
   <v-container fluid class="main" id="bookingHistory">
     <v-row class="bg">
     <v-toolbar
-        src="../../../../dist/img/mainFirst.svg"
-        height="800px"
+        src="../../../../dist/img/bgPayment.svg"
+        height="1000px"
         width="100vw"   
         flat
       >
       <v-row justify="center">
-        <v-card class="cardContainer" style="background-color:#A0C6FF; border-radius: 20px;" >
-          <v-row><p class="text">Booking History</p></v-row>
+        <v-card class="cardContainer" style="background-color:#A0C6FF; border-radius: 20px;" justify="center" align="center">
+          <v-row style="width:840px;">
+              <p class="text">Booking History</p></v-row>
            <v-col>
             <div v-for="history in historys" :key="history.historyID">
-              <v-card style= "border-radius: 40px;" class="cardDetailContainer">
+              <v-card style= "border-radius: 40px;" class="cardDetailContainer" >
                 <p class="textDetail">Room Type : {{ history.roomtype }}</p>
                 <p class="textDetail">Number of room : {{ history.numberofroom  }}</p>
                 <p class="textDetail">Total : {{ history.total  }}</p>
@@ -56,22 +57,22 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  background-color: #C0D9FF;
+}
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
   width: 1030px;
   height: 500px;
-  margin-top: 15vh;
-  margin-left: 20px;
  }
 
 .cardDetailContainer {
   color: #A0C6FF;
   border-radius: 20px;
-  width: 750px;
-  height: 100px;
-  margin-top: 5vh;
-  margin-left: 50px;
+  width: 800px;
+  height: 80px;
+  margin-top: 2vh;
   display: grid;
   grid-template-columns: auto auto auto auto;
  }
@@ -81,8 +82,7 @@ export default {
   color: #FFFFFF;
   font-family: "Roboto";
   margin-top: 50px;
-  margin-bottom: 20px;
-  margin-left: 80px;
+  margin-bottom: 15px;
 
 }
 
@@ -90,8 +90,8 @@ export default {
   font-size: 18px;
   color: #5c5c5c;
   font-family: "Roboto";
-  margin-top: 40px;
-  margin-left: 40px;
+  margin-left: 10px;
+  margin-top: 30px;
 }
 
 .paymentBtn {

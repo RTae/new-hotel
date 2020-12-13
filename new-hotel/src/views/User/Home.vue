@@ -1,5 +1,5 @@
 <template>
-  <v-container app class="main" id="Home">
+  <v-container fluid class="main" id="Home">
     <v-row class="bg">
       <v-toolbar
         src="../../../dist/img/mainFirst.svg"
@@ -109,7 +109,7 @@
                     v-model="peopelValue"
                     :items="peopel"
                     :rules="[v => !!v || 'Plase choose is number of Guest']"
-                    autocomplete="roomType"
+                    autocomplete="peopel"
                   />
                 </v-row>
               </v-col>
@@ -197,6 +197,11 @@
                 <label class="textDetaiRoom">This 22 sqm Single Room has single bed positioned near a window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
               </div>
             </v-row>
+            <v-row justify="center" align="center">
+              <div class="cardDetaiCost" align="center" justify="center">
+                <p class="textDetaiCost" style="margin-top:20px" >฿ 1,500 / night</p>
+              </div>
+            </v-row>
         </v-col>  
       </v-row>
       <v-row class="containRoom">
@@ -207,6 +212,11 @@
           <v-row justify="center" style="margin-top:20px">
             <div class="textDetaiRoomContain">
                 <label class="textDetaiRoom">This 26 sqm Superior Room has twin single beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            </div>
+          </v-row>
+          <v-row justify="center" align="center">
+            <div class="cardDetaiCost" align="center" justify="center">
+              <p class="textDetaiCost" style="margin-top:20px" >฿ 2,500 / night</p>
             </div>
           </v-row>
         </v-col>
@@ -227,6 +237,11 @@
               <label class="textDetaiRoom">This 50 sqm Superior Room has 2 room that it has a guest room and  a queen bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
             </div>
           </v-row>
+          <v-row justify="center" align="center">
+            <div class="cardDetaiCost" align="center" justify="center">
+              <p class="textDetaiCost" style="margin-top:20px" >฿ 3,000 / night</p>
+            </div>
+          </v-row>
         </v-col>
       </v-row>
       <v-row class="containRoom">
@@ -237,6 +252,11 @@
           <v-row justify="center" style="margin-top:20px">
             <div class="textDetaiRoomContain">
               <label class="textDetaiRoom">This 60 sqm deluxe Room has 2 room that it has a guest room and a king bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            </div>
+          </v-row>
+          <v-row justify="center" align="center">
+            <div class="cardDetaiCost" align="center" justify="center">
+              <p class="textDetaiCost" style="margin-top:20px" >฿ 4,000 / night</p>
             </div>
           </v-row>
         </v-col>
@@ -255,6 +275,12 @@
           <v-row justify="center" style="margin-top:20px">
             <div class="textDetaiRoomContain">
               <label class="textDetaiRoom">This 70 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
+            </div>
+          </v-row>
+
+          <v-row justify="center" align="center">
+            <div class="cardDetaiCost" align="center" justify="center">
+              <p class="textDetaiCost" style="margin-top:20px" >฿ 5,000 / night</p>
             </div>
           </v-row>
         </v-col>
@@ -312,7 +338,7 @@ export default {
 
 <style scoped>
 .main {
-  background: blue;
+  background: #C0D9FF;
   min-height: 100vh;
   min-width: 2000vh;
 }
@@ -350,6 +376,7 @@ export default {
   align-items: center;
   margin-left:10px;
   margin-right:10px;
+  font-weight: bolder;
 }
 .SubChooseContain{
   height: 100px;
@@ -388,6 +415,21 @@ export default {
   font-family: roboto ; 
   color: black; 
 } 
+.textDetaiCost{
+  font-size: 25px;
+  font-family: roboto ; 
+  color: black; 
+}
+.cardDetaiCost{
+  height: 80px;
+  width: 300px;  
+  background-color: #CADFFF;
+  border-radius: 30px;
+}
+.textDetaiRoomContain{
+  height: 200px;
+  width: 800px; 
+}
 .textHead{
   font-size: 45px;
   font-weight: bolder;
@@ -401,10 +443,6 @@ export default {
   background-color:white;
   height:510px;
   width: 100vw;
-}
-.textDetaiRoomContain{
-  height: 200px;
-  width: 800px; 
 }
 .imgRoom{
   height:490px;  

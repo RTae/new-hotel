@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="main" id="login">
+ <v-container fluid class="main" id="login">
     <v-row class="bg">
       <v-toolbar
         src="../../../dist/img/mainFirst.svg"
@@ -57,7 +57,7 @@
                 <v-row justify="center">
                   <p style="margin-right: 10px" class="text">Don't have an account?</p>
                   <router-link to="/signup">
-                    <p class="text">Sign up</p>
+                    <p class="text" style="color:red;">Sign up</p>
                   </router-link>
                 </v-row>
 
@@ -113,8 +113,7 @@ export default {
 
 <style scoped>
 .main {
-  background: rgb(239, 239, 239);
-  min-height: 100vh;
+  background: #C0D9FF;
 }
 
 .cardContainer {
@@ -144,7 +143,7 @@ export default {
 }
 
 .signInBtn {
-  background-color: #C4C4C4;
+  background-color: white;
   background-position: center;
   font-family: "Roboto";
   border-radius: 100px;
@@ -153,9 +152,9 @@ export default {
   height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 13px;
+  font-size: 15px;
   text-transform: uppercase;
-  color: black;
+  color: #47a7f5;
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;
@@ -163,20 +162,15 @@ export default {
 }
 
 .signInBtn:hover {
-  background: #989191
-    radial-gradient(circle, transparent 1%, #989191 1%) center/15000%;
-}
-.signInBtn:active {
-  background-color: #6eb9f7;
-  background-size: 100%;
-  transition: background 0s;
+  background: #C0D9FF radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
 }
 
-.popUpText {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
+.signInBtn:active {
+  background-color: #6eb9f7;
+  color: white;
+  background-size: 100%;
+  transition: background 0s;
 }
 
 </style>
