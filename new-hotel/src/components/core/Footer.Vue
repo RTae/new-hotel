@@ -11,15 +11,14 @@
 </template>
 
 <script>
-export default {
-  name: "Footer",
-};
-
+  export default {
+    name: "Footer",
+  };
 </script>
 
 <style>
 .footer {
-  display:flex;    
-  align-items:flex-end;
+    display:flex;    
+    align-items:flex-end;
 }
 </style>

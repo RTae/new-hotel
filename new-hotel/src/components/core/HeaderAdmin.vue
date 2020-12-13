@@ -7,63 +7,67 @@
         v-model="drawer"
         absolute
         bottom
-        temporary>
+        temporary
+      >
 					<template>
-						<v-list         
-              nav
-              dense
-              >
-							<v-subheader class="text">MENU</v-subheader>
-							<v-list-item-group v-model="group"
-                 active-class="deep-purple--text text--accent-4">
-								<v-list-item>
+						<v-list nav dense>
+							<v-list-item-group style="margin-top:40px" v-model="group" active-class="deep-purple--text text--accent-4">
+								<v-list-item class="buttonContainer">
                   <v-list-item-title class="textMenu">
-                    <v-btn block   color="#8FBBFE"
+                    <v-btn
+                      block
+                      color="#8FBBFE"
                       elevation="2"
                       tile
                       x-large
-                      rounded
+                      @click="onClickBooking()"
                     >
-                    Booking
-                    </v-btn></v-list-item-title>
-                </v-list-item>
-
-                <v-list-item>
-                  <v-list-item-title class="textMenu">
-                    <v-btn block   color="#8FBBFE"
-                      elevation="2"
-                      tile
-                      x-large>Room
+                      Booking
                     </v-btn>
                   </v-list-item-title>
                 </v-list-item>
 
-                <v-list-item>
+								<v-list-item class="buttonContainer">
                   <v-list-item-title class="textMenu">
-                    <v-btn block   color="#8FBBFE"
+                    <v-btn
+                      block
+                      color="#8FBBFE"
                       elevation="2"
                       tile
-                      x-large>Task
+                      x-large
+                      @click="onClickRoom()"
+                    >
+                        Room
                     </v-btn>
                   </v-list-item-title>
                 </v-list-item>
 
-                <v-list-item>
+                <v-list-item class="buttonContainer">
                   <v-list-item-title class="textMenu">
-                    <v-btn block   color="#8FBBFE"
+                    <v-btn
+                      block
+                      color="#8FBBFE"
                       elevation="2"
                       tile
-                      x-large>Manage
+                      x-large
+                      @click="onClickManage()"
+                    >
+                      Manage
                     </v-btn>
                   </v-list-item-title>
                 </v-list-item>
 
-                <v-list-item>
+                <v-list-item class="buttonContainer">
                   <v-list-item-title class="textMenu">
-                    <v-btn block   color="#8FBBFE"
+                    <v-btn
+                      block
+                      color="#8FBBFE"
                       elevation="2"
                       tile
-                      x-large>Report
+                      x-large
+                      @click="onClickReport()"
+                    >
+                      Report
                     </v-btn>
                   </v-list-item-title>
                 </v-list-item>
@@ -81,6 +85,20 @@ export default {
     drawer: false,
     group: null,
   }),
+  methods: {
+    onClickBooking(){
+      this.$router.push({name:"HomeAdmin"})
+    },
+    onClickRoom(){
+      this.$router.push({name:"Room"})
+    },
+    onClickManage(){
+      this.$router.push({name:"Manage"})
+    },
+    onClickReport(){
+      this.$router.push({name:"Report"})
+    }
+  },
   watch: {
     group () {
       this.drawer = false
@@ -98,6 +116,13 @@ export default {
   color: black;
   font-family: "Average Sans", sans-serif;
   font-size: 50px;
+}
+.buttonContainer{
+  margin-top:20px;
+  margin-bottom: 20px;
+}
+.btnDrawer{
+  border-radius: 30px;
 }
 .textMenu {
   color: black;
