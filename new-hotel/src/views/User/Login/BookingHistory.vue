@@ -11,19 +11,16 @@
         <v-card class="cardContainer" style="background-color:#A0C6FF; border-radius: 20px;" justify="center" align="center">
           <v-row style="width:840px;">
               <p class="text">Booking History</p></v-row>
-           <v-col>
+           <v-col >
             <div v-for="history in historys" :key="history.historyID">
               <v-card style= "border-radius: 40px;" class="cardDetailContainer" >
-                <p class="textDetail">Room Type : {{ history.roomtype }}</p>
-                <p class="textDetail">Number of room : {{ history.numberofroom  }}</p>
-                <p class="textDetail">Total : {{ history.total  }}</p>
-                <p class="textDetail">Status : {{ history.status  }}</p>
+                <p class="textDetail">Receipt ID : {{ history.receiptid }}</p>
+                <p class="textDetail">Amount Due : {{ history.amountdue  }}</p>
+                <p class="textDetail">Payment Method : {{ history.paymentmethod  }}</p>
+                <v-spacer></v-spacer>
               </v-card>
             </div>
-          </v-col>
-                <v-row justify="center">
-                  <button class="paymentBtn" type="submit">Payment</button>
-                </v-row>
+            </v-col>
         </v-card>
       </v-row>
       </v-toolbar>
@@ -39,16 +36,19 @@ export default {
     return {
       historys: [
         {
-        roomtype: "Deluxe",
-        numberofroom:  "2",
-        total: "5000",
-        status: "ว่าง"
+        receiptid: "i00001",
+        amountdue: "5000",
+        paymentmethod: "Credit card"
         },
         {
-        roomtype: "Deluxe",
-        numberofroom: "5",
-        total: "6000",
-        status: "ว่าง"
+        receiptid: "i00002",
+        amountdue: "6000",
+        paymentmethod: "Credit card"
+        },
+        {
+        receiptid: "i00003",
+        amountdue: "7000",
+        paymentmethod: "Cash"
         }
       ]
     }
@@ -60,6 +60,12 @@ export default {
 .main {
   background-color: #C0D9FF;
 }
+.bg {
+  display: flex;
+  height: 800px;
+  width: 100vw;
+}
+
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
@@ -74,7 +80,7 @@ export default {
   height: 80px;
   margin-top: 2vh;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto ;
  }
 
 .text {
@@ -95,18 +101,18 @@ export default {
 }
 
 .paymentBtn {
-  background-color: #C4C4C4;
+  background-color: #28BC49;
   background-position: center;
   font-family: "Roboto";
   border-radius: 100px;
-  margin-left: 760px;
+  margin-left: 660px;
   width: 130px;
   height: 45px;
   opacity: 1;
   transition: 0.3s;
   font-size: 13px;
   text-transform: uppercase;
-  color: black;
+  color: white;
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;

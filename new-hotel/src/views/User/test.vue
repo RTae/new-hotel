@@ -1,21 +1,36 @@
-<p class="textDetail">Customer name : {{ this.user.firstName }} {{ this.user.familyName  }}</p>
-              <p class="textDetail">Payment Method: {{ this.user.paymentMethod  }}</p>
-              <div class="inputFiled" style="background-color:red">
-                  <v-row>
-                    <v-col cols="7" style="background-color:red">
-                        <p>Credit card Number</p>
-                    </v-col>
-                    <v-col cols="5" style="background-color:red">
-                        <v-text-field
-                            ref="creaditNumber"
-                            :rules="[v => !!v || 'Credit card Number is required']"
-                            v-model="user.firtname"
-                            solo
-                            rounded
-                            outlined
-                            autocomplete="creaditNumber"
-                        />                     
-                    </v-col>
-                  </v-row>
-              </div>
-              <p class="textDetail">CVV : {{ this.user.CVV }}</p>
+<template>
+  <v-row>
+    <v-col
+      cols="12"
+      sm="6"
+    >
+      <v-date-picker
+        v-model="dates"
+        range
+      ></v-date-picker>
+    </v-col>
+    <v-col
+      cols="12"
+      sm="6"
+    >
+      <v-text-field
+        v-model="dateRangeText"
+        label="Date range"
+        prepend-icon="mdi-calendar"
+        readonly
+      ></v-text-field>
+    </v-col>
+  </v-row>
+</template>
+<script>
+  export default {
+    data: () => ({
+      dates: ['2019-09-10', '2019-09-20'],
+    }),
+    computed: {
+      dateRangeText () {
+        return this.dates.join(' ~ ')
+      },
+    },
+  }
+</script>
