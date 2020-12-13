@@ -62,7 +62,7 @@ export default {
 }
 .bg {
   display: flex;
-  height: 800px;
+  height: 950px;
   width: 100vw;
 }
 

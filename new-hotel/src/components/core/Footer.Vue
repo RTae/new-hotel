@@ -13,6 +13,8 @@
 <script>
 export default {
   name: "Footer",
+  data(){
+  }
 };
 
 </script>

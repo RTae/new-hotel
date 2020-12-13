@@ -281,8 +281,7 @@ export default {
 }
 
 label {
-  font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   color: #5c5c5c;
   font-family: "Roboto";
   

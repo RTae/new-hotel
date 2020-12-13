@@ -13,12 +13,15 @@
               <v-card style= "border-radius: 20px;" class="cardDetailContainer">
                 <v-col >
                 <v-row  v-for="order in orders" :key="order.id" align="center" justify="center">
-                <p class="textDetail">Room Type : {{ order.roomtype }}</p>
+                <label class="textDetail">Room Type : {{ order.roomtype }}</label>
                 <v-spacer></v-spacer>
                 <p class="textDetail">x   {{ order.periodofstay }} day</p>
                 <p class="textDetail">x {{ order.numberofroom }} room</p>
                 <p class="textDetail">Total {{ order.total }} bath</p>
-                
+                </v-row>
+                <v-row>
+                  <v-spacer></v-spacer>
+                  <p class="textDetail">Sum Total {{(parseInt(this.total))}} bath</p>
                 </v-row>
                 </v-col>
               </v-card>
@@ -36,7 +39,7 @@
               </v-radio-group>
             </div>
           </div>
-             <v-row style="margin-top:100px; margin-left:550px;" >
+             <v-row justify="center" style="margin-top:10px;" >
                 <div class="cardTotal" >
                    <v-dialog
                       v-model="dialog"
@@ -86,10 +89,16 @@
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
-                  <v-btn class="btnPayment" type="submit" style="background-color:#28BC49;" dark x-large>Payment</v-btn>
+                  <v-btn @click="onClickPayment()"
+                    class="btnPayment" 
+                    type="submit" 
+                    style="background-color:#28BC49;" 
+                    dark 
+                    x-large
+                    >
+                    Payment</v-btn>
                 </div>
             </v-row> 
-
         </v-card>
       </v-row>
       </v-toolbar>
@@ -110,7 +119,7 @@ export default {
         total: "5000"
       },
       {
-        roomtype: "Deluxe",
+        roomtype: "Suite",
         periodofstay: "5",
         numberofroom: "1",
         total: "6000"
@@ -124,7 +133,14 @@ export default {
       ],
        paymentmethod: {
         name: ""
-       }
+       },
+       dialog: false,
+    }
+    },
+      methods: {
+      onClickPayment () {
+      this.$router.push({ name: "Invoice" 
+      });
     }
   }
 };
@@ -133,7 +149,6 @@ export default {
 <style scoped>
 .main {
   background-color: #C0D9FF;
-
 }
 
 .bg {
@@ -142,14 +157,14 @@ export default {
   justify-content: space-around;
   align-items: center;
   justify-content: center;
-  height: 800px;
+  height: 990px;
   width: 100vw;
 }
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
   width: 900px;
-  height: 675px;
+  height: 755px;
   margin-left: 20px;
  }
 
@@ -157,7 +172,7 @@ export default {
   color: #A0C6FF;
   border-radius: 20px;
   width: 750px;
-  height: 250px;
+  height: 270px;
   margin-top: 5vh;
   margin-left: 75px;
   display: grid;
@@ -178,9 +193,11 @@ export default {
   font-size: 18px;
   color: #5c5c5c;
   font-family: "Roboto";
-  margin-top: 30px;
+  margin-top: 20px;
   margin-left: 50px;
 }
+
+
 
 .radioContainer {
   display: flex;
@@ -201,7 +218,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 850px;
+  width: 1000px;
   height: 50px;
 }
 
