@@ -8,6 +8,7 @@ import Signup from '../views/User/Signup.vue'
 import BookingHistory from '../views/User/Login/BookingHistory.vue'
 import Receipt from '../views/User/Login/Receipt.vue'
 import Booking from '../views/User/Login/Booking.vue'
+import PaymentMethod from '../views/User/Login/PaymentMethod.vue'
 import Test from '../views/User/test.vue'
 
 
@@ -58,6 +59,11 @@ const routes = [
     path: "/test",
     name: "Test",
     component: Test
+  },
+  {
+    path: "/paymentMethod",
+    name: "PaymentMethod",
+    component: PaymentMethod
   },
 ]
 const router = new VueRouter({

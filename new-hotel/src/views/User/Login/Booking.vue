@@ -186,7 +186,7 @@
                 <label class="textDetail">Period of stay : {{ books.periodofstay  }}</label>
                 <label class="textDetail">Number of room : {{ books.numberofroom  }}</label>
                 <label class="textDetail">Departure Date : {{ books.departuredate  }}</label>
-                <label class="textDetail">Total : {{ dayLive * priceRoom   }} bath</label>
+                <label class="textDetail">Total : {{ calculateTotal  }} bath</label>
               </v-card>
             </div>
           </v-row>
@@ -240,16 +240,12 @@
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
-                <v-btn 
-                  @click="onClickNext()"
+                <v-btn  
+                  @click="onClickNext()" 
                   class="btnPayment" 
                   type="submit" 
                   style="background-color:#28BC49;" 
-                  dark 
-                  x-large
-                  >
-                NEXT
-                </v-btn>
+                  dark x-large>NEXT</v-btn>
               </div>
           </v-row> 
         </v-card>
@@ -290,8 +286,9 @@ export default {
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
     onClickNext () {
-      this.$router.push({ name: "Invoice" });
-    },
+      this.$router.push({ name: "PaymentMethod" 
+      });
+    }
   },
 };
 </script>
