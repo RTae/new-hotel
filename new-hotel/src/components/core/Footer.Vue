@@ -21,7 +21,7 @@ export default {
 
 <style>
 .footer {
-  display:flex;    
-  align-items:flex-end;
+    display:flex;    
+    align-items:flex-end;
 }
 </style>

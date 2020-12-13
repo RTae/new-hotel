@@ -360,8 +360,9 @@ export default {
     },
   },
   methods: {
-    onClickBooking(){
-
+    onClickBooking () {
+      this.$router.push({ name: "Booking" 
+      });
     },
     formatDate (date) {
       if (!date) return null

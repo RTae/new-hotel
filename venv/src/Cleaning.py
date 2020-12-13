@@ -6,10 +6,10 @@ from sqlalchemy import func
 session = initDatabase()
 
 class Cleaning():
-    def create(self, employeeID, roomID, startDateTime, endDateTIme):
-        startDateTime = datetime.datetime.strptime(startDateTime, '%Y-%m-%d')
-        endDateTIme = datetime.datetime.strptime(endDateTIme, '%Y-%m-%d')
-        cleaning = TBL_CleaningRoomLineItem(employeeID=employeeID, roomID=roomID, startDateTime=startDateTime.date(), endDateTIme=endDateTIme.date())
+    def create(self, employeeID, roomID, startDateTime, endDateTime):
+        startDateTime = datetime.datetime.strptime(startDateTime, '%Y-%m-%d %H:%M')
+        endDateTime = datetime.datetime.strptime(endDateTime, '%Y-%m-%d %H:%M')
+        cleaning = TBL_CleaningRoomLineItem(employeeID=employeeID, roomID=roomID, startDateTime=startDateTime, endDateTime=endDateTime)
         session.add(cleaning)
         session.commit()
         log = {
@@ -38,15 +38,15 @@ class Cleaning():
             }
             return log
 
-    def update(self, employeeID, roomID, startDateTime, endDateTIme):
-        startDateTime = datetime.datetime.strptime(startDateTime, '%Y-%m-%d')
-        endDateTIme = datetime.datetime.strptime(endDateTIme, '%Y-%m-%d')
+    def update(self, employeeID, roomID, startDateTime, endDateTime):
+        startDateTime = datetime.datetime.strptime(startDateTime, '%Y-%m-%d %H:%M')
+        endDateTime = datetime.datetime.strptime(endDateTime, '%Y-%m-%d %H:%M')
         cleaning = session.query(TBL_CleaningRoomLineItem)
         cleaning = cleaning.filter(TBL_CleaningRoomLineItem.employeeID==employeeID, TBL_CleaningRoomLineItem.roomID==roomID)
         if cleaning.scalar() is not None :
             cleaning = cleaning.one()
-            cleaning.startDateTime = startDateTime.date()
-            cleaning.endDateTIme = endDateTIme.date()
+            cleaning.startDateTime = startDateTime
+            cleaning.endDateTime = endDateTime
             session.commit()
             log = {
                 "result":"",
@@ -86,7 +86,7 @@ class Cleaning():
         cleanings = session.query(TBL_CleaningRoomLineItem).all()
         return [self.serialize(cleaning) for cleaning in cleanings]
 
-    def readCleaningByEmployeeID(self, employeeID):
+    def getCleaningByEmployeeID(self, employeeID):
         cleanings = session.query(TBL_CleaningRoomLineItem)
         cleanings = cleanings.filter(TBL_CleaningRoomLineItem.employeeID==employeeID)
         cleanings = [self.serialize(cleaning) for cleaning in cleanings]
@@ -97,7 +97,7 @@ class Cleaning():
         }
         return log
     
-    def readCleaningByRoomID(self, roomID):
+    def getCleaningByRoomID(self, roomID):
         cleanings = session.query(TBL_CleaningRoomLineItem)
         cleanings = cleanings.filter(TBL_CleaningRoomLineItem.roomID==roomID)
         cleanings = [self.serialize(cleaning) for cleaning in cleanings]
@@ -113,6 +113,6 @@ class Cleaning():
             'employeeID': cleaning.employeeID,
             'roomID': cleaning.roomID,
             'startDateTime': cleaning.startDateTime,
-            'endDateTIme': cleaning.endDateTIme,
+            'endDateTIme': cleaning.endDateTime,
         }
     

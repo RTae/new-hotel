@@ -150,7 +150,7 @@ class Auth():
                 resultAuth = self.create(newAID, newCID, password)
                 if resultAuth["status"] == "1":
                     log = {
-                        "result":"",
+                        "result":newCID,
                         "msg":"",
                         "status":"1"
                     }
