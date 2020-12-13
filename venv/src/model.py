@@ -104,5 +104,5 @@ class TBL_CleaningRoomLineItem(Base):
     __tablename__ = 'TBL_CleaningRoomLineItem'
     employeeID = Column('employeeID', ForeignKey('TBL_Employees.employeeID'), primary_key=True)
     roomID = Column('roomID', ForeignKey('TBL_Rooms.roomID'), primary_key=True)
-    startDateTime = Column('startDateTime', sa.Date)
-    endDateTIme = Column('endDateTIme', sa.Date)
+    startDateTime = Column('startDateTime', sa.DateTime)
+    endDateTime = Column('endDateTIme', sa.DateTime)
