@@ -1,12 +1,11 @@
 <template>
   <v-app id="App">
-    <HeaderCore v-if="$store.getters.getCoreHeader"/>
+    <HeaderLogin v-if="false"/>
+    <HeaderAdmin v-if="true"/>
+    <HeaderLogo v-if="false"/>
+    <HeaderCore v-if="false"/>
     <Content/>
     <Footer/>
-    <HeaderLogin v-if="$store.getters.getLoginHeaderUser"/>
-    <HeaderAdmin v-if="$store.getters.getLoginHeaderAdmin"/>
-    <HeaderLogo v-if="$store.getters.getLogoHeader"/>
-    
   </v-app>
 </template>
 
@@ -28,9 +27,5 @@ export default {
     HeaderAdmin,
     HeaderLogo
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
