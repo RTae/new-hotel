@@ -39,11 +39,11 @@
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
-                        v-model="dateFormatted"
+                        v-model="arrivalDate"
                         persistent-hint
-                        append-icon="mdi-calendar"
+                        append-icon="date_range"
                         v-bind="attrs"
-                        @blur="date = parseDate(dateFormatted)"
+                        @blur="date = parseDate(arrivalDate)"
                         v-on="on"
                       ></v-text-field>
                     </template>
@@ -71,11 +71,11 @@
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
-                        v-model="dateFormatted"
+                        v-model="departureDate"
                         persistent-hint
-                        append-icon="mdi-calendar"
+                        append-icon="date_range"
                         v-bind="attrs"
-                        @blur="date = parseDate(dateFormatted)"
+                        @blur="date = parseDate(departureDate)"
                         v-on="on"
                       ></v-text-field>
                     </template>
@@ -120,6 +120,7 @@
                     elevation="2"
                     x-large
                     rounded
+                    @click="onClickBooking()"
                   > 
                   BOOK
                 </v-btn>
@@ -186,7 +187,19 @@
     <v-card class="room"> 
       <v-row class="containRoom">
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/single.svg"></v-img>
+          <v-hover v-slot:default="{ hover }">
+            <v-img class="imgRoom" src="../../../dist/img/single.svg">
+              <v-expand-transition>
+                <div
+                  v-if="hover"
+                  class="d-flex transition-fast-in-fast-out  grey darken-3 v-card--reveal display-3 white--text"
+                  style="height: 100%;"
+                >
+                  ฿ 1,500 / per night
+                </div>
+              </v-expand-transition>
+            </v-img>
+          </v-hover>
         </v-col>
         <v-col cols="6" justify="center"> 
             <v-row justify="center" style="margin-top:80px">
@@ -195,11 +208,6 @@
             <v-row justify="center" class="textDetailAboutUs">
               <div class="textDetaiRoomContain">
                 <label class="textDetaiRoom">This 22 sqm Single Room has single bed positioned near a window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
-              </div>
-            </v-row>
-            <v-row justify="center" align="center">
-              <div class="cardDetaiCost" align="center" justify="center">
-                <p class="textDetaiCost" style="margin-top:20px" >฿ 1,500 / night</p>
               </div>
             </v-row>
         </v-col>  
@@ -214,19 +222,38 @@
                 <label class="textDetaiRoom">This 26 sqm Superior Room has twin single beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
             </div>
           </v-row>
-          <v-row justify="center" align="center">
-            <div class="cardDetaiCost" align="center" justify="center">
-              <p class="textDetaiCost" style="margin-top:20px" >฿ 2,500 / night</p>
-            </div>
-          </v-row>
         </v-col>
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/double.svg"></v-img>
+          <v-hover v-slot:default="{ hover }">
+            <v-img class="imgRoom" src="../../../dist/img/double.svg">
+              <v-expand-transition>
+                <div
+                  v-if="hover"
+                  class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
+                  style="height: 100%;"
+                >
+                  ฿ 2,500 / per night
+                </div>
+              </v-expand-transition>
+            </v-img>
+          </v-hover>       
         </v-col>
       </v-row>
       <v-row class="containRoom">
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/suite.svg"></v-img>
+          <v-hover v-slot:default="{ hover }">
+            <v-img class="imgRoom" src="../../../dist/img/suite.svg">
+              <v-expand-transition>
+                  <div
+                    v-if="hover"
+                    class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
+                    style="height: 100%;"
+                  >
+                    ฿ 3,000 / per night
+                  </div>
+                </v-expand-transition>
+            </v-img>
+          </v-hover>
         </v-col>
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
@@ -235,11 +262,6 @@
           <v-row justify="center" style="margin-top:20px">
             <div class="textDetaiRoomContain">
               <label class="textDetaiRoom">This 50 sqm Superior Room has 2 room that it has a guest room and  a queen bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
-            </div>
-          </v-row>
-          <v-row justify="center" align="center">
-            <div class="cardDetaiCost" align="center" justify="center">
-              <p class="textDetaiCost" style="margin-top:20px" >฿ 3,000 / night</p>
             </div>
           </v-row>
         </v-col>
@@ -254,19 +276,38 @@
               <label class="textDetaiRoom">This 60 sqm deluxe Room has 2 room that it has a guest room and a king bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
             </div>
           </v-row>
-          <v-row justify="center" align="center">
-            <div class="cardDetaiCost" align="center" justify="center">
-              <p class="textDetaiCost" style="margin-top:20px" >฿ 4,000 / night</p>
-            </div>
-          </v-row>
         </v-col>
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/deluxe.svg"></v-img>
+          <v-hover v-slot:default="{ hover }">
+            <v-img class="imgRoom" src="../../../dist/img/deluxe.svg">
+              <v-expand-transition>
+                <div
+                  v-if="hover"
+                  class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
+                  style="height: 100%;"
+                >
+                  ฿ 4,000 / per night
+                </div>
+              </v-expand-transition>
+            </v-img>
+          </v-hover>
         </v-col>
       </v-row>
        <v-row class="containRoom">
         <v-col cols="6">
-          <v-img class="imgRoom" src="../../../dist/img/premier.svg"></v-img>
+          <v-hover v-slot:default="{ hover }">
+            <v-img class="imgRoom" src="../../../dist/img/premier.svg">
+              <v-expand-transition>
+                <div
+                  v-if="hover"
+                  class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
+                  style="height: 100%;"
+                >
+                  ฿ 5,000 / per night
+                </div>
+              </v-expand-transition>
+            </v-img>
+          </v-hover>
         </v-col>
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
@@ -275,12 +316,6 @@
           <v-row justify="center" style="margin-top:20px">
             <div class="textDetaiRoomContain">
               <label class="textDetaiRoom">This 70 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
-            </div>
-          </v-row>
-
-          <v-row justify="center" align="center">
-            <div class="cardDetaiCost" align="center" justify="center">
-              <p class="textDetaiCost" style="margin-top:20px" >฿ 5,000 / night</p>
             </div>
           </v-row>
         </v-col>
@@ -298,7 +333,8 @@ export default {
     numOfRoom: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
     peopel: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
     date: new Date().toISOString().substr(0, 10),
-    dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
+    arrivalDate: vm.formatDate(new Date().toISOString().substr(0, 10)),
+    departureDate: vm.formatDate(new Date().toISOString().substr(0, 10)),
     menu1: false,
     menu2: false,
     numRoomSingle: "12",
@@ -312,15 +348,21 @@ export default {
   }),
   computed: {
       computedDateFormatted () {
-        return this.formatDate(this.date)
+        return this.formatDate(this.date)        
       },
     },
   watch: {
     date (val) {
-      this.dateFormatted = this.formatDate(this.date)
+      this.arrivalDate = this.formatDate(this.date)
+    },
+    date (val) {
+      this.departureDate = this.formatDate(this.date)
     },
   },
   methods: {
+    onClickBooking(){
+
+    },
     formatDate (date) {
       if (!date) return null
 
@@ -339,8 +381,8 @@ export default {
 <style scoped>
 .main {
   background: #C0D9FF;
-  min-height: 100vh;
-  min-width: 2000vh;
+  height: 372vh;
+  width: 2000vh;
 }
 .a{
   background-color: blue;
@@ -376,7 +418,8 @@ export default {
   align-items: center;
   margin-left:10px;
   margin-right:10px;
-  font-weight: bolder;
+  font-size: 20px;
+  font-family: roboto ;
 }
 .SubChooseContain{
   height: 100px;
@@ -450,5 +493,13 @@ export default {
 .textDetaiRoom{
   font-size: 20px;
   font-family: roboto ;
+}
+.v-card--reveal {
+align-items: center;
+bottom: 0;
+justify-content: center;
+opacity: .5;
+position: absolute;
+width: 100%;
 }
 </style>

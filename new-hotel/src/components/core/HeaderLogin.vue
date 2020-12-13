@@ -72,9 +72,9 @@ export default {
   methods: {
     onClickHover (functionName) {
       if (functionName === "My Profile") {
-        this.$router.push({ name: "ProfileUser" })
+        this.$router.push({ name: "Profile" })
       }else if (functionName === "My Booking") {
-        this.$router.push({ name: "BookingUser" })
+        this.$router.push({ name: "BookingHistory" })
       } else if (functionName === "Logout") {
         this.$store.dispatch({
           type: "doLogout"

@@ -1,16 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// Guest
 import Home from '../views/User/Home'
 import Login from '../views/User/Login'
+import Signup from '../views/User/Signup.vue'
+// Customer
 import Profile from '../views/User/Login/Profile.vue'
 import Invoice from '../views/User/Login/Invoice.vue'
-import Signup from '../views/User/Signup.vue'
 import BookingHistory from '../views/User/Login/BookingHistory.vue'
 import Receipt from '../views/User/Login/Receipt.vue'
 import Booking from '../views/User/Login/Booking.vue'
-import Newtest from '../views/User/Newtest'
-
-
+import PaymentMethod from '../views/User/Login/PaymentMethod.vue'
+// Admin
+import HomeAdmin from '../views/Admin/HomeAdmin'
 
 Vue.use(VueRouter)
 
@@ -56,10 +58,15 @@ const routes = [
     component: Booking
   },
   {
-    path: "/newtest",
-    name: "Newtest",
-    component: Newtest
+    path: "/paymentmethod",
+    name: "PaymentMethod",
+    component: PaymentMethod
   },
+  {
+    path: "/homeadmin",
+    name: "HomeAdmin",
+    component: HomeAdmin
+  }
 ]
 const router = new VueRouter({
   mode: 'history',

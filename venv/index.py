@@ -6,6 +6,7 @@ from src import Room as R
 from src import Invoice as I
 from src import Receipt as Re
 from src import Employee as E
+from src import Cleaning as Cl
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +17,7 @@ Room = R.Room()
 Invoice = I.Invoice()
 Receipt = Re.Receipt()
 Employee = E.Employee()
+Cleaning = Cl.Cleaning()
 
 @app.route('/')
 @cross_origin()
@@ -618,4 +620,73 @@ def updateEmployeeType():
 def deleteEmployeeType(employeeTypeID=None):
     if employeeTypeID != None:
         log = Employee.deleteEmployeeType(employeeTypeID)
+        return jsonify(log)
+
+# Cleaning
+# createCleaning use for create Cleaning
+@app.route('/cleaning',methods=["POST"])
+@cross_origin()
+def createCleaning():
+    employeeID = request.form['employeeID']
+    roomID = request.form['roomID']
+    startDateTime = request.form['startDateTime']
+    endDateTIme = request.form['endDateTime']
+
+    logs = Cleaning.create(employeeID, roomID, startDateTime, endDateTIme)
+    return logs
+
+# readCleaning get all or get specific by employeeID and roomID from Cleaning
+@app.route('/cleaning',methods=["GET"])
+@cross_origin()
+def readCleaning():
+    employeeID = request.args.get('employeeID')
+    roomID = request.args.get('roomID')
+    if employeeID != None and roomID != None:
+        log = Cleaning.read(employeeID, roomID)
+        return jsonify(log)
+
+@app.route('/getAllCleaning', methods=["GET"])
+@cross_origin()
+def getAllCleaning():
+    log = Cleaning.getAllCleaning()
+    return jsonify(log)
+
+# updateCleaning use for update Cleaning 
+@app.route('/cleaning',methods=["PUT"])
+@cross_origin()
+def updateCleaning():
+    employeeID = request.form['employeeID']
+    roomID = request.form['roomID']
+    startDateTime = request.form['startDateTime']
+    endDateTime = request.form['endDateTime']
+
+    log = Cleaning.update(employeeID, roomID, startDateTime, endDateTime)
+    return jsonify(log)
+
+# deleteCleaning use for delele Cleaning
+@app.route('/cleaning',methods=["DELETE"])
+@cross_origin()
+def deleteCleaning():
+    employeeID = request.args.get('employeeID')
+    roomID = request.args.get('roomID')
+    if employeeID != None and roomID != None:
+        log = Cleaning.delete(employeeID, roomID)
+        return jsonify(log)
+    
+# getCleaningByEmployeeID get all cleaning by employeeID
+@app.route('/cleaningByEmployeeID',methods=["GET"])
+@cross_origin()
+def getCleaningByEmployeeID():
+    employeeID = request.args.get('employeeID')
+    if employeeID != None:
+        log = Cleaning.getCleaningByEmployeeID(employeeID)
+        return jsonify(log)
+
+# getCleaningByRoomID get all cleaning by roomID
+@app.route('/cleaningByRoomID',methods=["GET"])
+@cross_origin()
+def getCleaningByRoomID():
+    roomID = request.args.get('roomID')
+    if roomID != None:
+        log = Cleaning.getCleaningByRoomID(roomID)
         return jsonify(log)
