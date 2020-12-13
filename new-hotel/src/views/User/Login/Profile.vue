@@ -16,7 +16,6 @@
                 <p class="textDetail">Family name : {{ this.user.familyName  }}</p>
                 <p class="textDetail">Email : {{ this.user.email }}</p>
                 <p class="textDetail">Phone Number : {{ this.user.phoneNumber }}</p>
-                <p class="textDetail">Credit Card Number : {{ this.user.creditCardNumber }}</p>
                 <p class="textDetail">Point : {{ this.user.point }}</p>
               </v-card>
             </div>
@@ -30,15 +29,24 @@
 <script>
 export default {
   name: "Profile",
+  async mounted () {
+    const result = await api.getUser(localStorage.getItem(server.USERNAME))
+    if (result.data.status === "1") {
+      this.user.firstName = result.data.result[0].Firstname
+      this.user.familyName = result.data.result[0].Familyname
+      this.user.email = result.data.result[0].Email
+      this.user.phoneNumber = result.data.result[0].PhoneNumber
+      this.user.point = result.data.result[0].Point
+    }
+  },
   data () {
     return {
       user: {
-        firstName: "Thunwara",
-        familyName: "Sunthon",
-        email: "Thunwara@gmail.com",
-        phoneNumber: "098-639-5858",
-        creditCardNumber: "4859-4785-5899-696",
-        point: "3489"
+        firstName: "",
+        familyName: "",
+        email: "",
+        phoneNumber: "",
+        point: ""
       }
     }
   }
@@ -49,26 +57,27 @@ export default {
 .main {
   background-color: #C0D9FF;
 }
+.bg {
+  display: flex;
+  height: 800px;
+  width: 100vw;
+}
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
   width: 900px;
-  height: 500px;
-  margin-top: 15vh;
-  margin-left: 20px;
+  height: 520px;
  }
-
 .cardDetailContainer {
   color: #A0C6FF;
   border-radius: 20px;
   width: 750px;
-  height: 250px;
+  height: 280px;
   margin-top: 5vh;
   margin-left: 75px;
   display: grid;
   grid-template-columns: auto auto;
  }
-
 .text {
   font-size: 40px;
   color: #FFFFFF;
@@ -76,9 +85,7 @@ export default {
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 80px;
-
 }
-
 .textDetail {
   font-size: 18px;
   color: #5c5c5c;
