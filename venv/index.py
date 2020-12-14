@@ -441,6 +441,21 @@ def readReceipt(receiptID=None):
         log = Receipt.read(receiptID)
         return jsonify(log)
 
+@app.route('/showReceiptReportByReceiptIDLine/<receiptID>',methods=["GET"])
+@cross_origin()
+def showReceiptReportByReceiptIDLine(receiptID=None):
+    if receiptID != None:
+        log = Receipt.showReceiptReportByReceiptIDLine(receiptID)
+        return jsonify(log)
+
+
+@app.route('/showReceiptReportByReceiptID/<receiptID>',methods=["GET"])
+@cross_origin()
+def showReceiptReportByReceiptID(receiptID=None):
+    if receiptID != None:
+        log = Receipt.showReceiptReportByReceiptID(receiptID)
+        return jsonify(log)
+
 @app.route('/getAllReceipt', methods=["GET"])
 @cross_origin()
 def getAllReceipt():

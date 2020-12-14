@@ -214,6 +214,74 @@ class Receipt():
         }
         return log
 
+    def showReceiptReportByReceiptID(self, receiptID):
+        receipt = []
+        receiptID = "'"+receiptID+"'"
+        results = fetch('   SELECT  r."receiptID", r."dateCreate", r."totalReceived",    \
+		                            r."remark", r."paymentRef", c."firstname",           \
+		                            c."familyname", c."email", c."phoneNumber"           \
+                            FROM "TBL_Receipts" r                                        \
+                            INNER JOIN "TBL_Customer" c                                  \
+                                ON r."customerID" = c."customerID"                       \
+                            WHERE r."receiptID" = {}'.format(receiptID))
+        for result in results:
+            tempDict = {}
+            temp = cursortorow(result)
+            tempDict = {
+                "receiptID": temp[0],
+                "dateCreate": temp[1],
+                "totalReceived": temp[2],
+                "remark": temp[3],
+                "paymentRef": temp[4],
+                "firstname": temp[5],
+                "familyname": temp[6],
+                "email": temp[7],
+                "phoneNumber": temp[8],
+            }
+            receipt.append(tempDict)
+        log = {
+            "result":receipt,
+            "msg":"",
+            "status":"1"
+        }
+        return log
+    
+    def showReceiptReportByReceiptIDLine(self, receiptID):
+        receiptID = "'"+receiptID+"'"
+        results = fetch('   SELECT re."receiptID", rc."name", rc."fare", i."checkIn",  \
+		                        i."checkOut", i."numberOfRoom", i."periodOfStay",   \
+		                        i."amountDue"                                       \
+                            FROM "TBL_ReceiptsLineItem" re                      \
+                            INNER JOIN "TBL_Invoices" i                         \
+                                ON re."invoiceID" = i."invoiceID"               \
+                            INNER JOIN "TBL_Customer" c                         \
+                                ON i."customerID" = c."customerID"              \
+                            INNER JOIN "TBL_RoomCategorys" rc                   \
+                                ON i."roomCatID" = rc."roomCatID"               \
+                            WHERE re."receiptID" = {}'.format(receiptID))
+        receipt = []
+        for result in results:
+            tempDict = {}
+            temp = cursortorow(result)
+            tempDict ={
+                "receiptID": temp[0],
+                "roomType": temp[1],
+                "fare": temp[2],
+                "checkIn": temp[3],
+                "checkOut": temp[4],
+                "numberOfRoom": temp[5],
+                "periodOfStay": temp[6],
+                "amountDue": temp[7],
+            }
+            receipt.append(tempDict)
+        
+        log = {
+            "result":receipt,
+            "msg":"",
+            "status":"1"
+        }
+        return log
+
     def serialize(self,receipt):
         return {
             'receiptID': receipt.receiptID,
