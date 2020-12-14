@@ -22,3 +22,11 @@ export const createReceiptLine = async values =>{
     const result = await httpClient.post(server.RECEIPT_LINE, bodyFormData);
     return result.data
 };
+
+export const reportReceiptByReceiptID = async receiptID => {
+    return await httpClient.get(server.RECEIPT_REPORT_BY_RECEIPTID + "/" + receiptID);
+}
+
+export const reportReceiptLineByReceiptID = async receiptID => {
+    return await httpClient.get(server.RECEIPT_REPORT_LINE_BY_RECEIPTID + "/" + receiptID);
+}
