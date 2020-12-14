@@ -1,5 +1,6 @@
 from .model import TBL_Rooms, TBL_RoomCategorys
 from .helper import *
+from sqlalchemy import func
 
 session = initDatabase()
 
@@ -161,6 +162,16 @@ class Room():
     def getAllRoomCat(self):
         roomCats = session.query(TBL_RoomCategorys).all()
         return [self.serializeRoomCat(roomCat) for roomCat in roomCats]
+
+    def getRoomFreeByRoomCat(self, roomCatID, limit=None):
+        if limit != None:
+            rooms = session.query(TBL_Rooms).filter(TBL_Rooms.roomCatID==roomCatID, TBL_Rooms.status==(1==1)).order_by(func.random()).limit(int(limit)).all()
+            rooms = [self.serialize(room) for room in rooms]
+            return rooms
+        else:
+            rooms = session.query(TBL_Rooms).filter(TBL_Rooms.roomCatID==roomCatID, TBL_Rooms.status==(1==1)).order_by(func.random()).all()
+            rooms = [self.serialize(room) for room in rooms]
+            return rooms
     
     def serialize(self,room):
         return {
