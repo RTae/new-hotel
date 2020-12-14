@@ -48,6 +48,13 @@ def readCustomer(customerID=None):
         log = Customer.read(customerID)
         return jsonify(log)
 
+@app.route('/customerEmail/<email>',methods=["GET"])
+@cross_origin()
+def readCustomer(email=None):
+    if email != None:
+        log = Customer.readCustomerByEmail(email)
+        return jsonify(log)
+
 @app.route('/getAllcustomer', methods=["GET"])
 @cross_origin()
 def getAllCustomer():

@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="main" id="login">
+    <v-container fluid class="main" id="HomeAdmin">
         <v-row justify="center" align="center">
             <v-card style="background-color: #A0C6FF; border-radius: 40px;" class="cardContainer">
                 <v-row>
@@ -52,10 +52,11 @@
                 </v-btn>
             </div>
         </v-row>
+        <!-- Add Invoice -->
         <v-dialog
           :value="modalAdd"
           persistent
-          max-width="700"          
+          max-width="600"          
         >
             <v-card class="cardModalContainer">
                 <v-form
@@ -112,6 +113,7 @@
                             </template>
                             <v-date-picker
                                 v-model="invoice.dateCheckIn"
+                                :min="this.today"
                                 no-title
                                 @input="menuCheckIn = false"
                             ></v-date-picker>
@@ -133,16 +135,17 @@
                             >
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
-                                v-model="invoice.dateCheckOut"
-                                persistent-hint
-                                prepend-icon="mdi-calendar"
-                                readonly
-                                v-bind="attrs"
-                                v-on="on"
+                                    v-model="invoice.dateCheckOut"
+                                    persistent-hint
+                                    prepend-icon="mdi-calendar"
+                                    readonly
+                                    v-bind="attrs"
+                                    v-on="on"
                                 ></v-text-field>
                             </template>
                             <v-date-picker
                                 v-model="invoice.dateCheckOut"
+                                :min="this.tomorrow"
                                 no-title
                                 @input="menuCheckOut = false"
                             ></v-date-picker>
@@ -164,17 +167,38 @@
                 </v-form>
             </v-card>
         </v-dialog>
+        <!-- Stepper -->
+        <v-dialog 
+            :value="modalStepper"
+            persistent
+            width="550"
+        >
+            <Stepper/>
+        </v-dialog>
     </v-container>
 </template>
 
 <script>
+import Stepper from "../../components/addtions/Stepper"
 export default {
-  name: "login",
+  name: "HomeAdmin",
+  components: {
+    Stepper
+  },
+  mounted() {
+    this.today = new Date().toISOString().substr(0, 10)
+    const tomorrow = new Date(this.today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    this.tomorrow = tomorrow.toISOString().substr(0, 10)
+  },
   data () {
     return {
+        today: "",
+        tomorrow: "",
         menuCheckIn: false,
         menuCheckOut: false,
         modalAdd: false,
+        modalStepper: true,
         valid: true,
         counter: 1,
         invoice: {
@@ -226,6 +250,9 @@ export default {
         onClickCancel() {
             this.modalAdd = false
         },
+        onClickCancelUser() {
+            this.modalUser = false
+        },
         submitAdd() {
             var state = this.$refs.form.validate();
             if (state) {
@@ -246,6 +273,21 @@ export default {
                 this.modalAdd = false
             }
         },
+        submitUser() {
+            var state = this.$refs.formNewUser.validate();
+            if (state){
+                this.$store.dispatch({
+                    type:"doRegister",
+                    firstname: this.userNew.firstname,
+                    familyname: this.userNew.familyname,
+                    email: this.userNew.email,
+                    phoneNumber: this.userNew.phonenumber,
+                    creditCardNumber: "11",
+                    point: "100",
+                    password: this.userNew.passwrod
+                })
+            }
+        }
     },
     computed:{
         checkState(){
@@ -312,6 +354,17 @@ export default {
     width: 70vw;
     display: flex;
     justify-content: flex-end;
+}
+
+.cardSelectContainer{
+    margin-top: 20px;
+    background-color: #A0C6FF;
+    width:  200px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 </style>

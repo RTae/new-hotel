@@ -13,7 +13,7 @@
               <v-card style= "border-radius: 20px;" class="cardDetailContainer">
                 <v-col >
                 <v-row  v-for="order in orders" :key="order.id" align="center" justify="center">
-                <label class="textDetail">Room Type : {{ order.roomtype }}</label>
+                <p class="textDetail">Room Type : {{ order.roomtype }}</p>
                 <v-spacer></v-spacer>
                 <p class="textDetail">x   {{ order.periodofstay }} day</p>
                 <p class="textDetail">x {{ order.numberofroom }} room</p>
@@ -34,8 +34,8 @@
                 column
                 required
               >
-                <v-radio label="Credit Card" color="info" value="a" />
-                <v-radio label="Cash" color="info" value="b" />
+                <v-radio class="textradio" label="Credit Card" color="info" value="a" />
+                <v-radio class="textradio" label="Cash" color="info" value="b" />
               </v-radio-group>
             </div>
           </div>
@@ -48,7 +48,7 @@
                       max-height="800px"
                     >
                       <template v-slot:activator="{ on, attrs }">
-                        <v-btn
+                        <v-btn @click="onClickCancel()"
                           color="#ED3636"
                           x-large
                           dark
@@ -82,7 +82,7 @@
                             dark
                             rounded
                             width="100px"
-                            @click="dialog = false"
+                            @click="onClickYes()"
                           >
                             YES
                         </v-btn>
@@ -141,6 +141,10 @@ export default {
       onClickPayment () {
       this.$router.push({ name: "Invoice" 
       });
+    },
+      onClickYes () {
+      this.$router.push({ name: "Home" 
+      });
     }
   }
 };
@@ -163,9 +167,8 @@ export default {
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
-  width: 900px;
-  height: 755px;
-  margin-left: 20px;
+  width: 950px;
+  height: 800px;
  }
 
 .cardDetailContainer {
@@ -173,7 +176,7 @@ export default {
   border-radius: 20px;
   width: 750px;
   height: 270px;
-  margin-top: 5vh;
+  margin-top: 3vh;
   margin-left: 75px;
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -186,7 +189,6 @@ export default {
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 80px;
-
 }
 
 .textDetail {
@@ -198,13 +200,11 @@ export default {
 }
 
 
-
 .radioContainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   margin-left: 75px;
-
 }
 
 .radioLineContainer {
@@ -212,8 +212,8 @@ export default {
   flex-wrap: wrap;
   align-content: flex-start;
   flex-direction: row;
-  
 }
+
 .cardTotal{
   display: flex;
   flex-direction: row;
@@ -244,6 +244,20 @@ export default {
   height: 100px;
   background-color:white;
   border-radius: 100px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 25px;
+  color: #ffffff;
+  font-family: "Roboto";
+}
+
+.textradio {
+  font-weight: bold;
+  font-size: 25px;
+  color: #ffffff;
+  font-family: "Roboto";
 }
 
 </style>
