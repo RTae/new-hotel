@@ -230,7 +230,7 @@ class Room():
     def createWithOutID(self, roomCatID, status, cleanStatus):
         maxRID = session.query(func.max(TBL_Rooms.roomID)).one()
         newRID = increaseID(maxRID[0], "r")
-        log = self.create(newRID, roomCatID, roomCatID, status, cleanStatus)
+        log = self.create(newRID, roomCatID, status, cleanStatus)
         if (log["status"] == "1"):
             log = {
                 "result":newRID,
