@@ -239,6 +239,11 @@ export default {
     },
 
     async created () {
+        this.initialize()
+    },
+
+    methods: {
+      async initialize(){
         var resultCat = await api.roomSummaryByRoomCat()
         var resultSum = await api.roomSummary()
         this.rooms = resultSum.data.result
@@ -246,9 +251,7 @@ export default {
         this.roomCat.forEach(room => {
             this.totalEmpty = this.totalEmpty + parseInt(room.count)
         });
-    },
-
-    methods: {
+      },
 
       editItem (item) {
         this.editedIndex = this.rooms.indexOf(item)
@@ -312,7 +315,24 @@ export default {
           const result = await api.updateRoom({roomID, roomCatID, status, cleanStatus, })
           Object.assign(this.rooms[this.editedIndex], this.editedItem)
         } else {
-          this.rooms.push(this.editedItem)
+            var roomType = this.editedItem.roomType
+            var status = this.editedItem.status
+            var cleanStatus = this.editedItem.cleanStatus
+            var roomCatID = this.roomCatObject.find( ({ name }) => name === roomType );
+            roomCatID = roomCatID.id
+            if (status == "False"){
+                status = "0"
+            } else {
+                status = "1"
+            }
+            
+            if (cleanStatus == "False"){
+                cleanStatus = "0"
+            }else {
+                cleanStatus = "1"
+            }
+            await api.createRoom({roomCatID, status, cleanStatus})
+            await this.initialize()
         }
         this.close()
         this.$store.commit("SET_LOADING_STATE", false)
