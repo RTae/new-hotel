@@ -186,7 +186,7 @@ class Receipt():
     def createWithOutID(self, customerID, paymentMedId, cuponID, dateCreate, paymentRef, totalReceived, remark):
         maxRID = session.query(func.max(TBL_Receipts.receiptID)).one()
         newRID = increaseID(maxRID[0], "re")
-        log = self.create(customerID, paymentMedId, cuponID, dateCreate, paymentRef, totalReceived, remark)
+        log = self.create(newRID, customerID, paymentMedId, cuponID, dateCreate, paymentRef, totalReceived, remark)
 
         if (log["status"] == "1"):
             log = {
