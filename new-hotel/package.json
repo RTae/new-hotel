@@ -10,6 +10,7 @@
     "@lazy-copilot/datetimepicker": "^0.1.48",
     "@mdi/font": "^5.8.55",
     "@mdi/js": "^5.8.55",
+    "axios": "^0.21.0",
     "date-fns": "^2.16.1",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
