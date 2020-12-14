@@ -47,7 +47,7 @@
         </v-row>
         <v-row justify="center">
             <div class="btnContainer">
-                <v-btn :disabled="this.invoices.length === 0" style="width: 139px; height: 51px; background: #A0C6FF; border-radius: 30px;">
+                <v-btn @click="onClickDone" :disabled="this.invoices.length === 0" style="width: 139px; height: 51px; background: #A0C6FF; border-radius: 30px;">
                     Done
                 </v-btn>
             </div>
@@ -145,7 +145,7 @@
                             </template>
                             <v-date-picker
                                 v-model="invoice.dateCheckOut"
-                                :min="this.tomorrow"
+                                :min="this.invoice.dateCheckIn"
                                 no-title
                                 @input="menuCheckOut = false"
                             ></v-date-picker>
@@ -154,7 +154,7 @@
                     </v-row>
                     <v-row>
                         <v-col cols="3" offset="4">
-                            <v-btn @click="onClickCancel()" color="red" class="btnModal">
+                            <v-btn @click="onClickInvoiceCancel()" color="red" class="btnModal">
                                 <p style="margin-top:16px">Cancel</p>
                             </v-btn>                        
                         </v-col>
@@ -173,7 +173,7 @@
             persistent
             width="550"
         >
-            <Stepper/>
+            <Stepper @close="onClickCancel" />
         </v-dialog>
     </v-container>
 </template>
@@ -190,6 +190,7 @@ export default {
     const tomorrow = new Date(this.today)
     tomorrow.setDate(tomorrow.getDate() + 1)
     this.tomorrow = tomorrow.toISOString().substr(0, 10)
+    this.invoice.dateCheckOut = tomorrow.toISOString().substr(0, 10)
   },
   data () {
     return {
@@ -198,7 +199,7 @@ export default {
         menuCheckIn: false,
         menuCheckOut: false,
         modalAdd: false,
-        modalStepper: true,
+        modalStepper: false,
         valid: true,
         counter: 1,
         invoice: {
@@ -247,11 +248,11 @@ export default {
         onClickAdd() {
             this.modalAdd = true
         },
-        onClickCancel() {
+        onClickInvoiceCancel(){
             this.modalAdd = false
         },
-        onClickCancelUser() {
-            this.modalUser = false
+        onClickCancel( value ) {
+            this.modalStepper = value
         },
         submitAdd() {
             var state = this.$refs.form.validate();
@@ -273,25 +274,13 @@ export default {
                 this.modalAdd = false
             }
         },
-        submitUser() {
-            var state = this.$refs.formNewUser.validate();
-            if (state){
-                this.$store.dispatch({
-                    type:"doRegister",
-                    firstname: this.userNew.firstname,
-                    familyname: this.userNew.familyname,
-                    email: this.userNew.email,
-                    phoneNumber: this.userNew.phonenumber,
-                    creditCardNumber: "11",
-                    point: "100",
-                    password: this.userNew.passwrod
-                })
-            }
+        onClickDone() {
+            this.modalStepper = true
+            this.$store.commit("SET_INVOICES", this.invoices)
         }
     },
     computed:{
         checkState(){
-            console.log(this.invoices.length !== 0)
             if (this.invoices.length !== 0){
                 return false
             } else {
