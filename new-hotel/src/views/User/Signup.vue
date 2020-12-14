@@ -148,7 +148,7 @@
                         v-on="on"
                         :disabled="!valid" class="signUpBtn" type="submit"
                       >
-                      Sigup
+                      Signup
                       </v-btn>
                     </template>
               
@@ -163,7 +163,7 @@
                         <v-btn
                           color="primary"
                           text
-                          @click="dialog = false"
+                          @click="onClickOk()"
                           block
                         >
                           Ok
@@ -211,6 +211,10 @@ export default {
   computed: {
   },
   methods: {
+    onClickOk() {
+      this.$router.push({ name: "Home" 
+        });
+    },
     async submitRegister () {
       this.$refs.FirstName.focus();
       var state = this.$refs.form.validate();

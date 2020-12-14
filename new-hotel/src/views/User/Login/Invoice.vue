@@ -30,13 +30,13 @@
                             <v-row class="ml-10" justify="start">
                              <div class="inputFiled"  style="width: 200px;">
                               <v-text-field
-                                  ref="creaditNumber"
+                                  ref="nameOnCard"
                                   :rules="[v => !!v || 'Name on card is required']"
-                                  v-model="creaditNumber"
-                                  solo
-                                  rounded
-                                  outlined
-                                  autocomplete="creaditNumber"
+                                  v-model="nameOnCard"
+                                  filled
+                                  dense
+                                  placeholder="S. THUNWARA"
+                                  autocomplete="nameOnCard"
                               />   
                               </div>
                             </v-row>
@@ -44,18 +44,18 @@
                         </div>
                         <div style="width:300px;">
                           <v-col style="width:300px;" >
-                            <v-row class="ml-8" justify="start">
+                            <v-row class="ml-6" justify="start">
                               <label class="textDetail" >Expire date :</label>
                             </v-row>
-                            <v-row class="ml-8" justify="start">
+                            <v-row class="ml-6" justify="start">
                               <div class="inputFiled"  style="width: 200px;">
                               <v-text-field
                                 ref="expireDate"
                                 :rules="[v => !!v || 'Expire date is required']"
                                 v-model="expireDate"
-                                solo
-                                rounded
-                                outlined
+                                filled
+                                dense
+                                placeholder="XX/XX"
                                 autocomplete="expireDate"
                               />
                               </div>
@@ -70,14 +70,14 @@
                               <label class="textDetail" >CreditCard Number :</label>
                             </v-row>
                             <v-row class="ml-10" justify="start">
-                              <div class="inputFiled" style="width: 400px;">
+                              <div class="inputFiled" style="width: 270px;">
                               <v-text-field
                                   ref="creaditNumber"
                                   :rules="[v => !!v || 'Credit card Number is required']"
                                   v-model="creaditNumber"
-                                  solo
-                                  rounded
-                                  outlined
+                                  filled
+                                  dense
+                                  placeholder="XXXX-XXXX-XXXX-XXXX"
                                   autocomplete="creaditNumber"
                               />   
                               </div>
@@ -86,18 +86,18 @@
                         </div>
                         <div style="width:200px;">
                           <v-col style="width:200px;">
-                            <v-row class="ml-8" justify="start">
+                            <v-row class="ml-6" justify="start">
                               <label class="textDetail">CVV :</label>
                             </v-row>
-                            <v-row class="ml-8" justify="start">
+                            <v-row class="ml-6" justify="start">
                               <div class="inputFiled"  style="width: 150px;">
                               <v-text-field
                                 ref="cvv"
                                 :rules="[v => !!v || 'CVV is required']"
                                 v-model="cvv"
-                                solo
-                                rounded
-                                outlined
+                                filled
+                                dense
+                                placeholder="XXX"
                                 autocomplete="cvv"
                               />
                               </div>
@@ -117,9 +117,11 @@
                     </v-row>
                 </v-card>
             </v-row>
+
+            <!--BUTTON&DIALOG-->
             <v-row justify="center" style="margin-top:220px;">
                 <div class="cardTotal" >
-                   <v-dialog
+                  <v-dialog
                       v-model="dialogCancel"
                       persistent
                       width="500px"
@@ -196,7 +198,7 @@
                               <label style="font-size:18px; color:black;">Customer ID : {{this.user.customerID}}</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
-                              <labe   style="font-size:18px; color:black;">Date :</labe>
+                              <label   style="font-size:18px; color:black;">Date :</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
                               <label style="font-size:18px; color:black;">Payment Method : Credit Card</label>
@@ -236,6 +238,11 @@ export default {
   name: "Invoice",
   data () {
     return {
+      expireDate:"",
+      nameOnCard:"",
+      creaditNumber:"",
+      cvv:"",
+      total:"",
       user: {
         firstName: "",
         familyName: "",
@@ -259,15 +266,6 @@ export default {
     onClickYes () {
       this.$router.push({ name: "Home" 
       });
-    }
-  },
-  async mounted () {
-    this.$store.commit("SET_DIALOG_LOADING", true)
-    const id = localStorage.getItem(server.USERNAME)
-    const result = await api.getUser(id)
-    if (result.data.status === "1") {
-      this.user.firstName = result.data.result[0].Firstname
-      this.user.familyName = result.data.result[0].Familyname
     }
   },
 };

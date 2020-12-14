@@ -3,7 +3,7 @@
     <v-row class="bg">
     <v-toolbar
         src="../../../../dist/img/mainFirst.svg"
-        height="800px"
+        height="815px"
         width="100vw"   
         flat
       >
@@ -56,10 +56,11 @@ export default {
 <style scoped>
 .main {
   background-color: #C0D9FF;
+  height: 815px;
 }
 .bg {
   display: flex;
-  height: 800px;
+  height: 815px;
   width: 100vw;
 }
 .cardContainer {
@@ -85,6 +86,7 @@ export default {
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 80px;
+  font-weight:bold;
 }
 .textDetail {
   font-size: 18px;
