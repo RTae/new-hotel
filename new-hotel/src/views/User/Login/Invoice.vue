@@ -30,13 +30,13 @@
                             <v-row class="ml-10" justify="start">
                              <div class="inputFiled"  style="width: 200px;">
                               <v-text-field
-                                  ref="creaditNumber"
+                                  ref="nameOnCard"
                                   :rules="[v => !!v || 'Name on card is required']"
-                                  v-model="creaditNumber"
+                                  v-model="nameOnCard"
                                   solo
                                   rounded
                                   outlined
-                                  autocomplete="creaditNumber"
+                                  autocomplete="nameOnCard"
                               />   
                               </div>
                             </v-row>
@@ -117,9 +117,11 @@
                     </v-row>
                 </v-card>
             </v-row>
+
+            <!--BUTTON&DIALOG-->
             <v-row justify="center" style="margin-top:220px;">
                 <div class="cardTotal" >
-                   <v-dialog
+                  <v-dialog
                       v-model="dialogCancel"
                       persistent
                       width="500px"
@@ -196,7 +198,7 @@
                               <label style="font-size:18px; color:black;">Customer ID : {{this.user.customerID}}</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
-                              <labe   style="font-size:18px; color:black;">Date :</labe>
+                              <label   style="font-size:18px; color:black;">Date :</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
                               <label style="font-size:18px; color:black;">Payment Method : Credit Card</label>
@@ -236,6 +238,11 @@ export default {
   name: "Invoice",
   data () {
     return {
+      expireDate:"",
+      nameOnCard:"",
+      creaditNumber:"",
+      cvv:"",
+      total:"",
       user: {
         firstName: "",
         familyName: "",
@@ -259,15 +266,6 @@ export default {
     onClickYes () {
       this.$router.push({ name: "Home" 
       });
-    }
-  },
-  async mounted () {
-    this.$store.commit("SET_DIALOG_LOADING", true)
-    const id = localStorage.getItem(server.USERNAME)
-    const result = await api.getUser(id)
-    if (result.data.status === "1") {
-      this.user.firstName = result.data.result[0].Firstname
-      this.user.familyName = result.data.result[0].Familyname
     }
   },
 };

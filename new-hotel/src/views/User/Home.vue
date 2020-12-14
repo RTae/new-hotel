@@ -2,9 +2,9 @@
   <v-container fluid class="main" id="Home">
     <v-row class="bg">
       <v-toolbar
-        src="../../../dist/img/mainFirst.svg"
+        src="../../../dist/img/hotel.svg"
         height="800px"
-        width="100vw"   
+        width="800px"   
         flat
       >
         <div class="cardContain" align="center"> 
@@ -367,7 +367,7 @@ export default {
 <style scoped>
 .main {
   background: #C0D9FF;
-  height: 372vh;
+  min-height: 372vh;
   width: 2000vh;
 }
 .a{
@@ -413,10 +413,10 @@ export default {
 }
 .cardAbout{
   background-color: white;
-  opacity:  80%;
+  opacity:  70%;
   width: 1400px;
-  height: 450px;
-  margin-top: 50px;
+  height: 350px;
+  margin-top: 80px;
 }
 .numRoom{
   display: flex;
@@ -434,13 +434,14 @@ export default {
   font-family: roboto ;
 }
 .textAbout{
-  font-size: 45px;
+  font-size: 40px;
   font-weight: bolder;
   font-family: roboto ;
-  margin-top: 60px;
+  margin-top: 45px;
+  margin-bottom: 25px;
 }
 .textDetailAboutUs{
-  font-size: 25px;
+  font-size: 20px;
   font-family: roboto ; 
   color: black; 
 } 

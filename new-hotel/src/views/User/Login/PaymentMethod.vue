@@ -112,6 +112,7 @@ export default {
   id: "id",
   data () {
     return {
+      total:"",
       orders: [{
         roomtype: "Deluxe",
         periodofstay: "5",
@@ -153,6 +154,7 @@ export default {
 <style scoped>
 .main {
   background-color: #C0D9FF;
+  height: 1010px;
 }
 
 .bg {
@@ -161,7 +163,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   justify-content: center;
-  height: 990px;
+  height: 1000px;
   width: 100vw;
 }
 .cardContainer {
@@ -258,6 +260,10 @@ label {
   font-size: 25px;
   color: #ffffff;
   font-family: "Roboto";
+}
+.large label {
+  padding-left: 24px;
+  font-size: 48px;
 }
 
 </style>

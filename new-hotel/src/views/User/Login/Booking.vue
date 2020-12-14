@@ -252,6 +252,10 @@ export default {
         onClickAdd() {
             this.modalAdd = true
         },
+        onClickNext() {
+           this.$router.push({ name: "Invoice" 
+          });
+        },
         onClickCancel() {
             this.modalAdd = false
         },

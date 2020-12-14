@@ -79,6 +79,7 @@ export default {
   font-family: "Roboto";
   margin-top: 50px;
   margin-bottom: 15px;
+  font-weight: bold;
 
 }
 
