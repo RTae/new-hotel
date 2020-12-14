@@ -532,6 +532,11 @@ export default {
     onClicklastStep() {
       this.step = 1
       this.onClickCancelUser()
+      this.$store.commit("SET_INVOICES", [])
+    },
+    onClickPrint() {
+      this.$store.commit("SET_INVOICES", [])
+      this.$router.push({ name: "PrintPage", query:{ receiptID: this.receiptID }});
     }
   },
 }
