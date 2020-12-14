@@ -12,8 +12,11 @@ export default new Vuex.Store({
     headerAdminState: false,
     loadingState: false,
     userid: "",
+    customer: {},
     dialogState: false,
     dialogMessage: "",
+    invoices: [],
+    customerID: "",
   },
   getters: {
     getHeaderCoreState( state ){
@@ -34,11 +37,20 @@ export default new Vuex.Store({
     getUserID( state ){
       return state.userid
     },
+    getCustomer ( state ){
+      return state.customer
+    },
     getDialogState( state ){
       return state.dialogState
     },
     getDialogMessage( state ){
       return state.dialogMessage
+    },
+    getInvices( state ) {
+      return state.invoices
+    },
+    getCustomerID( state ){
+      return state.customerID
     }
   },
   mutations: {
@@ -60,28 +72,32 @@ export default new Vuex.Store({
     SET_USER_ID( state, value ){
       state.userid = value
     },
+    SET_CUSTOMER( state, value ){
+      state.customer = value
+    },
     SET_DIALOG_STATE( state, value){
       state.dialogState = value
     },
     SET_DIALOG_MSG( state, value ){
       state.getDialogMessage = value
+    },
+    SET_INVOICES( state, value ){
+      state.invoices = value
+    },
+    SET_CUSTOMER_ID( state, value ){
+      state.customerID = value
     }
   },
   actions: {
-    loading({ commit }, { state }) {
-      commit("SET_LOADING_STATE", state)
-    },
-
     async doRegister ({ commit }, { firstname, familyname, email, phoneNumber, creditCardNumber, point, password }) {
-      commit("SET_LOADING_STATE", true)
       var result = await api.register({ firstname, familyname, email, phoneNumber, creditCardNumber, point, password })
       if  (result.status === "1") {
-        commit("SET_USER_ID", result.result)
+        console.log(result.result)
+        commit("SET_CUSTOMER_ID", result.result)
       } else {
         commit("SET_DIALOG_STATE", true)
         commit("SET_DIALOG_MSG", result.msg)
       } 
-      commit("SET_LOADING_STATE", false)
     },
   }
 })

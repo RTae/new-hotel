@@ -3,7 +3,7 @@
     <v-row class="bg" >
     <v-toolbar
         src="../../../../dist/img/bgPayment.svg"
-        height="1200px"
+        height="1000px"
         width="100vw"   
       >
       <v-row justify="center" class="cardBigContainer">
@@ -44,19 +44,19 @@
                               >
                                   <v-row>
                                       <v-col cols="4" offset="1">
-                                          <label style="color:black; font-size:25px">Room Type:</label>
+                                          <label style="color:black; font-size:22px;">Room Type:</label>
                                       </v-col>
                                       <v-col cols="6">
                                           <v-select
                                               :items="items"
                                               v-model="invoice.roomType"
-                                              :rules="[v => !!v || 'Item is required']"
+                                              :rules="[v => !!v || 'Room type is required']"
                                           ></v-select>
                                       </v-col>
                                   </v-row>
                                   <v-row>
                                       <v-col cols="4" offset="1">
-                                          <label style="color:black; font-size:25px">Number of Room:</label>
+                                          <label style="color:black; font-size:22px">Number of Room:</label>
                                       </v-col>
                                       <v-col cols="6">
                                           <v-text-field
@@ -66,7 +66,7 @@
                                   </v-row>
                                   <v-row>
                                       <v-col cols="4" offset="1">
-                                          <label style="color:black; font-size:25px">Check In:</label>
+                                          <label style="color:black; font-size:22px">Check In:</label>
                                       </v-col>
                                       <v-col cols="6">
                                           <v-menu
@@ -90,6 +90,7 @@
                                           <v-date-picker
                                               v-model="invoice.dateCheckIn"
                                               no-title
+                                              :min="this.today"
                                               @input="menuCheckIn = false"
                                           ></v-date-picker>
                                           </v-menu>
@@ -97,7 +98,7 @@
                                   </v-row>
                                   <v-row>
                                       <v-col cols="4" offset="1">
-                                          <label style="color:black; font-size:25px">Check out:</label>
+                                          <label style="color:black; font-size:22px">Check out:</label>
                                       </v-col>
                                       <v-col cols="6">
                                           <v-menu
@@ -121,6 +122,7 @@
                                           <v-date-picker
                                               v-model="invoice.dateCheckOut"
                                               no-title
+                                              :min="this.invoice.dateCheckIn"
                                               @input="menuCheckOut = false"
                                           ></v-date-picker>
                                           </v-menu>
@@ -144,14 +146,14 @@
             </v-col>
           </v-row>
           <v-row justify="center">
-            <div v-for="booking in books" :key="booking.bookingID">
+            <div v-for="invoice in invoices" :key="invoice.id">
               <v-card style= "border-radius: 40px;"  class="cardDetailContainer">
-                <label class="textDetail">Room Type : {{ books.roomtype }}</label>
-                <label class="textDetail">Arrival Date : {{ books.arrivaldate  }}</label>
-                <label class="textDetail">Period of stay : {{ books.periodofstay  }}</label>
-                <label class="textDetail">Number of room : {{ books.numberofroom  }}</label>
-                <label class="textDetail">Departure Date : {{ books.departuredate  }}</label>
-                <label class="textDetail">Total : {{ calculateTotal  }} bath</label>
+                <label class="textDetail">Room Type : {{ invoice.roomType }}</label>
+                <label class="textDetail">Arrival Date : {{ invoice.dateCheckIn  }}</label>
+                <label class="textDetail">Period of stay : {{ invoice.periodOfStay  }}</label>
+                <label class="textDetail">Number of room : {{ invoice.numberOfRoom  }}</label>
+                <label class="textDetail">Departure Date : {{ invoice.dateCheckOut  }}</label>
+                <label class="textDetail">Total : {{ invoice.total  }} bath</label>
               </v-card>
             </div>
           </v-row>
@@ -198,7 +200,7 @@
                         dark
                         rounded
                         width="100px"
-                        @click="dialog2 = false"
+                        @click="onClickYes()"
                       >
                         YES
                       </v-btn>
@@ -223,25 +225,27 @@
 <script>
 export default {
   name: "login",
+  mounted() {
+    this.today = new Date().toISOString().substr(0, 10)
+  },
   data () {
     return {
+        today:"",
         menuCheckIn: false,
         menuCheckOut: false,
         modalAdd: false,
         valid: true,
         counter: 1,
+        invoices: [],
         invoice: {
             roomType: "",
             numberOfRoom: 1,
             dateCheckIn: new Date().toISOString().substr(0, 10),
             dateCheckOut: new Date().toISOString().substr(0, 10),
         },
-        numberRule: v  => {
-                if (!v.trim()) return true;
-                if (!isNaN(parseFloat(v)) && v >= 0 && v <= 999) return true;
-                return 'Number has to be between 0 and 999';
-        },
         items: ["Single","Double","Suite","Delux","Premier"],
+        dialog1:false,
+        dialog2:false,
         };
     },
     methods: {
@@ -250,6 +254,10 @@ export default {
         },
         onClickCancel() {
             this.modalAdd = false
+        },
+        onClickYes() {
+          this.$router.push({ name: "Home" 
+          });
         },
         submitAdd() {
             var state = this.$refs.form.validate();
@@ -285,10 +293,14 @@ export default {
 
 <style scoped>
 .main {
-    background-color: #FFFFFF;
-    min-height: 100vh;
+  background-color: #C0D9FF;
+  min-height: 1000px;
 }
-
+.bg {
+  display: flex;
+  height: 988px;
+  width: 100vw;
+}
 .textContainer{
     display: flex;
     justify-content: center;
@@ -324,16 +336,6 @@ export default {
     justify-content: flex-end;
 }
 
-.main {
-  background-color: #C0D9FF;
-}
-
-.bg {
-  display: flex;
-  max-height: 1200px;
-  width: 100vw;
-}
-
 .cardBigContainer{
   display: flex;
   flex-wrap: wrap;
@@ -360,12 +362,13 @@ export default {
 
 
 .text {
-  font-size: 40px;
+  font-size: 50px;
   color: #FFFFFF;
   font-family: "Roboto";
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 80px;
+  font-weight: bold;
 }
 
 .textDetail {

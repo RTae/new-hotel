@@ -1,4 +1,3 @@
-
 <template>
   <v-container fluid class="main" id="Home">
     <v-row class="bg">
@@ -17,6 +16,7 @@
                 </v-row>
                 <v-row style="margin-top:20px;">
                     <v-select
+                      append-outer-icon="night_shelter"
                       v-model="roomValue"
                       :items= "['Single', 'Double', 'Suite', 'Delux', 'Premier']"
                       :rules="[v => !!v || 'Plase choose is room type']"
@@ -30,8 +30,7 @@
                 </v-row>
                 <v-row justify="start" style="margin-top:20px;">
                   <v-menu
-                    ref="menu1"
-                    v-model="menu1"
+                    v-model="menuCheckIn"
                     :close-on-content-click="false"
                     transition="scale-transition"
                     offset-y
@@ -40,18 +39,19 @@
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
-                        v-model="arrivalDate"
+                        v-model="dateCheckIn"
                         persistent-hint
+                        readonly
                         append-icon="date_range"
                         v-bind="attrs"
-                        @blur="date = parseDate(arrivalDate)"
                         v-on="on"
                       ></v-text-field>
                     </template>
                     <v-date-picker
-                      v-model="arrivalDate"
+                      v-model="dateCheckIn"
+                      :min="this.today"
                       no-title
-                      @input="menu1 = false"
+                      @input="menuCheckIn = false"
                     ></v-date-picker>
                   </v-menu>
                 </v-row>
@@ -62,8 +62,7 @@
                 </v-row>
                 <v-row justify="start" style="margin-top:20px;" >
                   <v-menu
-                    ref="menu2"
-                    v-model="menu2"
+                    v-model="menuCheckOut"
                     :close-on-content-click="false"
                     transition="scale-transition"
                     offset-y
@@ -72,18 +71,18 @@
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
-                        v-model="departureDate"
+                        v-model="dateCheckOut"
                         persistent-hint
                         append-icon="date_range"
                         v-bind="attrs"
-                        @blur="date = parseDate(departureDate)"
                         v-on="on"
                       ></v-text-field>
                     </template>
                     <v-date-picker
-                      v-model="departureDate"
+                      :min="this.dateCheckIn"
+                      v-model="dateCheckOut"
                       no-title
-                      @input="menu2 = false"
+                      @input="menuCheckOut = false"
                     ></v-date-picker>
                   </v-menu>
                 </v-row>
@@ -93,7 +92,13 @@
                 <label>Number of room</label>
                 </v-row>
                 <v-row style="margin-top:20px;">
-                   <v-text-field :rules="rules"></v-text-field>
+                  <v-text-field 
+                    v-model="numRoom" 
+                    type="number"
+                    :min="0" 
+                    :max="10"
+                    append-icon="local_hotel">
+                  </v-text-field>
                 </v-row>
               </v-col>
               <v-col class="ChooseContain">
@@ -101,11 +106,19 @@
                 <label>Guest</label>
                 </v-row>
                 <v-row style="margin-top:20px;">
-                   <v-text-field :rules="rules"></v-text-field>
+                  <v-text-field 
+                    v-model="numGuest" 
+                    type="number"
+                    :min="0" 
+                    :max="50"
+                    append-icon="family_restroom"
+                    >
+                  </v-text-field >
                 </v-row>
               </v-col>
-              <v-col  cols="1">
+              <v-col  cols="2">
                 <v-btn
+                    width="150px"
                     depressed
                     color="#A0C6FF"
                     elevation="2"
@@ -114,6 +127,7 @@
                     @click="onClickBooking()"
                   > 
                   BOOK
+                  <v-icon right>book_online</v-icon>
                 </v-btn>
               </v-col>
                <v-col cols="1"></v-col> 
@@ -319,62 +333,33 @@
 export default {
   name: "Home",
   components: {},
-  data: vm => ({
-    arrivalDate: new Date().toISOString().substr(0, 10),
-    departureDate: new Date().toISOString().substr(0, 10),
-    arrivalDate: vm.formatDate(new Date().toISOString().substr(0, 10)),
-    departureDate: vm.formatDate(new Date().toISOString().substr(0, 10)),
-    menu1: false,
-    menu2: false,
-    numRoomSingle: "12",
-    numRoomDouble: "12",
-    numRoomSuite: "3",
-    numRoomDeluxe: "4",
-    numRoomPremier: "2",
-    roomValue:"",
-    numValue:"",
-    peopelValue:"",
-  }),
-  computed: {
-      computedDateFormatted () {
-        return this.formatDate(this.arrivalDate)  
-        return this.formatDate(this.departureDate)         
-      },
-    },
-  watch: {
-    date (val) {
-      this.arrivalDate = this.formatDate(this.arrivalDate)
-    },
-    date (val) {
-      this.departureDate = this.formatDate(this.departureDate)
-    },
+  data(){
+     return{
+        today: "",
+        dateCheckIn: new Date().toISOString().substr(0, 10),
+        dateCheckOut: new Date().toISOString().substr(0, 10),
+        menuCheckIn: false,
+        menuCheckOut: false,
+        numRoomSingle: "12",
+        numRoomDouble: "12",
+        numRoomSuite: "3",
+        numRoomDeluxe: "4",
+        numRoomPremier: "2",
+        roomValue:"",
+        numValue:"",
+        peopelValue:"",
+        numRoom:0,
+        numGuest:0,
+    }
+  },
+  mounted() {
+    this.today = new Date().toISOString().substr(0, 1)
   },
   methods: {
     onClickBooking(){
-
-    },
-    formatDate (arrivalDate) {
-      if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
-    },
-    formatDate (departureDate) {
-      if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
-    },
-    parseDate (arrivalDate) {
-      if (!date) return null
-      const [month, day, year] = date.split('/')
-      return `${year}-${day.padStart(2, '0')}-${month.padStart(2, '0')}`
-    },
-    parseDate (departureDate) {
-      if (!date) return null
-      const [month, day, year] = date.split('/')
-      return `${year}-${day.padStart(2, '0')}-${month.padStart(2, '0')}`
-    },
+     this.$router.push({ name: "Booking" 
+      });
+    }
   }
 };
 </script>
@@ -394,7 +379,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   justify-content: center;
-  height: 465px;
+  height: 468px;
   width: 100vw;
 }
 .cardContain{

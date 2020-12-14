@@ -98,10 +98,9 @@ export default {
 <style scoped>
 .main {
   background-color: #C0D9FF;
+  height: 1000px;
 }
 .cardContainer {
-  background-color: #A0C6FF;
-  border-radius: 200px;
   width: 1000px;
   height: 500px;
  }
