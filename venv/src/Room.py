@@ -173,6 +173,60 @@ class Room():
             rooms = [self.serialize(room) for room in rooms]
             return rooms
     
+    def roomSummaryByRoomCat(self):
+        results = fetch('   SELECT rc."name", COUNT(*)              \
+                            FROM "TBL_Rooms" r                      \
+                            INNER JOIN "TBL_RoomCategorys" rc       \
+	                            ON r."roomCatID" = rc."roomCatID"   \
+                            WHERE "status" = TRUE                   \
+                            GROUP BY rc."name"')
+        rooms = []
+        for result in results:
+            tempDict = {}
+            temp = cursortorow(result)
+            tempDict ={
+                "name": temp[0],
+                "count": temp[1],
+            }
+            rooms.append(tempDict)
+        
+        log = {
+            "result":rooms,
+            "msg":"",
+            "status":"1"
+        }
+        return log
+    
+    def roomSummary(self):
+        results = fetch('   SELECT  r."roomID", rc."name", rc."bedType",            \
+		                            rc."numberBed", rc."guestRoom", rc."fare",      \
+		                            r."status", r."cleanStatus"                     \
+                            FROM "TBL_Rooms" r                                      \
+                            INNER JOIN "TBL_RoomCategorys" rc                       \
+	                        ON r."roomCatID" = rc."roomCatID"')
+        rooms = []
+        for result in results:
+            tempDict = {}
+            temp = cursortorow(result)
+            tempDict ={
+                "roomID": temp[0],
+                "roomType": temp[1],
+                "bedType": temp[2],
+                "numberBed": temp[3],
+                "guestRoom": temp[4],
+                "fare": temp[5],
+                "status": temp[6],
+                "cleanStatus": temp[7],
+            }
+            rooms.append(tempDict)
+        
+        log = {
+            "result":rooms,
+            "msg":"",
+            "status":"1"
+        }
+        return log 
+           
     def serialize(self,room):
         return {
             'roomID': room.roomID,

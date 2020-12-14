@@ -192,6 +192,18 @@ def getAllRoomFreeByRoomCat():
     log = Room.getRoomFreeByRoomCat(roomCatID, limit)
     return jsonify(log)
 
+@app.route('/roomSummaryByRoomCat', methods=["GET"])
+@cross_origin()
+def roomSummaryByRoomCat():
+    log = Room.roomSummaryByRoomCat()
+    return jsonify(log)
+
+@app.route('/roomSummary', methods=["GET"])
+@cross_origin()
+def roomSummary():
+    log = Room.roomSummary()
+    return jsonify(log)
+
 # updateRoom use for update room 
 @app.route('/room',methods=["PUT"])
 @cross_origin()

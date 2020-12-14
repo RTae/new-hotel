@@ -357,8 +357,7 @@ export default {
   },
   methods: {
     onClickBooking(){
-     this.$router.push({ name: "Booking" 
-      });
+     this.$router.push({ name: "Booking" });
     }
   }
 };
