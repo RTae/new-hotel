@@ -39,16 +39,6 @@ export default {
         receiptid: "i00001",
         amountdue: "5000",
         paymentmethod: "Credit card"
-        },
-        {
-        receiptid: "i00002",
-        amountdue: "6000",
-        paymentmethod: "Credit card"
-        },
-        {
-        receiptid: "i00003",
-        amountdue: "7000",
-        paymentmethod: "Cash"
         }
       ]
     }
@@ -62,7 +52,7 @@ export default {
 }
 .bg {
   display: flex;
-  height: 950px;
+  height: 988px;
   width: 100vw;
 }
 
@@ -70,7 +60,7 @@ export default {
   background-color: #A0C6FF;
   border-radius: 200px;
   width: 1030px;
-  height: 500px;
+  min-height: 550px;
  }
 
 .cardDetailContainer {

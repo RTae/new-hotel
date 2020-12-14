@@ -3,7 +3,7 @@
     <v-row class="bg">
       <v-toolbar
         src="../../../dist/img/mainFirst.svg"
-        height="800px"
+        height="900px"
         width="100vw"   
         flat
       >
@@ -63,7 +63,7 @@
 
                 <!-- Button -->
                 <v-row justify="center">
-                  <button :disabled="!valid" class="signInBtn" type="submit">Sign In</button>
+                  <button x-large :disabled="!valid" class="signInBtn" type="submit">Sign In</button>
                 </v-row>
 
               </v-form>
@@ -114,8 +114,15 @@ export default {
 <style scoped>
 .main {
   background: #C0D9FF;
+  height: 910px;
+  width: 100vw;
 }
 
+.bg {
+  display: flex;
+  height: 900px;
+  width: 100vw;
+}
 .cardContainer {
   color: #A0C6FF;
   border-radius: 20px;
