@@ -264,13 +264,17 @@ class Invoice():
             tempDict = {}
             temp = cursortorow(result)
             tempDict ={
-                "receiptID": temp[0],
-                "name": temp[1],
-                "dateCreate": temp[2],
-                "paymentName": temp[3],
-                "totalReceived": temp[4],
-                "paymentRef": temp[5],
-                "remark": temp[6],
+                "invoiceID": temp[0],
+                "dateCreate": temp[1],
+                "total": temp[2],
+                "vat": temp[3],
+                "amountDue": temp[4],
+                "periodOfStay": temp[5],
+                "checkIn": temp[6],
+                "checkOut": temp[7],
+                "numberOfRoom": temp[8],
+                "name": temp[9],
+                "roomType": temp[10],
             }
             invoices.append(tempDict)
 

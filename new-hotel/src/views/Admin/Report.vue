@@ -7,6 +7,7 @@
                         <v-col cols="5">
                             <v-btn
                                 width="400"
+                                @click="selectItem = 'Receipt'"
                             >
                                 Receipt
                             </v-btn>
@@ -14,6 +15,7 @@
                         <v-col cols="5">
                             <v-btn
                                 width="400"
+                                @click="selectItem = 'Invoice'"
                             >
                                 Invoice
                             </v-btn>
@@ -23,13 +25,22 @@
             </v-col>
         </v-row>
         <!-- Table -->
-        <v-row style="margin-top:50px;" justify="center">
+        <v-row v-if="selectItem == 'Receipt'" style="margin-top:50px;" justify="center">
+            <v-col cols="10">
+                <v-data-table
+                    :headers="headersReceipt"
+                    :items="receipts"
+                    class="elevation-1"
+                >
+                </v-data-table>
+            </v-col>
+        </v-row>
+        <v-row v-if="selectItem == 'Invoice'" style="margin-top:50px;" justify="center">
             <v-col cols="10">
                 <v-data-table
                     :headers="headers"
                     :items="rooms"
-                    sort-by="roomID"
-                    class="elevation-1"
+                    class="elevation-10"
                 >
                 </v-data-table>
             </v-col>
@@ -44,180 +55,37 @@ export default {
   components: {
   },
     data: () => ({
-      roomCat:[],
-      totalEmpty:0,
-      dialog: false,
-      dialogDelete: false,
-      headers: [
+      selectItem: "Receipt",
+      headersReceipt: [
         {
-          text: 'Room ID',
+          text: 'Receipt ID',
           align: 'start',
-          value: 'roomID',
+          value: 'receiptID',
         },
-        { text: 'Room Type', value: 'roomType' },
-        { text: 'Bed Type', value: 'bedType' },
-        { text: 'Guest Room', value: 'guestRoom' },
-        { text: 'Number Bed', value: 'numberBed' },
-        { text: 'Fare', value: 'fare' },
-        { text: 'status', value: 'status' },
-        { text: 'cleanStatus', value: 'cleanStatus' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'Date Create', value: 'dateCreate' },
+        { text: 'Name', value: 'name' },
+        { text: 'Payment', value: 'paymentName' },
+        { text: 'payment Reference', value: 'paymentRef' },
+        { text: 'Remark', value: 'remark' },
+        { text: 'Total Received', value: 'totalReceived' },
       ],
-      rooms: [],
-      editedIndex: -1,
-      editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-      },
-      defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      },
-      roomCatList:["Single", "Double", "Suite", "Delux", "Premier"],
-      statusList:["True", "False"],
-      roomCatObject: [
-        {
-            id: "rc0001",
-            name: "Single",
-        },
-        {
-            id: "rc0002",
-            name: "Double",
-        },
-        {
-            id: "rc0003",
-            name: "Suite",
-        },
-        {
-            id: "rc0004",
-            name: "Delux",
-        },
-        {
-            id: "rc0005",
-            name: "Premier",
-        },
-     ],
+      receipts: [],
+      invoices: [],
     }),
-
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
-    },
-
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
-    },
-
     async created () {
         this.initialize()
     },
 
     methods: {
       async initialize(){
-        var resultCat = await api.roomSummaryByRoomCat()
-        var resultSum = await api.roomSummary()
-        this.rooms = resultSum.data.result
-        this.roomCat = resultCat.data.result
-        this.roomCat.forEach(room => {
-            this.totalEmpty = this.totalEmpty + parseInt(room.count)
-        });
+        var resultReceipt = await api.summayReceipt()
+        var resultInvoice = await api.summayInvoice()
+        this.receipts = resultReceipt.data.result
+        this.invoices = resultInvoice.data.result
+        console.log(this.receipts)
+        console.log(this.invoices)
       },
-
-      editItem (item) {
-        this.editedIndex = this.rooms.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
-      deleteItem (item) {
-        this.editedIndex = this.rooms.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
-
-      async deleteItemConfirm () {
-        this.$store.commit("SET_LOADING_STATE", true)
-        if (this.editedItem.status == "False"){
-            this.closeDelete()
-        } else {
-            var roomID = this.editedItem.roomID
-            const result = await api.deleteRoom(roomID)
-            this.rooms.splice(this.editedIndex, 1)
-            this.closeDelete()
-        }
-        this.$store.commit("SET_LOADING_STATE", false)
-      },
-
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-      async save () {
-        this.$store.commit("SET_LOADING_STATE", true)
-        if (this.editedIndex > -1) {
-          var roomID = this.editedItem.roomID
-          var roomType = this.editedItem.roomType
-          var status = this.editedItem.status
-          var cleanStatus = this.editedItem.cleanStatus
-          var roomCatID = this.roomCatObject.find( ({ name }) => name === roomType );
-          roomCatID = roomCatID.id
-          if (status == "False"){
-            status = "0"
-          }else {
-            status = "1"
-          }
-        if (cleanStatus == "False"){
-            cleanStatus = "0"
-          }else {
-            cleanStatus = "1"
-          }
-          const result = await api.updateRoom({roomID, roomCatID, status, cleanStatus, })
-          Object.assign(this.rooms[this.editedIndex], this.editedItem)
-        } else {
-            var roomType = this.editedItem.roomType
-            var status = this.editedItem.status
-            var cleanStatus = this.editedItem.cleanStatus
-            var roomCatID = this.roomCatObject.find( ({ name }) => name === roomType );
-            roomCatID = roomCatID.id
-            if (status == "False"){
-                status = "0"
-            } else {
-                status = "1"
-            }
-            
-            if (cleanStatus == "False"){
-                cleanStatus = "0"
-            }else {
-                cleanStatus = "1"
-            }
-            await api.createRoom({roomCatID, status, cleanStatus})
-            await this.initialize()
-        }
-        this.close()
-        this.$store.commit("SET_LOADING_STATE", false)
-      },
-    },
+    }
   }
 </script>
 
