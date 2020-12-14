@@ -90,7 +90,7 @@
                               <label class="textDetail">CVV :</label>
                             </v-row>
                             <v-row class="ml-8" justify="start">
-                              <div class="inputFiled"  style="width: 100px;">
+                              <div class="inputFiled"  style="width: 150px;">
                               <v-text-field
                                 ref="cvv"
                                 :rules="[v => !!v || 'CVV is required']"
@@ -266,7 +266,7 @@ export default {
 }
 .inputFiled {
   width: 250px;
-  height: 32px;
+  height: 30px;
   margin-top: 10px;
   margin-left: 20px;
   margin-right: 20px;
@@ -297,7 +297,7 @@ export default {
   height: 50px;
 }
 .textTotal{
-  font-size: 22px;
+  font-size: 20px;
   color:  #5c5c5c;
   font-family: "Roboto";
   margin-left: 90px;
@@ -340,7 +340,7 @@ export default {
   color: #5c5c5c;
   font-family: "Roboto";
 }
-label {
+.label {
   font-size: 15px;
   color: #5c5c5c;
   font-family: "Roboto";

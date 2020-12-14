@@ -13,7 +13,7 @@
               <v-card style= "border-radius: 20px;" class="cardDetailContainer">
                 <v-col >
                 <v-row  v-for="order in orders" :key="order.id" align="center" justify="center">
-                <label class="textDetail">Room Type : {{ order.roomtype }}</label>
+                <p class="textDetail">Room Type : {{ order.roomtype }}</p>
                 <v-spacer></v-spacer>
                 <p class="textDetail">x   {{ order.periodofstay }} day</p>
                 <p class="textDetail">x {{ order.numberofroom }} room</p>
@@ -34,8 +34,8 @@
                 column
                 required
               >
-                <v-radio label="Credit Card" color="info" value="a" />
-                <v-radio label="Cash" color="info" value="b" />
+                <v-radio class="textradio" label="Credit Card" color="info" value="a" />
+                <v-radio class="textradio" label="Cash" color="info" value="b" />
               </v-radio-group>
             </div>
           </div>
@@ -244,6 +244,20 @@ export default {
   height: 100px;
   background-color:white;
   border-radius: 100px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 25px;
+  color: #ffffff;
+  font-family: "Roboto";
+}
+
+.textradio {
+  font-weight: bold;
+  font-size: 25px;
+  color: #ffffff;
+  font-family: "Roboto";
 }
 
 </style>
