@@ -168,6 +168,16 @@ def createRoom():
     logs = Room.create(roomID, roomCatID, status, cleanStatus)
     return logs
 
+@app.route('/roomWithOutID',methods=["POST"])
+@cross_origin()
+def createRoom():
+    roomCatID = request.form['roomCatID']
+    status = request.form['status']
+    cleanStatus = request.form['cleanStatus']
+
+    logs = Room.createWithOutID(roomCatID, status, cleanStatus)
+    return logs
+
 # readRoom get all or get specific by roomID
 @app.route('/room/<roomID>',methods=["GET"])
 @cross_origin()

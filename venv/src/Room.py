@@ -226,7 +226,26 @@ class Room():
             "status":"1"
         }
         return log 
-           
+    
+    def createWithOutID(self, roomCatID, status, cleanStatus):
+        maxRID = session.query(func.max(TBL_Rooms.roomID)).one()
+        newRID = increaseID(maxRID[0], "r")
+        log = self.create(newRID, roomCatID, roomCatID, status, cleanStatus)
+        if (log["status"] == "1"):
+            log = {
+                "result":newRID,
+                "msg":"",
+                "status":"1"
+            }
+            return log
+        else:
+            log = {
+                "result":"",
+                "msg":"Error",
+                "status":"100"
+            }
+            return log
+
     def serialize(self,room):
         return {
             'roomID': room.roomID,

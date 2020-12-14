@@ -15,3 +15,18 @@ export const updateRoom = async (values) => {
     const result = await httpClient.put(server.ROOM, bodyFormData);
     return result.data
 }
+
+export const deleteRoom = async (id) => {
+    const result = await httpClient.delete(server.ROOM + "/" + id );
+    return result.data
+}
+
+export const roomSummaryByRoomCat = async () => {
+    const result = await httpClient.get(server.ROOM_SUMMARY_ROOMCAT);
+    return result
+}
+
+export const roomSummary = async () => {
+    const result = await httpClient.get(server.ROOM_SUMMARY);
+    return result
+}
