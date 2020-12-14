@@ -1,117 +1,87 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import api from "../service/api"
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    coreHeader: true,
-    logoHeader: false,
-    loginHeaderUser: false,
-    loginHeaderAdmin: false,
+    headerCoreState: true,
+    headerLoginState: false,
+    headerInvoiceState: false,
+    headerAdminState: false,
+    loadingState: false,
+    userid: "",
+    dialogState: false,
+    dialogMessage: "",
   },
   getters: {
-    getCoreHeader (state) {
-      return state.coreHeader
+    getHeaderCoreState( state ){
+      return state.headerCoreState
     },
-    getLogoHeader (state) {
-      return state.logoHeader
+    getHeaderLoginState( state ){
+      return state.headerLoginState
     },
-    getLoginHeaderUser (state) {
-      return state.loginHeaderUser
+    getHeaderInvoiceState( state ){
+      return state.headerInvoiceState
     },
-    getLoginHeaderAdmin (state) {
-      return state.loginHeaderAdmin
+    getHeaderAdminState( state ){
+      return state.headerAdminState
+    },
+    getLoadingState( state ){
+      return state.loadingState
+    },
+    getUserID( state ){
+      return state.userid
+    },
+    getDialogState( state ){
+      return state.dialogState
+    },
+    getDialogMessage( state ){
+      return state.dialogMessage
     }
   },
   mutations: {
-    SET_CORE_HEADER (state, value) {
-      state.coreHeader = value
+    SET_HEADER_CORE_STATE( state, value ){
+      state.headerCoreState = value
     },
-    SET_LOGO_HEADER (state, value) {
-      state.logoHeader = value
+    SET_HEADER_LOGIN_STATE( state, value ){
+      state.headerLoginState = value
     },
-    SET_LOGIN_HEADER_USER (state, value) {
-      state.loginHeaderUser = value
+    SET_HEADER_INVOICE_STATE( state, value ){
+      state.headerInvoiceState = value
     },
-    SET_LOGIN_HEADER_ADMIN (state, value) {
-      state.loginHeaderAdmin = value
+    SET_HEADER_ADMIN_STATE( state, value ){
+      state.headerAdminState = value
     },
-    SET_USERNAME (state, value) {
-      state.username = value
+    SET_LOADING_STATE( state, value ){
+      state.loadingState = value
     },
-    SET_USER_TYPE (state, value) {
-      state.userType = value
+    SET_USER_ID( state, value ){
+      state.userid = value
     },
+    SET_DIALOG_STATE( state, value){
+      state.dialogState = value
+    },
+    SET_DIALOG_MSG( state, value ){
+      state.getDialogMessage = value
+    }
   },
   actions: {
-    restoreLogin ({ commit, dispatch }) {
-      if (api.isLoggedIn() === true) {
-        const userType = localStorage.getItem(server.USER_TYPE);
-        const username = localStorage.getItem(server.USERNAME);
-        if (userType === "User") {
-          commit("SET_USERNAME", username);
-          commit("SET_USER_TYPE", userType);
-          commit("SET_CORE_HEADER", false)
-          commit("SET_LOGO_HEADER", false)
-          commit("SET_LOGIN_HEADER_USER", true)
-          commit("SET_LOGIN_HEADER_ADMIN", false)
-        } else if (userType === "Admin") {
-          commit("SET_USERNAME", username);
-          commit("SET_USER_TYPE", userType);
-          commit("SET_CORE_HEADER", false)
-          commit("SET_LOGO_HEADER", false)
-          commit("SET_LOGIN_HEADER_USER", false)
-          commit("SET_LOGIN_HEADER_ADMIN", true)
-        }
-      }
-    },  
-    doLogout ({ commit }) {
-      api.logoff()
-      commit("SET_USERNAME", null);
-      commit("SET_CORE_HEADER", true)
-      commit("SET_LOGO_HEADER", false)
-      commit("SET_LOGIN_HEADER_USER", false)
-      commit("SET_LOGIN_HEADER_ADMIN", false)
-      router.push({ name: "Home" })
+    loading({ commit }, { state }) {
+      commit("SET_LOADING_STATE", state)
     },
-    async doLogin ({ commit, dispatch }, { email, password }) {
-      const result = await api.login({ email, password });
-      if (result.status === "1") {
-        const userType = localStorage.getItem(server.USER_TYPE);
-        const username = localStorage.getItem(server.USERNAME);
-        if (userType === "User") {
-          commit("SET_USERNAME", username);
-          commit("SET_USER_TYPE", userType);
-          commit("SET_CORE_HEADER", false)
-          commit("SET_LOGO_HEADER", false)
-          commit("SET_LOGIN_HEADER_USER", true)
-          commit("SET_LOGIN_HEADER_ADMIN", false)
-          router.push({ name: "Home" })
-          commit("SET_STATE_LOGIN_DIALOG", true)
-          setInterval(() => {
-            commit("SET_STATE_LOGIN_DIALOG", false)
-          }, 3000);
-        } else if (userType === "Admin") {
-          commit("SET_USERNAME", username);
-          commit("SET_USER_TYPE", userType);
-          commit("SET_CORE_HEADER", false)
-          commit("SET_LOGO_HEADER", false)
-          commit("SET_LOGIN_HEADER_USER", false)
-          commit("SET_LOGIN_HEADER_ADMIN", true)
-          commit("SET_DIALOG_LOADING", false)
-          router.push({ name: "HomeAdmin" })
-        }
+
+    async doRegister ({ commit }, { firstname, familyname, email, phoneNumber, creditCardNumber, point, password }) {
+      commit("SET_LOADING_STATE", true)
+      var result = await api.register({ firstname, familyname, email, phoneNumber, creditCardNumber, point, password })
+      if  (result.status === "1") {
+        commit("SET_USER_ID", result.result)
       } else {
-        commit("SET_DIALOG_LOADING", false)
-        dispatch({ type: "dialogPopup", value: true, msg: result.msg })
-        commit("SET_USERNAME", null);
-        commit("SET_CORE_HEADER", true)
-        commit("SET_LOGIN_HEADER_USER", false)
-        commit("SET_LOGIN_HEADER_ADMIN", false)
-      }
+        commit("SET_DIALOG_STATE", true)
+        commit("SET_DIALOG_MSG", result.msg)
+      } 
+      commit("SET_LOADING_STATE", false)
     },
-  },
-  modules: {
   }
 })

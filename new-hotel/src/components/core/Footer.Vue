@@ -13,15 +13,13 @@
 <script>
 export default {
   name: "Footer",
-  data(){
-  }
 };
 
 </script>
 
 <style>
-.footer {
-    display:flex;    
-    align-items:flex-end;
-}
+  .footer {
+      display:flex;    
+      align-items:flex-end;
+  }
 </style>

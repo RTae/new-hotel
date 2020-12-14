@@ -103,6 +103,25 @@ class Customer():
             }
             return log
     
+    def readCustomerByEmail(self, email):
+        customer = session.query(TBL_Customers)
+        customer = customer.filter(TBL_Customers.email==email)
+        if customer.scalar() is not None :
+            customer = self.serialize(customer.one())
+            log = {
+                "result":customer,
+                "msg":"",
+                "status":"1"
+            }
+            return log
+        else:
+            log = {
+                "result":"",
+                "msg":"User not found",
+                "status":"100"
+            }
+            return log
+    
     def serialize(self,customer):
         return {
             'customerID': customer.customerID,
