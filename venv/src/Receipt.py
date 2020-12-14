@@ -248,7 +248,7 @@ class Receipt():
     
     def showReceiptReportByReceiptIDLine(self, receiptID):
         receiptID = "'"+receiptID+"'"
-        results = fetch('   SELECT re."receiptID", rc."name", rc."fare", i."checkIn",  \
+        results = fetch('   SELECT i."invoiceID", rc."name", rc."fare", i."checkIn",  \
 		                        i."checkOut", i."numberOfRoom", i."periodOfStay",   \
 		                        i."amountDue"                                       \
                             FROM "TBL_ReceiptsLineItem" re                      \
@@ -264,7 +264,7 @@ class Receipt():
             tempDict = {}
             temp = cursortorow(result)
             tempDict ={
-                "receiptID": temp[0],
+                "invoiceID": temp[0],
                 "roomType": temp[1],
                 "fare": temp[2],
                 "checkIn": temp[3],
