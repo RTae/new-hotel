@@ -18,3 +18,11 @@ export const register = async values => {
     return result.data
   }
 };
+
+export const search = async (email) => {
+  return httpClient.get(server.SEARCH + "/" + email);
+}
+
+export const getCustomer = async (customerID) => {
+  return httpClient.get(server.CUSTOMER + "/" + customerID);
+}

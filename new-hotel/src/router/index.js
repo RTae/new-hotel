@@ -14,6 +14,7 @@ import Booking from '../views/User/Login/Booking.vue'
 import PaymentMethod from '../views/User/Login/PaymentMethod.vue'
 // Admin
 import HomeAdmin from '../views/Admin/HomeAdmin'
+import PrintPage from '../views/Admin/PrintPage.vue'
 
 Vue.use(VueRouter)
 
@@ -72,6 +73,11 @@ const routes = [
     path: "/homeadmin",
     name: "HomeAdmin",
     component: HomeAdmin
+  },
+  {
+    path: "/printpage",
+    name: "PrintPage",
+    component: PrintPage
   }
 ]
 const router = new VueRouter({

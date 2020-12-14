@@ -33,9 +33,9 @@
                                   ref="nameOnCard"
                                   :rules="[v => !!v || 'Name on card is required']"
                                   v-model="nameOnCard"
-                                  solo
-                                  rounded
-                                  outlined
+                                  filled
+                                  dense
+                                  placeholder="S. THUNWARA"
                                   autocomplete="nameOnCard"
                               />   
                               </div>
@@ -44,18 +44,18 @@
                         </div>
                         <div style="width:300px;">
                           <v-col style="width:300px;" >
-                            <v-row class="ml-8" justify="start">
+                            <v-row class="ml-6" justify="start">
                               <label class="textDetail" >Expire date :</label>
                             </v-row>
-                            <v-row class="ml-8" justify="start">
+                            <v-row class="ml-6" justify="start">
                               <div class="inputFiled"  style="width: 200px;">
                               <v-text-field
                                 ref="expireDate"
                                 :rules="[v => !!v || 'Expire date is required']"
                                 v-model="expireDate"
-                                solo
-                                rounded
-                                outlined
+                                filled
+                                dense
+                                placeholder="XX/XX"
                                 autocomplete="expireDate"
                               />
                               </div>
@@ -70,14 +70,14 @@
                               <label class="textDetail" >CreditCard Number :</label>
                             </v-row>
                             <v-row class="ml-10" justify="start">
-                              <div class="inputFiled" style="width: 400px;">
+                              <div class="inputFiled" style="width: 270px;">
                               <v-text-field
                                   ref="creaditNumber"
                                   :rules="[v => !!v || 'Credit card Number is required']"
                                   v-model="creaditNumber"
-                                  solo
-                                  rounded
-                                  outlined
+                                  filled
+                                  dense
+                                  placeholder="XXXX-XXXX-XXXX-XXXX"
                                   autocomplete="creaditNumber"
                               />   
                               </div>
@@ -86,18 +86,18 @@
                         </div>
                         <div style="width:200px;">
                           <v-col style="width:200px;">
-                            <v-row class="ml-8" justify="start">
+                            <v-row class="ml-6" justify="start">
                               <label class="textDetail">CVV :</label>
                             </v-row>
-                            <v-row class="ml-8" justify="start">
+                            <v-row class="ml-6" justify="start">
                               <div class="inputFiled"  style="width: 150px;">
                               <v-text-field
                                 ref="cvv"
                                 :rules="[v => !!v || 'CVV is required']"
                                 v-model="cvv"
-                                solo
-                                rounded
-                                outlined
+                                filled
+                                dense
+                                placeholder="XXX"
                                 autocomplete="cvv"
                               />
                               </div>
