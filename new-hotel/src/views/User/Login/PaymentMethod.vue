@@ -21,13 +21,14 @@
                 </v-row>
                 <v-row>
                   <v-spacer></v-spacer>
-                  <p class="textDetail">Sum Total {{(parseInt(this.total))}} bath</p>
+                  <p class="textDetail">Sum Total : {{ (parseInt(this.total) )}} bath</p>
                 </v-row>
                 </v-col>
               </v-card>
             <v-row><p class="text">Payment Method</p></v-row>
+            <v-card style= "border-radius: 20px;" class="cardDetailContainer2">
           <div class="radioContainer">
-            <div class="radioLineContainer">
+            <div class="radioLineContainer" style= "margin-top:32px;">
               <v-radio-group
                 :rules="[v => !!v || 'You must select payment method']"
                 v-model="paymentmethod.name"
@@ -39,7 +40,8 @@
               </v-radio-group>
             </div>
           </div>
-             <v-row justify="center" style="margin-top:10px;" >
+          </v-card>
+             <v-row justify="center" style="margin-top:40px;" >
                 <div class="cardTotal" >
                    <v-dialog
                       v-model="dialog"
@@ -112,6 +114,7 @@ export default {
   id: "id",
   data () {
     return {
+      total:"",
       orders: [{
         roomtype: "Deluxe",
         periodofstay: "5",
@@ -161,14 +164,14 @@ export default {
   justify-content: space-around;
   align-items: center;
   justify-content: center;
-  height: 990px;
+  height: 980px;
   width: 100vw;
 }
 .cardContainer {
   background-color: #A0C6FF;
   border-radius: 200px;
   width: 950px;
-  height: 800px;
+  height: 820px;
  }
 
 .cardDetailContainer {
@@ -182,6 +185,15 @@ export default {
   grid-template-columns: auto auto auto auto;
  }
 
+ .cardDetailContainer2 {
+  color: #A0C6FF;
+  border-radius: 20px;
+  width: 750px;
+  height: 120px;
+  margin-top: 3vh;
+  margin-left: 75px;
+ }
+
 .text {
   font-size: 40px;
   color: #FFFFFF;
@@ -189,6 +201,8 @@ export default {
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 80px;
+  font-weight: bold;
+
 }
 
 .textDetail {
@@ -204,7 +218,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  margin-left: 75px;
+  margin-left: 35px;
 }
 
 .radioLineContainer {
