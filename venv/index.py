@@ -326,6 +326,12 @@ def readInvovice(invoiceID=None):
         log = Invoice.read(invoiceID)
         return jsonify(log)
 
+@app.route('/summaryInvoice', methods=["GET"])
+@cross_origin()
+def summaryInvoice():
+    log = Invoice.summaryInvoice()
+    return jsonify(log)
+
 @app.route('/getAllInvoice', methods=["GET"])
 @cross_origin()
 def getAllInovice():
@@ -477,6 +483,12 @@ def showReceiptReportByReceiptID(receiptID=None):
     if receiptID != None:
         log = Receipt.showReceiptReportByReceiptID(receiptID)
         return jsonify(log)
+
+@app.route('/receiptSummary', methods=["GET"])
+@cross_origin()
+def receiptSummary():
+    log = Receipt.receiptSummary()
+    return jsonify(log)
 
 @app.route('/getAllReceipt', methods=["GET"])
 @cross_origin()

@@ -281,6 +281,37 @@ class Receipt():
             "status":"1"
         }
         return log
+    
+    def receiptSummary(self):
+        results = fetch('   SELECT  r."receiptID", CONCAT(c."firstname",'+"' '"+',c."familyname") as "name",   \
+		                            r."dateCreate", pt.name, r."totalReceived" , r."paymentRef",         \
+		                            r."remark"                                                           \
+                            FROM "TBL_Receipts" r                                                        \
+                            INNER JOIN "TBL_Customer" c                                                  \
+                                ON r."customerID" = c."customerID"                                       \
+                            INNER JOIN "TBL_PaymentMedthods" pt                                          \
+                                ON r."paymentMedId" = pt."paymentMedId"')
+        receipt = []
+        for result in results:
+            tempDict = {}
+            temp = cursortorow(result)
+            tempDict ={
+                "receiptID": temp[0],
+                "name": temp[1],
+                "dateCreate": temp[2],
+                "paymentName": temp[3],
+                "totalReceived": temp[4],
+                "paymentRef": temp[5],
+                "remark": temp[6],
+            }
+            receipt.append(tempDict)
+        
+        log = {
+            "result":receipt,
+            "msg":"",
+            "status":"1"
+        }
+        return log
 
     def serialize(self,receipt):
         return {
