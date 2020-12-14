@@ -1,9 +1,9 @@
 <template>
   <v-container fluid class="main" id="invoice">
-    <div class="bg">
+    <v-row class="bg">
     <v-toolbar
-        src="../../../../dist/img/bgPayment.svg"
-        height="1200px"
+        src="../../../../dist/img/mainFirst.svg"
+        height="1000px"
         width="100vw"   
         flat
       >
@@ -13,7 +13,7 @@
               <p class="text">Invoice</p> 
             </v-row>
             <v-row style="width:950px;">
-                <p class="textTotal">Invoice ID : {{ invoiceID }}</p>
+                <p class="textSub">Invoice ID : {{ invoiceID }}</p>
             </v-row>
             <v-row align="center" justify="center" style="margin-top:10px;" >
                 <v-card  class="cardDetailContrin" style="border-radius: 20px;">
@@ -110,20 +110,20 @@
                       <label class="textTotal" style="margin-top:50px;">Total : {{ this.total }} bath</label>
                     </v-row>
                     <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:50px;">Vat : {{ (parseInt(this.total) * 70)/100 }} bath</label>
+                      <label class="textTotal" style="margin-top:50px;">Vat : {{ (parseInt(this.total) * 0.07) }} bath</label>
                     </v-row>
                     <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:50px;">Amount Due : {{ (parseInt(this.total) * 170)/100 }} bath</label>
+                      <label class="textTotal" style="margin-top:50px;">Amount Due : {{ (parseInt(this.total) * 1.07) }} bath</label>
                     </v-row>
                 </v-card>
             </v-row>
             <v-row justify="center" style="margin-top:220px;">
                 <div class="cardTotal" >
                    <v-dialog
-                      v-model="dialog"
+                      v-model="dialogCancel"
                       persistent
-                      max-width="500px"
-                      max-height="800px"
+                      width="500px"
+                      height="800px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -147,7 +147,7 @@
                           <v-btn
                             color="#EB5757"
                             width="100px"
-                            @click="dialog = false"
+                            @click="dialogCancel = false"
                             large
                             dark
                             rounded
@@ -167,22 +167,67 @@
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
-                  <v-btn 
-                    @click="onClickPayment()"
-                    class="btnPayment" 
-                    type="submit" 
-                    style="background-color:#28BC49;" 
-                    dark 
-                    x-large
-                    >
-                    Payment
-                  </v-btn>
+                  <v-dialog v-model="dialogPayment" persistent width="800px" height="800px">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn 
+                          color="#28BC49"
+                          x-large
+                          dark
+                          rounded
+                          v-bind="attrs"
+                          v-on="on"
+                          class="btnPayment"
+                          width= "150px"
+                      >
+                      Payment
+                      </v-btn>
+                    </template>
+                    <v-card style="border-radius: 20px;">
+                      <v-card-title>
+                        <span style="font-size:50px; margin-top:20px;">Receipt</span>
+                      </v-card-title>
+                      <v-card-title>
+                        <span  style="font-size:25px;">Invoice ID : {{ invoiceID }}</span>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <v-col cols="12" sm="6" md="6">
+                              <label style="font-size:18px; color:black;">Customer ID : {{this.user.customerID}}</label>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <labe   style="font-size:18px; color:black;">Date :</labe>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <label style="font-size:18px; color:black;">Payment Method : Credit Card</label>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <label style="font-size:18px; color:black;">Total : {{ total }} bath</label>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn 
+                          rounded 
+                          large 
+                          dark
+                          width="180px" 
+                          color="#7FB2FF"
+                          @click="onClickFinnish()"
+                          style="margin-bottom:20px magin-right:20px;"
+                          >Finish
+                          </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </div>
             </v-row> 
         </v-card>
       </v-row>      
       </v-toolbar>
-    </div>
+    </v-row>
   </v-container>
 </template>
 
@@ -198,12 +243,17 @@ export default {
       },
       invoiceID: null,          
       totalPrice: null,
-      dialog: false,
+      dialogPayment: false,
+      dialogCancel: false,
     }
   },
   methods: {
     onClickPayment () {
       this.$router.push({ name: "Receipt" 
+      });
+    },
+    onClickFinnish () {
+      this.$router.push({ name: "Home" 
       });
     },
     onClickYes () {
@@ -226,14 +276,11 @@ export default {
 <style scoped>
 .main {
   background-color: #C0D9FF;
+  height: 1000px;
 }
 
 .bg {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  justify-content: center;
-  height: 1100px;
+  height: 1000px;
   width: 100vw;
 }
 
@@ -274,12 +321,13 @@ export default {
   
 }
 .text {
-  font-size: 40px;
+  font-size: 50px;
   color: #FFFFFF;
   font-family: "Roboto";
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 80px;
+  font-weight: bold;
 }
 .textDetail {
   font-size: 19px;
@@ -296,12 +344,19 @@ export default {
   width: 1000px;
   height: 50px;
 }
+.textSub{
+  font-size: 25px;
+  color:  #5c5c5c;
+  font-family: "Roboto";
+  margin-left: 90px;
+
+}
+
 .textTotal{
   font-size: 20px;
   color:  #5c5c5c;
   font-family: "Roboto";
   margin-left: 90px;
-
 }
 .btnCancel{
   font-family: "Average Sans", sans-serif;
@@ -336,7 +391,7 @@ export default {
   border-color:white;
 }
 .textPayment{
-  font-size: 24px;
+  font-size: 22px;
   color: #5c5c5c;
   font-family: "Roboto";
 }

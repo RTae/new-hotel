@@ -85,6 +85,7 @@
                         :rules="[v => !!v || 'Phone number is required!']"
                         v-model="user.phone"
                         color="primary"
+      
                         solo
                         rounded
                         outlined
@@ -248,6 +249,7 @@ export default {
 <style scoped>
 .main {
   background: #C0D9FF;
+  height: 1000px;
 }
 .cardContainer2 {
   color: #A0C6FF;
