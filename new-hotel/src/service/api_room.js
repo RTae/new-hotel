@@ -5,6 +5,15 @@ export const roomFree = async (roomCatID, limit) => {
     return httpClient.get(server.ROOMSFREE + "?roomCatID=" + roomCatID + "&limit=" + limit);
 }
 
+export const createRoom = async (value) => {
+    
+    bodyFormData.append("roomCatID", values.roomCatID);
+    bodyFormData.append("status", values.status);
+    bodyFormData.append("cleanStatus", values.cleanStatus);
+    const result = await httpClient.put(server.ROOM_WITH_OUT_ID, bodyFormData);
+    return result.data
+}
+
 export const updateRoom = async (values) => {
     var bodyFormData = new FormData();
     bodyFormData.append("roomID", values.roomID);
