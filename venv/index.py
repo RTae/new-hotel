@@ -50,7 +50,7 @@ def readCustomer(customerID=None):
 
 @app.route('/customerEmail/<email>',methods=["GET"])
 @cross_origin()
-def readCustomer(email=None):
+def readCustomerByEmail(email=None):
     if email != None:
         log = Customer.readCustomerByEmail(email)
         return jsonify(log)
@@ -180,6 +180,16 @@ def readRoom(roomID=None):
 @cross_origin()
 def getAllRoom():
     log = Room.getAllRoom()
+    return jsonify(log)
+
+@app.route('/getAllRoomFreeByRoomCat', methods=["GET"])
+@cross_origin()
+def getAllRoomFreeByRoomCat():
+    roomCatID = request.args.get('roomCatID')
+    limit = request.args.get('limit')
+    if limit == "":
+        limit = None
+    log = Room.getRoomFreeByRoomCat(roomCatID, limit)
     return jsonify(log)
 
 # updateRoom use for update room 
