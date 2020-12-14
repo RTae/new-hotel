@@ -170,7 +170,7 @@ def createRoom():
 
 @app.route('/roomWithOutID',methods=["POST"])
 @cross_origin()
-def createRoom():
+def createRoomWithoutID():
     roomCatID = request.form['roomCatID']
     status = request.form['status']
     cleanStatus = request.form['cleanStatus']
