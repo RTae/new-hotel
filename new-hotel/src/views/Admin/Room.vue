@@ -3,16 +3,18 @@
         <v-row justify="center">
             <v-col style="margin-top:50px" cols="10">
                 <v-card color="#A0C6FF" class="cardTitleContainer">
-                    <v-row justify="start">
-                        <v-col class="d-flex justify-start" cols="6" offset="1">
-                            <p class="fontTextTitle">Room empty: {{ totalEmpty }}</p>
-                        </v-col>
-                    </v-row>
-                    <v-row justify="center">
-                        <v-col v-for="room in roomCat" :key=room.name class="d-flex justify-center" cols="2">
-                            <p class="fontTextTitle">{{ room.name }}: {{ room.count }}</p>
-                        </v-col>
-                    </v-row>
+                    <div style="width:100%">
+                        <v-row justify="start">
+                            <v-col class="d-flex justify-start" cols="6" offset="1">
+                                <p class="fontTextTitle">Room empty: {{ totalEmpty }}</p>
+                            </v-col>
+                        </v-row>
+                        <v-row justify="center">
+                            <v-col v-for="room in roomCat" :key=room.name class="d-flex justify-center" cols="2">
+                                <p class="fontTextTitle">{{ room.name }}: {{ room.count }}</p>
+                            </v-col>
+                        </v-row>
+                    </div>
                 </v-card>
             </v-col>
         </v-row>
@@ -349,6 +351,9 @@ export default {
 .cardTitleContainer{
     min-height: 20vh;
     min-width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .fontTextTitle{
     font-size: 20px;

@@ -10,7 +10,7 @@ export const createRoom = async (values) => {
     bodyFormData.append("roomCatID", values.roomCatID);
     bodyFormData.append("status", values.status);
     bodyFormData.append("cleanStatus", values.cleanStatus);
-    const result = await httpClient.put(server.ROOM_WITH_OUT_ID, bodyFormData);
+    const result = await httpClient.post(server.ROOM_WITH_OUT_ID, bodyFormData);
     return result.data
 }
 
