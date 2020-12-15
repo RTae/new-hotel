@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="Home">
     <v-row class="bg">
       <v-toolbar
-        src="../../../dist/img/hotel.svg"
+        src="../../assets/img/hotel.svg"
         height="800px"
         width="800px"   
         flat
@@ -193,7 +193,7 @@
       <v-row class="containRoom">
         <v-col cols="6">
           <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/single.svg">
+            <v-img class="imgRoom" src="../../assets/img/single.svg">
               <v-expand-transition>
                 <div
                   v-if="hover"
@@ -230,14 +230,14 @@
         </v-col>
         <v-col cols="6">
           <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/double.svg">
+            <v-img class="imgRoom" src="../../assets/img/double.svg">
               <v-expand-transition>
                 <div
                   v-if="hover"
                   class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
                   style="height: 100%;"
                 >
-                  ฿ 2,500 / per night
+                 x ฿ 2,500 / per night
                 </div>
               </v-expand-transition>
             </v-img>
@@ -247,7 +247,7 @@
       <v-row class="containRoom">
         <v-col cols="6">
           <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/suite.svg">
+            <v-img class="imgRoom" src="../../assets/img/suite.svg">
               <v-expand-transition>
                   <div
                     v-if="hover"
@@ -284,7 +284,7 @@
         </v-col>
         <v-col cols="6">
           <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/deluxe.svg">
+            <v-img class="imgRoom" src="../../assets/img/deluxe.svg">
               <v-expand-transition>
                 <div
                   v-if="hover"
@@ -301,7 +301,7 @@
        <v-row class="containRoom">
         <v-col cols="6">
           <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/premier.svg">
+            <v-img class="imgRoom" src="../../assets/img/premier.svg">
               <v-expand-transition>
                 <div
                   v-if="hover"

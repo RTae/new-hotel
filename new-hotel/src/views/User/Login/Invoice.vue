@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="invoice">
     <v-row class="bg">
     <v-toolbar
-        src="../../../../dist/img/mainFirst.svg"
+        src="../../assets/img/mainFirst.svg"
         height="1000px"
         width="100vw"   
         flat
