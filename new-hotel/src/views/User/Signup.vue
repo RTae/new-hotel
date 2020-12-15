@@ -85,7 +85,6 @@
                         :rules="[v => !!v || 'Phone number is required!']"
                         v-model="user.phone"
                         color="primary"
-      
                         solo
                         rounded
                         outlined

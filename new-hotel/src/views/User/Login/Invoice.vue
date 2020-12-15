@@ -247,6 +247,8 @@ export default {
   },
   data () {
     return {
+      today:"",
+      calculateTotal:"",
       expireDate:"",
       nameOnCard:"",
       creaditNumber:"",
