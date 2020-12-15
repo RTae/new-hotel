@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/User/Home'
 import Login from '../views/User/Login'
 import Signup from '../views/User/Signup.vue'
-import Test from '../views/User/test.vue'
 // Customer
 import Profile from '../views/User/Login/Profile.vue'
 import Invoice from '../views/User/Login/Invoice.vue'
@@ -17,6 +16,7 @@ import HomeAdmin from '../views/Admin/HomeAdmin'
 import PrintPage from '../views/Admin/PrintPage.vue'
 import Room from "../views/Admin/Room.vue"
 import Report from "../views/Admin/Report.vue"
+import Cleaning from "../views/Admin/Cleaning.vue"
 
 Vue.use(VueRouter)
 
@@ -25,11 +25,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  }, 
-  {
-    path: '/test',
-    name: 'Test',
-    component: Test
   },
   {
     path: "/login",
@@ -90,6 +85,11 @@ const routes = [
     path: "/report",
     name: "Report",
     component: Report
+  },
+  {
+    path: "/cleaning",
+    name: "Cleaning",
+    component: Cleaning
   }
 ]
 const router = new VueRouter({

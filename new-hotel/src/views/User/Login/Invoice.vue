@@ -12,9 +12,6 @@
             <v-row style="width:1000px;"  justify="start" align="start">
               <p class="text">Invoice</p> 
             </v-row>
-            <v-row style="width:950px;">
-                <p class="textSub">Invoice ID : {{ invoiceID }}</p>
-            </v-row>
             <v-row align="center" justify="center" style="margin-top:10px;" >
                 <v-card  class="cardDetailContrin" style="border-radius: 20px;">
                     <v-row class="ml-12"  style="margin-top:40px;">
@@ -113,15 +110,37 @@
                       </v-row>     
                     </v-row>
                     <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:50px;">Total : {{ this.total }} bath</label>
-                    </v-row>
-                    <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:50px;">Vat : {{ (parseInt(this.total) * 0.07) }} bath</label>
-                    </v-row>
-                    <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:50px;">Amount Due : {{ (parseInt(this.total) * 1.07) }} bath</label>
+                      <label class="textTotal" style="margin-top:50px;">Amount Due : {{ totalPrice }} bath</label>
                     </v-row>
                 </v-card>
+            </v-row>
+            <v-row style="margin-top:100px;">
+              <v-col>
+                <v-btn
+                  color="#ED3636"
+                  x-large
+                  dark
+                  rounded
+                  class="btnCancel"
+                  width= "150px"
+                  @click="onClickCancel()"
+                >
+                  Cancel
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn 
+                    color="#28BC49"
+                    x-large
+                    dark
+                    rounded
+                    class="btnPayment"
+                    width= "150px"
+                    @click="onClickPayment()"
+                  >
+                    Payment
+                </v-btn>
+              </v-col>
             </v-row>
 
             <!--BUTTON&DIALOG-->
@@ -133,20 +152,6 @@
                       width="500px"
                       height="800px"
                     >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                          color="#ED3636"
-                          x-large
-                          dark
-                          rounded
-                          v-bind="attrs"
-                          v-on="on"
-                          class="btnCancel"
-                          width= "150px"
-                        >
-                          Cancel
-                        </v-btn>
-                      </template>
                       <v-card>
                         <v-card-title class="cardTitle">
                           Are you sure to cancel this booking?
@@ -176,26 +181,9 @@
                     </v-card>
                   </v-dialog>
                   <v-dialog v-model="dialogPayment" persistent width="800px" height="800px">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn 
-                          color="#28BC49"
-                          x-large
-                          dark
-                          rounded
-                          v-bind="attrs"
-                          v-on="on"
-                          class="btnPayment"
-                          width= "150px"
-                      >
-                      Payment
-                      </v-btn>
-                    </template>
                     <v-card style="border-radius: 20px;">
                       <v-card-title>
                         <span style="font-size:50px; margin-top:20px;">Receipt</span>
-                      </v-card-title>
-                      <v-card-title>
-                        <span  style="font-size:25px;">Invoice ID : {{ invoiceID }}</span>
                       </v-card-title>
                       <v-card-text>
                         <v-container>
@@ -204,13 +192,13 @@
                               <label style="font-size:18px; color:black;">Customer ID : {{this.user.customerID}}</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
-                              <label   style="font-size:18px; color:black;">Date :</label>
+                              <label   style="font-size:18px; color:black;">Date : {{ new Date().toISOString().substr(0, 10) }}</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
                               <label style="font-size:18px; color:black;">Payment Method : Credit Card</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
-                              <label style="font-size:18px; color:black;">Total : {{ total }} bath</label>
+                              <label style="font-size:18px; color:black;">Total : {{ totalPrice }} bath</label>
                             </v-col>
                           </v-row>
                         </v-container>
@@ -240,6 +228,7 @@
 </template>
 
 <script scoped>
+import api from "../../../service/api"
 export default {
   name: "Invoice",
   data () {
@@ -250,28 +239,53 @@ export default {
       cvv:"",
       total:"",
       user: {
+        customerID: "",
         firstName: "",
         familyName: "",
         paymentMethod: "Credit Card",
       },
-      invoiceID: null,          
-      totalPrice: null,
+      invoicesID: [],          
+      totalPrice: 0,
       dialogPayment: false,
       dialogCancel: false,
     }
   },
+  mounted() {
+    this.totalPrice = this.$route.params.total
+    this.invoicesID = this.$route.params.invoicesID
+  },
   methods: {
-    onClickPayment () {
-      this.$router.push({ name: "Receipt" 
-      });
+    async onClickPayment() {
+      this.user.customerID = this.$store.getters.getUserID
+      const resultReceipt = await api.createReceipt({
+        customerID: this.$store.getters.getUserID,
+        paymentMedId: "2",
+        cuponID: "co0001",
+        dateCreate: new Date().toISOString().substr(0, 10),
+        paymentRef: "Cash",
+        totalReceived: this.totalPrice,
+        remark: "Test"
+      })
+      var receiptID = resultReceipt.result
+      this.receiptID = receiptID
+      for(var i = 0; i < this.invoicesID.length; i++){
+        var invoiceID = this.invoicesID[i]
+        const result = await api.createReceiptLine({
+          receiptID: receiptID,
+          invoiceID: invoiceID,
+          remark: "Test"
+        })
+      }
+      this.dialogPayment = true
+    },
+    onClickCancel() {
+      this.dialogCancel = true
     },
     onClickFinnish () {
-      this.$router.push({ name: "Home" 
-      });
+      this.$router.push({ name: "Home" });
     },
     onClickYes () {
-      this.$router.push({ name: "Home" 
-      });
+      this.$router.push({ name: "Home" });
     }
   },
 };

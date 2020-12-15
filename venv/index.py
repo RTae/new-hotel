@@ -469,6 +469,13 @@ def readReceipt(receiptID=None):
         log = Receipt.read(receiptID)
         return jsonify(log)
 
+@app.route('/readByCustomerID/<customerID>',methods=["GET"])
+@cross_origin()
+def readByCustomerID(customerID=None):
+    if customerID != None:
+        logs = Receipt.readByCustomerID(receiptID)
+        return jsonify(log)
+
 @app.route('/showReceiptReportByReceiptIDLine/<receiptID>',methods=["GET"])
 @cross_origin()
 def showReceiptReportByReceiptIDLine(receiptID=None):
