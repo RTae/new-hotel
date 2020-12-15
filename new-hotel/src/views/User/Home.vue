@@ -95,7 +95,7 @@
                   <v-text-field 
                     v-model="numRoom" 
                     type="number"
-                    :min="0" 
+                    :min="1" 
                     :max="10"
                     append-icon="local_hotel">
                   </v-text-field>
@@ -109,7 +109,7 @@
                   <v-text-field 
                     v-model="numGuest" 
                     type="number"
-                    :min="0" 
+                    :min="1" 
                     :max="50"
                     append-icon="family_restroom"
                     >
@@ -316,7 +316,7 @@ export default {
         numRoomPremier: "2",
         roomValue:"Single",
         numRoom:1,
-        numGuest:0,
+        numGuest:1,
         roomCat: [
             {
                 id: "rc0001",
