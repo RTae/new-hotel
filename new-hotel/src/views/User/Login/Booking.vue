@@ -61,6 +61,9 @@
                                       <v-col cols="6">
                                           <v-text-field
                                               v-model="invoice.numberOfRoom"
+                                              type="number"
+                                              :min="0" 
+                                              :max="10"
                                           />
                                       </v-col>
                                   </v-row>

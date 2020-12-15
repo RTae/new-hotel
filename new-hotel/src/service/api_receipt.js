@@ -30,3 +30,8 @@ export const reportReceiptByReceiptID = async receiptID => {
 export const reportReceiptLineByReceiptID = async receiptID => {
     return await httpClient.get(server.RECEIPT_REPORT_LINE_BY_RECEIPTID + "/" + receiptID);
 }
+
+export const summayReceipt = async () => {
+    const result = await httpClient.get(server.RECEIPT_SUMMARY);
+    return result
+}

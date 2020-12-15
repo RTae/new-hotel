@@ -168,6 +168,16 @@ def createRoom():
     logs = Room.create(roomID, roomCatID, status, cleanStatus)
     return logs
 
+@app.route('/roomWithOutID',methods=["POST"])
+@cross_origin()
+def createRoomWithoutID():
+    roomCatID = request.form['roomCatID']
+    status = request.form['status']
+    cleanStatus = request.form['cleanStatus']
+
+    logs = Room.createWithOutID(roomCatID, status, cleanStatus)
+    return logs
+
 # readRoom get all or get specific by roomID
 @app.route('/room/<roomID>',methods=["GET"])
 @cross_origin()
@@ -190,6 +200,18 @@ def getAllRoomFreeByRoomCat():
     if limit == "":
         limit = None
     log = Room.getRoomFreeByRoomCat(roomCatID, limit)
+    return jsonify(log)
+
+@app.route('/roomSummaryByRoomCat', methods=["GET"])
+@cross_origin()
+def roomSummaryByRoomCat():
+    log = Room.roomSummaryByRoomCat()
+    return jsonify(log)
+
+@app.route('/roomSummary', methods=["GET"])
+@cross_origin()
+def roomSummary():
+    log = Room.roomSummary()
     return jsonify(log)
 
 # updateRoom use for update room 
@@ -303,6 +325,12 @@ def readInvovice(invoiceID=None):
     if invoiceID != None:
         log = Invoice.read(invoiceID)
         return jsonify(log)
+
+@app.route('/summaryInvoice', methods=["GET"])
+@cross_origin()
+def summaryInvoice():
+    log = Invoice.summaryInvoice()
+    return jsonify(log)
 
 @app.route('/getAllInvoice', methods=["GET"])
 @cross_origin()
@@ -455,6 +483,12 @@ def showReceiptReportByReceiptID(receiptID=None):
     if receiptID != None:
         log = Receipt.showReceiptReportByReceiptID(receiptID)
         return jsonify(log)
+
+@app.route('/receiptSummary', methods=["GET"])
+@cross_origin()
+def receiptSummary():
+    log = Receipt.receiptSummary()
+    return jsonify(log)
 
 @app.route('/getAllReceipt', methods=["GET"])
 @cross_origin()

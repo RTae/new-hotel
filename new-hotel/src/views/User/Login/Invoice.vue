@@ -33,7 +33,7 @@
                                   ref="nameOnCard"
                                   :rules="[v => !!v || 'Name on card is required']"
                                   v-model="nameOnCard"
-                                  filled
+                                  solo-inverted
                                   dense
                                   placeholder="S. THUNWARA"
                                   autocomplete="nameOnCard"
@@ -53,8 +53,10 @@
                                 ref="expireDate"
                                 :rules="[v => !!v || 'Expire date is required']"
                                 v-model="expireDate"
-                                filled
+                                solo-inverted
                                 dense
+                                counter
+                                maxlength="5"
                                 placeholder="XX/XX"
                                 autocomplete="expireDate"
                               />
@@ -75,8 +77,10 @@
                                   ref="creaditNumber"
                                   :rules="[v => !!v || 'Credit card Number is required']"
                                   v-model="creaditNumber"
-                                  filled
+                                  solo-inverted
                                   dense
+                                  counter
+                                  maxlength="19"
                                   placeholder="XXXX-XXXX-XXXX-XXXX"
                                   autocomplete="creaditNumber"
                               />   
@@ -84,19 +88,21 @@
                             </v-row>
                           </v-col>
                         </div>
-                        <div style="width:200px;">
-                          <v-col style="width:200px;">
+                        <div style="width:300px;">
+                          <v-col style="width:300px;">
                             <v-row class="ml-6" justify="start">
                               <label class="textDetail">CVV :</label>
                             </v-row>
                             <v-row class="ml-6" justify="start">
-                              <div class="inputFiled"  style="width: 150px;">
+                              <div class="inputFiled"  style="width: 140px;">
                               <v-text-field
                                 ref="cvv"
                                 :rules="[v => !!v || 'CVV is required']"
                                 v-model="cvv"
-                                filled
                                 dense
+                                solo-inverted
+                                counter
+                                maxlength="3"
                                 placeholder="XXX"
                                 autocomplete="cvv"
                               />

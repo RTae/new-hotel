@@ -20,12 +20,17 @@ export const createInvoice = async values => {
     }
   };
 
-  export const createInvoiceLine = async values => {
-    var bodyFormData = new FormData();
-    bodyFormData.append("invoiceID", values.invoiceID);
-    bodyFormData.append("roomID", values.roomID);
-    bodyFormData.append("remark", values.remark);
+export const createInvoiceLine = async values => {
+  var bodyFormData = new FormData();
+  bodyFormData.append("invoiceID", values.invoiceID);
+  bodyFormData.append("roomID", values.roomID);
+  bodyFormData.append("remark", values.remark);
 
-    const result = await httpClient.post(server.INVOICE_LINE, bodyFormData);
-    return result.data
-  }
+  const result = await httpClient.post(server.INVOICE_LINE, bodyFormData);
+  return result.data
+}
+
+export const summayInvoice = async () => {
+  const result = await httpClient.get(server.INVOICE_SUMMARY);
+  return result
+}

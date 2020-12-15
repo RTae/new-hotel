@@ -249,6 +249,42 @@ class Invoice():
             }
             return log
 
+    def summaryInvoice(self):
+        results = fetch('   SELECT  i."invoiceID", i."dateCreate", i."total", i."vat",                      \
+		                            i."amountDue", i."periodOfStay", i."checkIn", i."checkOut",             \
+		                            i."numberOfRoom", CONCAT(c."firstname",'+ "' '" +',c."familyname") as "name",   \
+                                    rc.name                                                                 \
+                            FROM "TBL_Invoices" i                                                           \
+                            INNER JOIN "TBL_RoomCategorys" rc                                               \
+                                ON i."roomCatID" = rc."roomCatID"                                           \
+                            INNER JOIN "TBL_Customer" c                                                     \
+                                ON i."customerID" =  c."customerID"' )
+        invoices = []
+        for result in results:
+            tempDict = {}
+            temp = cursortorow(result)
+            tempDict ={
+                "invoiceID": temp[0],
+                "dateCreate": temp[1],
+                "total": temp[2],
+                "vat": temp[3],
+                "amountDue": temp[4],
+                "periodOfStay": temp[5],
+                "checkIn": temp[6],
+                "checkOut": temp[7],
+                "numberOfRoom": temp[8],
+                "name": temp[9],
+                "roomType": temp[10],
+            }
+            invoices.append(tempDict)
+
+        log = {
+            "result":invoices,
+            "msg":"",
+            "status":"1"
+        }
+        return log
+
     def serialize(self,invoice):
         return {
             'roomCatID': invoice.roomCatID,
