@@ -237,7 +237,7 @@
                   class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
                   style="height: 100%;"
                 >
-                 x ฿ 2,500 / per night
+                  ฿ 2,500 / per night
                 </div>
               </v-expand-transition>
             </v-img>
