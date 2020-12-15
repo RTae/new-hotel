@@ -286,7 +286,7 @@ export default {
     onClickCancel() {
       this.dialogCancel = true
     },
-    onClickFinnish () {
+    onClickFinish () {
       this.$router.push({ name: "Home" });
     },
     onClickYes () {

@@ -147,44 +147,12 @@
       </v-toolbar>
     </v-row>
     <v-row class="numRoom"> 
-      <v-col cols="2">
+      <v-col v-for="room in rooms" :key=room.name cols="2">
         <v-row justify="center">
-          <label class="textType">Single</label>
+          <label class="textType">{{ room.name }}</label>
         </v-row>
         <v-row justify="center">
-          <label class="textType">{{ this.numRoomSingle }}</label>
-        </v-row>
-      </v-col>
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Double</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomDouble }}</label>
-        </v-row>
-      </v-col>
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Suite</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomSuite }}</label>
-        </v-row>        
-      </v-col>
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Deluxe</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomDeluxe }}</label>
-        </v-row>
-      </v-col>
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Premier</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomPremier }}</label>
+          <label class="textType">{{ room.count }}</label>
         </v-row>
       </v-col>
     </v-row>
@@ -330,6 +298,7 @@
 </template>
 
 <script>
+import api from "../../service/api"
 export default {
   name: "Home",
   components: {},
@@ -375,15 +344,18 @@ export default {
                 price: 5000
             },
       ],
-      invoice:{}
+      invoice:{},
+      rooms:[]
     }
   },
-  mounted() {
+  async mounted() {
     this.today = new Date().toISOString().substr(0, 10)
     const tomorrow = new Date(this.today)
     tomorrow.setDate(tomorrow.getDate() + 1)
     this.tomorrow = tomorrow.toISOString().substr(0, 10)
     this.dateCheckOut = tomorrow.toISOString().substr(0, 10)
+    const result = await api.roomSummaryByRoomCat()
+    this.rooms = result.data.result
   },
   methods: {
     onClickBooking(){
