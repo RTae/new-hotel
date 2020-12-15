@@ -1,523 +1,280 @@
-
 <template>
-  <v-container fluid class="main" id="Home">
+  <v-container fluid class="main" id="test">
     <v-row class="bg">
-      <v-toolbar
-        src="../../../dist/img/mainFirst.svg"
-        height="800px"
+    <v-toolbar
+        src="../../../dist/img/bgPayment.svg"
+        height="1000px"
         width="100vw"   
         flat
       >
-        <div class="cardContain" align="center"> 
-            <v-row justify="center" class="cardChoose">
-              <v-col cols="1"></v-col>          
-              <v-col class="ChooseContain">
-                <v-row justify="start">
-                  <label>Room Type</label>
+      <v-row justify="center">
+        <v-card class="cardContainer" style="background-color:#A0C6FF; border-radius: 20px;" >
+          <v-row><p class="text">Order</p></v-row>
+              <v-card style= "border-radius: 20px;" class="cardDetailContainer">
+                <v-col >
+                <v-row  v-for="order in orders" :key="order.id" align="center" justify="center">
+                <p class="textDetail">Room Type : {{ order.roomtype }}</p>
+                <v-spacer></v-spacer>
+                <p class="textDetail">    {{ order.periodofstay }} day</p>
+                <p class="textDetail"> * {{ order.numberofroom }} room</p>
+                <p class="textDetail">Total {{ order.total }} bath</p>
                 </v-row>
-                <v-row style="margin-top:20px;">
-                    <v-select
-                      v-model="roomValue"
-                      :items= "['Single', 'Double', 'Suite', 'Delux', 'Premier']"
-                      :rules="[v => !!v || 'Plase choose is room type']"
-                      autocomplete="roomType"
-                    />
+                <v-row>
+                  <v-spacer></v-spacer>
+                  <p class="textDetail">Sum Total : {{ (parseInt(this.total) )}} bath</p>
                 </v-row>
-              </v-col>
-              <v-col class="ChooseContain">
-                <v-row justify="start">
-                  <label>Arrival Date</label>
-                </v-row>
-                <v-row justify="start" style="margin-top:20px;">
-                  <v-menu
-                    v-model="menuCheckIn"
-                    :close-on-content-click="false"
-                    transition="scale-transition"
-                    offset-y
-                    max-width="290px"
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                        v-model="arrivalDate"
-                        persistent-hint
-                        readonly
-                        append-icon="date_range"
-                        v-bind="attrs"
-                        @blur="date = parseDate(arrivalDate)"
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      v-model="arrivalDate"
-                      :min="this.today"
-                      no-title
-                      @input="menu1 = false"
-                    ></v-date-picker>
-                  </v-menu>
-                </v-row>
-              </v-col>
-              <v-col class="ChooseContain">
-                <v-row justify="start">
-                <label>Departure Date</label>
-                </v-row>
-                <v-row justify="start" style="margin-top:20px;" >
-                  <v-menu
-                    ref="menu2"
-                    v-model="menu2"
-                    :close-on-content-click="false"
-                    transition="scale-transition"
-                    offset-y
-                    max-width="290px"
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                        v-model="departureDate"
-                        persistent-hint
-                        append-icon="date_range"
-                        v-bind="attrs"
-                        @blur="date = parseDate(departureDate)"
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      :min="this.tomorrow"
-                      v-model="departureDate"
-                      no-title
-                      @input="menu2 = false"
-                    ></v-date-picker>
-                  </v-menu>
-                </v-row>
-              </v-col>
-              <v-col class="ChooseContain">
-                <v-row justify="start">
-                <label>Number of room</label>
-                </v-row>
-                <v-row style="margin-top:20px;">
-                   <v-text-field :rules="rules"></v-text-field>
-                </v-row>
-              </v-col>
-              <v-col class="ChooseContain">
-                <v-row justify="start">
-                <label>Guest</label>
-                </v-row>
-                <v-row style="margin-top:20px;">
-                   <v-text-field :rules="rules"></v-text-field>
-                </v-row>
-              </v-col>
-              <v-col  cols="1">
-                <v-btn
-                    depressed
-                    color="#A0C6FF"
-                    elevation="2"
-                    x-large
-                    rounded
-                    @click="onClickBooking()"
-                  > 
-                  BOOK
-                </v-btn>
-              </v-col>
-               <v-col cols="1"></v-col> 
-            </v-row>
-            <v-row justify="center" align="center">
-              <v-card class="cardAbout" style="border-radius: 30px;">
-                <v-row justify="center"><p class="textAbout">ABOUT US</p></v-row>
-                <v-row justify="center" class="textDetailAboutUs">
-                  <p>ในปี พ. ศ. 2563 บริษัท กลุ่ม Newway จำกัด ซึ่งเป็นกลุ่มค้าปลีกชั้นนำของประเทศไทยได้ก่อตั้ง</p>
-                  <p>บริษัท นิวโฮเทลส์แอนด์รีสอร์ท และได้เปิดตัวโรงแรมแห่งแรก ซึ่งเป็นโรงแรมระดับ 5 ดาวสุดหรู</p>
-                  <p>ที่ชื่อ New Hotel ตั้งอยู่ใจกลางเมืองกรุงเทพ โดยวิสัยทัศน์ของบริษัทคือการทุ่มเทให้กับการบริการที่ดีเลิศ</p>
-                  <p>ในฐานะที่เป็นบริษัทบริหารและการจัดการโรงแรมสัญชาติไทย จึงให้ความสำคัญกับการต้อนรับแบบไทยที่อบอุ่น</p>
-                </v-row>
+                </v-col>
               </v-card>
-            </v-row>
-        </div>
+            <v-row><p class="text">Payment Method</p></v-row>
+            <v-card style= "border-radius: 20px;" class="cardDetailContainer2">
+          <div class="radioContainer">
+            <div class="radioLineContainer" style= "margin-top:32px;">
+              <v-radio-group
+                :rules="[v => !!v || 'You must select payment method']"
+                v-model="paymentmethod.name"
+                column
+                required
+              >
+                <v-radio class="textradio" label="Credit Card" color="info" value="a" />
+                <v-radio class="textradio" label="Cash" color="info" value="b" />
+              </v-radio-group>
+            </div>
+          </div>
+          </v-card>
+             <v-row justify="center" style="margin-top:40px;" >
+                <div class="cardTotal" >
+                   <v-dialog
+                      v-model="dialog"
+                      persistent
+                      max-width="500px"
+                      max-height="800px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn @click="onClickCancel()"
+                          color="#ED3636"
+                          x-large
+                          dark
+                          rounded
+                          v-bind="attrs"
+                          v-on="on"
+                          class="btnCancel"
+                          width= "150px"
+                        >
+                          Cancel
+                        </v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title class="cardTitle">
+                          Are you sure to cancel this booking?
+                        </v-card-title>
+                        <v-card-actions class="btnDialog">
+                          <v-btn
+                            color="#EB5757"
+                            width="100px"
+                            @click="dialog = false"
+                            large
+                            dark
+                            rounded
+                          >
+                            NO
+                          </v-btn>
+                          <v-btn
+                            color="#70CCFF"
+                            large
+                            dark
+                            rounded
+                            width="100px"
+                            @click="onClickYes()"
+                          >
+                            YES
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <v-btn @click="onClickPayment()"
+                    class="btnPayment" 
+                    type="submit" 
+                    style="background-color:#28BC49;" 
+                    dark 
+                    x-large
+                    >
+                    Payment</v-btn>
+                </div>
+            </v-row> 
+        </v-card>
+      </v-row>
       </v-toolbar>
     </v-row>
-    <v-row class="numRoom"> 
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Single</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomSingle }}</label>
-        </v-row>
-      </v-col>
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Double</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomDouble }}</label>
-        </v-row>
-      </v-col>
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Suite</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomSuite }}</label>
-        </v-row>        
-      </v-col>
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Deluxe</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomDeluxe }}</label>
-        </v-row>
-      </v-col>
-      <v-col cols="2">
-        <v-row justify="center">
-          <label class="textType">Premier</label>
-        </v-row>
-        <v-row justify="center">
-          <label class="textType">{{ this.numRoomPremier }}</label>
-        </v-row>
-      </v-col>
-    </v-row>
-    <!--Detail-->
-    <v-card class="room"> 
-      <v-row class="containRoom">
-        <v-col cols="6">
-          <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/single.svg">
-              <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="d-flex transition-fast-in-fast-out  grey darken-3 v-card--reveal display-3 white--text"
-                  style="height: 100%;"
-                >
-                  ฿ 1,500 / per night
-                </div>
-              </v-expand-transition>
-            </v-img>
-          </v-hover>
-        </v-col>
-        <v-col cols="6" justify="center"> 
-            <v-row justify="center" style="margin-top:80px">
-              <label class="textHead">Single Room</label>
-            </v-row>
-            <v-row justify="center" class="textDetailAboutUs">
-              <div class="textDetaiRoomContain">
-                <label class="textDetaiRoom">This 22 sqm Single Room has single bed positioned near a window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
-              </div>
-            </v-row>
-        </v-col>  
-      </v-row>
-      <v-row class="containRoom">
-        <v-col cols="6">
-          <v-row justify="center" style="margin-top:80px"> 
-            <label class="textHead">Double Room</label>
-          </v-row>
-          <v-row justify="center" style="margin-top:20px">
-            <div class="textDetaiRoomContain">
-                <label class="textDetaiRoom">This 26 sqm Superior Room has twin single beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
-            </div>
-          </v-row>
-        </v-col>
-        <v-col cols="6">
-          <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/double.svg">
-              <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
-                  style="height: 100%;"
-                >
-                  ฿ 2,500 / per night
-                </div>
-              </v-expand-transition>
-            </v-img>
-          </v-hover>       
-        </v-col>
-      </v-row>
-      <v-row class="containRoom">
-        <v-col cols="6">
-          <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/suite.svg">
-              <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
-                    style="height: 100%;"
-                  >
-                    ฿ 3,000 / per night
-                  </div>
-                </v-expand-transition>
-            </v-img>
-          </v-hover>
-        </v-col>
-        <v-col cols="6">
-          <v-row justify="center" style="margin-top:80px">
-            <label class="textHead">Suite Room</label>
-          </v-row>
-          <v-row justify="center" style="margin-top:20px">
-            <div class="textDetaiRoomContain">
-              <label class="textDetaiRoom">This 50 sqm Superior Room has 2 room that it has a guest room and  a queen bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
-            </div>
-          </v-row>
-        </v-col>
-      </v-row>
-      <v-row class="containRoom">
-        <v-col cols="6">
-          <v-row justify="center" style="margin-top:80px">
-            <label class="textHead">Deluxe Room</label>
-          </v-row>
-          <v-row justify="center" style="margin-top:20px">
-            <div class="textDetaiRoomContain">
-              <label class="textDetaiRoom">This 60 sqm deluxe Room has 2 room that it has a guest room and a king bed positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
-            </div>
-          </v-row>
-        </v-col>
-        <v-col cols="6">
-          <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/deluxe.svg">
-              <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
-                  style="height: 100%;"
-                >
-                  ฿ 4,000 / per night
-                </div>
-              </v-expand-transition>
-            </v-img>
-          </v-hover>
-        </v-col>
-      </v-row>
-       <v-row class="containRoom">
-        <v-col cols="6">
-          <v-hover v-slot:default="{ hover }">
-            <v-img class="imgRoom" src="../../../dist/img/premier.svg">
-              <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="d-flex transition-fast-in-fast-out grey darken-3 v-card--reveal display-3 white--text"
-                  style="height: 100%;"
-                >
-                  ฿ 5,000 / per night
-                </div>
-              </v-expand-transition>
-            </v-img>
-          </v-hover>
-        </v-col>
-        <v-col cols="6">
-          <v-row justify="center" style="margin-top:80px">
-            <label class="textHead">Premier Room</label>
-          </v-row>
-          <v-row justify="center" style="margin-top:20px">
-            <div class="textDetaiRoomContain">
-              <label class="textDetaiRoom">This 70 sqm deluxe Room has 2 room that it has a guest room and  2 king beds positioned near a large window offering natural light and pleasant views of the city. Guests can help themselves to complimentary hot drinks and drinking water.</label>
-            </div>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-card>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "Home",
-  components: {},
-  mounted() {
-    this.today = new Date().toISOString().substr(0, 10)
-    const tomorrow = new Date(this.today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    this.tomorrow = tomorrow.toISOString().substr(0, 10)
-  },
-  data(){
-     return{
-        today: "",
-        tomorrow: "",
-        dateCheckIn: new Date().toISOString().substr(0, 10),
-        dateCheckOut: new Date().toISOString().substr(0, 10),
-        menuCheckIn: false,
-        menuCheckOut: false,
-        numRoomSingle: "12",
-        numRoomDouble: "12",
-        numRoomSuite: "3",
-        numRoomDeluxe: "4",
-        numRoomPremier: "2",
-        roomValue:"",
-        numValue:"",
-        peopelValue:"",
-    }
-  },
-  mounted() {
-    this.today = new Date().toISOString().substr(0, 10)
-    const tomorrow = new Date(this.today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    this.tomorrow = tomorrow.toISOString().substr(0, 10)
-  },
-  computed: {
-      computedDateFormatted () {
-        return this.formatDate(this.arrivalDate)  
-        return this.formatDate(this.departureDate)         
+  name: "Profile",
+  id: "id",
+  data () {
+    return {
+      total:"",
+      orders: [{
+        roomtype: "Deluxe",
+        periodofstay: "5",
+        numberofroom: "1",
+        total: "5000"
       },
+      {
+        roomtype: "Suite",
+        periodofstay: "5",
+        numberofroom: "1",
+        total: "6000"
+      },
+      {
+        roomtype: "Premier",
+        periodofstay: "5",
+        numberofroom: "1",
+        total: "7000"
+      }
+      ],
+       paymentmethod: {
+        name: ""
+       },
+       dialog: false,
+    }
     },
-  watch: {
-    date (val) {
-      this.arrivalDate = this.formatDate(this.arrivalDate)
-    },
-    date (val) {
-      this.departureDate = this.formatDate(this.departureDate)
-    },
-  },
-  methods: {
-    onClickBooking(){
-     this.$router.push({ name: "Booking" 
+    methods: {
+      onClickPayment () {
+      this.$router.push({ 
+        name: "Invoice", 
+        userId: this.$store.getters.getUserName,
+        total: this.calculateTotal,
       });
     },
-    formatDate (arrivalDate) {
-      if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
-    },
-    formatDate (departureDate) {
-      if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
-    },
-    parseDate (arrivalDate) {
-      if (!date) return null
-      const [month, day, year] = date.split('/')
-      return `${year}-${day.padStart(2, '0')}-${month.padStart(2, '0')}`
-    },
-    parseDate (departureDate) {
-      if (!date) return null
-      const [month, day, year] = date.split('/')
-      return `${year}-${day.padStart(2, '0')}-${month.padStart(2, '0')}`
-    },
+      onClickYes () {
+      this.$router.push({ name: "Home" 
+      });
+    }
   }
 };
 </script>
 
 <style scoped>
 .main {
-  background: #C0D9FF;
-  height: 372vh;
-  width: 2000vh;
+  background-color: #C0D9FF;
+  height: 1000px;
 }
-.a{
-  background-color: blue;
-}
+
 .bg {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  justify-content: center;
-  height: 465px;
+  height: 100%;
   width: 100vw;
 }
-.cardContain{
-  justify-content: center;
-  align-items: center;
-  height: 650px;
-  width: 100vw;
-  border-radius: 50px;
-}
-.cardChoose {
-  background-color: #CADFFF;
-  height: 150px;
-  width: 1400px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-}
-.ChooseContain{
-  height: 100px;
-  width: 80px;
-  justify-content: center;
-  align-items: center;
-  margin-left:10px;
-  margin-right:10px;
-  font-size: 20px;
-  font-family: roboto ;
-}
-.SubChooseContain{
-  height: 100px;
-  width: 10px; 
-}
-.cardAbout{
-  background-color: white;
-  opacity:  80%;
-  width: 1400px;
-  height: 450px;
-  margin-top: 50px;
-}
-.numRoom{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  justify-content: center;
-  align-items: center;
-  background-color: #CADFFF;
+.cardContainer {
+  background-color: #A0C6FF;
+  border-radius: 200px;
+  width: 950px;
+  height: 820px;
+ }
+
+.cardDetailContainer {
+  color: #A0C6FF;
+  border-radius: 20px;
+  width: 750px;
+  height: 270px;
+  margin-top: 3vh;
+  margin-left: 75px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+ }
+
+ .cardDetailContainer2 {
+  color: #A0C6FF;
+  border-radius: 20px;
+  width: 750px;
   height: 120px;
-  width: 100vw;
-  margin-top: 335px;
+  margin-top: 3vh;
+  margin-left: 75px;
+ }
+
+.text {
+  font-size: 40px;
+  color: #FFFFFF;
+  font-family: "Roboto";
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: 80px;
+  font-weight: bold;
+
 }
-.textType{
-  font-size: 25px;
-  font-family: roboto ;
+
+.textDetail {
+  font-size: 18px;
+  color: #5c5c5c;
+  font-family: "Roboto";
+  margin-top: 20px;
+  margin-left: 50px;
 }
-.textAbout{
-  font-size: 45px;
-  font-weight: bolder;
-  font-family: roboto ;
-  margin-top: 60px;
+
+
+.radioContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-left: 35px;
 }
-.textDetailAboutUs{
-  font-size: 25px;
-  font-family: roboto ; 
-  color: black; 
-} 
-.textDetaiCost{
-  font-size: 25px;
-  font-family: roboto ; 
-  color: black; 
+
+.radioLineContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  flex-direction: row;
 }
-.cardDetaiCost{
-  height: 80px;
-  width: 300px;  
-  background-color: #CADFFF;
-  border-radius: 30px;
+
+.cardTotal{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 1000px;
+  height: 50px;
 }
-.textDetaiRoomContain{
-  height: 200px;
-  width: 800px; 
-}
-.textHead{
-  font-size: 45px;
-  font-weight: bolder;
-  font-family: roboto ;
-}
-.room{
-  background-color: red;
-  height: 2050px;
-}
-.containRoom{
-  background-color:white;
-  height:510px;
-  width: 100vw;
-}
-.imgRoom{
-  height:490px;  
-}
-.textDetaiRoom{
+
+.btnCancel{
+  font-family: "Average Sans", sans-serif;
+  border-radius: 100px;
+  width: 150px;
+  height: 60px;
   font-size: 20px;
-  font-family: roboto ;
 }
-.v-card--reveal {
-align-items: center;
-bottom: 0;
-justify-content: center;
-opacity: .5;
-position: absolute;
-width: 100%;
+.btnPayment{
+  font-family: "Average Sans", sans-serif;
+  border-radius: 100px;
+  width: 150px;
+  height: 60px;
+  font-size: 20px;
+  border-color:white;
 }
+
+.btnDialog{
+  display: flex;
+  justify-content:space-around; 
+  height: 100px;
+  background-color:white;
+  border-radius: 100px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 25px;
+  color: #ffffff;
+  font-family: "Roboto";
+}
+
+.textradio {
+  font-weight: bold;
+  font-size: 25px;
+  color: #ffffff;
+  font-family: "Roboto";
+}
+.large label {
+  padding-left: 24px;
+  font-size: 48px;
+}
+
 </style>

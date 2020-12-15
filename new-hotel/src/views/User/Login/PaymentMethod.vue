@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="main" id="order">
+  <v-container fluid class="main" id="test">
     <v-row class="bg">
     <v-toolbar
         src="../../../../dist/img/bgPayment.svg"
@@ -15,8 +15,8 @@
                 <v-row  v-for="order in orders" :key="order.id" align="center" justify="center">
                 <p class="textDetail">Room Type : {{ order.roomtype }}</p>
                 <v-spacer></v-spacer>
-                <p class="textDetail">x   {{ order.periodofstay }} day</p>
-                <p class="textDetail">x {{ order.numberofroom }} room</p>
+                <p class="textDetail">    {{ order.periodofstay }} day</p>
+                <p class="textDetail"> * {{ order.numberofroom }} room</p>
                 <p class="textDetail">Total {{ order.total }} bath</p>
                 </v-row>
                 <v-row>
@@ -140,9 +140,12 @@ export default {
        dialog: false,
     }
     },
-      methods: {
+    methods: {
       onClickPayment () {
-      this.$router.push({ name: "Invoice" 
+      this.$router.push({ 
+        name: "Invoice", 
+        userId: this.$store.getters.getUserName,
+        total: this.calculateTotal,
       });
     },
       onClickYes () {
@@ -156,16 +159,11 @@ export default {
 <style scoped>
 .main {
   background-color: #C0D9FF;
-  height: 1010px;
+  height: 1000px;
 }
 
 .bg {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  justify-content: center;
-  height: 980px;
+  height: 100%;
   width: 100vw;
 }
 .cardContainer {

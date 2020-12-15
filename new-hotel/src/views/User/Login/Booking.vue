@@ -14,7 +14,7 @@
             </v-col>
             <v-col style="margin-top: 50px; margin-right:50px;" align="end" justify="center">
               <v-dialog
-                v-model="dialog1"
+                v-model="modalAdd"
                 persistent
                 max-width="600px"
               >
@@ -27,7 +27,7 @@
                     elevation="0"
                     v-bind="attrs"
                     v-on="on"
-                    @click="dialog1 = !dialog1"
+                    @click="modalAdd = !modalAdd"
                   >
                     <span>
                       <v-icon style="color:#6eb9f7;">add</v-icon>
@@ -244,7 +244,6 @@ export default {
             dateCheckOut: new Date().toISOString().substr(0, 10),
         },
         items: ["Single","Double","Suite","Delux","Premier"],
-        dialog1:false,
         dialog2:false,
         };
     },
@@ -253,7 +252,10 @@ export default {
             this.modalAdd = true
         },
         onClickNext() {
-           this.$router.push({ name: "Invoice" 
+           this.$router.push({ 
+              name: "Invoice" ,
+              userId: this.$store.getters.getUserName,
+              total: this.calculateTotal,
           });
         },
         onClickCancel() {

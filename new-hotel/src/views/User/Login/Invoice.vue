@@ -113,7 +113,7 @@
                       <label class="textTotal" style="margin-top:50px;">Vat : {{ (parseInt(this.total) * 0.07) }} bath</label>
                     </v-row>
                     <v-row align="center" justify="start" class="cardTotal" >
-                      <label class="textTotal" style="margin-top:50px;">Amount Due : {{ (parseInt(this.total) * 1.07) }} bath</label>
+                      <label class="textTotal" style="margin-top:50px;">Amount Due : {{ calculateTotal }} bath</label>
                     </v-row>
                 </v-card>
             </v-row>
@@ -198,13 +198,13 @@
                               <label style="font-size:18px; color:black;">Customer ID : {{this.user.customerID}}</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
-                              <label   style="font-size:18px; color:black;">Date :</label>
+                              <label   style="font-size:18px; color:black;">Date : {{this.today}}</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
                               <label style="font-size:18px; color:black;">Payment Method : Credit Card</label>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
-                              <label style="font-size:18px; color:black;">Total : {{ total }} bath</label>
+                              <label style="font-size:18px; color:black;">Total : {{ calculateTotal }} bath</label>
                             </v-col>
                           </v-row>
                         </v-container>
@@ -217,7 +217,7 @@
                           dark
                           width="180px" 
                           color="#7FB2FF"
-                          @click="onClickFinnish()"
+                          @click="onClickFinish()"
                           style="margin-bottom:20px magin-right:20px;"
                           >Finish
                           </v-btn>
@@ -236,6 +236,9 @@
 <script scoped>
 export default {
   name: "Invoice",
+  mounted() {
+  this.today = new Date().toISOString().substr(0, 10)
+  },
   data () {
     return {
       expireDate:"",
@@ -256,10 +259,14 @@ export default {
   },
   methods: {
     onClickPayment () {
-      this.$router.push({ name: "Receipt" 
+      this.$router.push({ 
+        name: "Receipt",
+        userId: this.$store.getters.getUserName,
+        total: this.calculateTotal,
+
       });
     },
-    onClickFinnish () {
+    onClickFinish () {
       this.$router.push({ name: "Home" 
       });
     },

@@ -189,7 +189,7 @@
       </v-col>
     </v-row>
     <!--Detail-->
-    <v-card class="room"> 
+    <div class="room" style="background-color:blue;"> 
       <v-row class="containRoom">
         <v-col cols="6">
           <v-hover v-slot:default="{ hover }">
@@ -271,7 +271,7 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row class="containRoom">
+            <v-row class="containRoom">
         <v-col cols="6">
           <v-row justify="center" style="margin-top:80px">
             <label class="textHead">Deluxe Room</label>
@@ -325,7 +325,7 @@
           </v-row>
         </v-col>
       </v-row>
-    </v-card>
+    </div>
   </v-container>
 </template>
 
@@ -366,19 +366,13 @@ export default {
 
 <style scoped>
 .main {
-  background: #C0D9FF;
-  min-height: 372vh;
-  width: 2000vh;
+  background: white;
+  min-height: 100vh;
 }
 .a{
   background-color: blue;
 }
 .bg {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  justify-content: center;
   height: 468px;
   width: 100vw;
 }
@@ -413,8 +407,8 @@ export default {
 }
 .cardAbout{
   background-color: white;
-  opacity:  70%;
-  width: 1400px;
+  opacity:  75%;
+  width: 1000px;
   height: 350px;
   margin-top: 80px;
 }
@@ -427,7 +421,7 @@ export default {
   background-color: #CADFFF;
   height: 120px;
   width: 100vw;
-  margin-top: 335px;
+  margin-top: 332px;
 }
 .textType{
   font-size: 25px;
@@ -467,7 +461,7 @@ export default {
 }
 .room{
   background-color: red;
-  height: 2050px;
+  height: 100%;
 }
 .containRoom{
   background-color:white;
