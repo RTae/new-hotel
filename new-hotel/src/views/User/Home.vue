@@ -345,19 +345,64 @@ export default {
         numRoomSuite: "3",
         numRoomDeluxe: "4",
         numRoomPremier: "2",
-        roomValue:"",
-        numValue:"",
-        peopelValue:"",
-        numRoom:0,
+        roomValue:"Single",
+        numRoom:1,
         numGuest:0,
+        roomCat: [
+            {
+                id: "rc0001",
+                name: "Single",
+                price: 1500
+            },
+            {
+                id: "rc0002",
+                name: "Double",
+                price: 2500
+            },
+            {
+                id: "rc0003",
+                name: "Suite",
+                price: 3000
+            },
+            {
+                id: "rc0004",
+                name: "Delux",
+                price: 4000
+            },
+            {
+                id: "rc0005",
+                name: "Premier",
+                price: 5000
+            },
+      ],
+      invoice:{}
     }
   },
   mounted() {
-    this.today = new Date().toISOString().substr(0, 1)
+    this.today = new Date().toISOString().substr(0, 10)
+    const tomorrow = new Date(this.today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    this.tomorrow = tomorrow.toISOString().substr(0, 10)
+    this.dateCheckOut = tomorrow.toISOString().substr(0, 10)
   },
   methods: {
     onClickBooking(){
-     this.$router.push({ name: "Booking" });
+     if (this.$store.getters.getHeaderLoginState) {
+        var temp = {}
+        const result = this.roomCat.find( ({ name }) => name === this.roomValue );
+        var dayIn = Date.parse(this.dateCheckIn)
+        var dayOut = Date.parse(this.dateCheckOut)
+        temp.roomType = this.roomValue
+        temp.dateCheckIn = this.dateCheckIn
+        temp.dateCheckOut = this.dateCheckOut
+        temp.periodOfStay = ((dayOut-dayIn)/86400000)
+        temp.typeID = result.id
+        temp.total = temp.periodOfStay * parseInt(this.numRoom) * result.price
+        temp.numberOfRoom = this.numRoom
+        this.$router.push({ name: "Booking" , params: { invoice: temp } });
+     } else {
+        this.$router.push({ name: "Login" });
+     }
     }
   }
 };
@@ -366,8 +411,7 @@ export default {
 <style scoped>
 .main {
   background: #C0D9FF;
-  min-height: 372vh;
-  width: 2000vh;
+  min-height: 100vh;
 }
 .a{
   background-color: blue;

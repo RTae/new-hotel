@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from "../service/api"
-
+import { server } from "../service/constants"
+import router from "../router"
+ 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -92,12 +94,76 @@ export default new Vuex.Store({
     async doRegister ({ commit }, { firstname, familyname, email, phoneNumber, creditCardNumber, point, password }) {
       var result = await api.register({ firstname, familyname, email, phoneNumber, creditCardNumber, point, password })
       if  (result.status === "1") {
-        console.log(result.result)
         commit("SET_CUSTOMER_ID", result.result)
       } else {
         commit("SET_DIALOG_STATE", true)
         commit("SET_DIALOG_MSG", result.msg)
       } 
     },
+    async doLogin ({ commit }, { email, password }){
+      if (email == "admin@new-hotel.com") {
+        var result = await api.login({ email, password })
+        if (result.status === "1") {
+          localStorage.setItem(server.USERNAME, result.result)
+          localStorage.setItem(server.USER_TYPE, "admin")
+          commit("SET_USER_ID", result.result)
+          commit("SET_HEADER_CORE_STATE", false)
+          commit("SET_HEADER_LOGIN_STATE", false)
+          commit("SET_HEADER_ADMIN_STATE", true)
+          router.push({name: "HomeAdmin"})
+        } else {
+          commit("SET_HEADER_CORE_STATE", true)
+          commit("SET_HEADER_LOGIN_STATE", false)
+          commit("SET_HEADER_ADMIN_STATE", false)
+          router.push({name: "Home"})
+        }
+      } else {
+        var result = await api.login({ email, password })
+        if (result.status === "1") {
+          localStorage.setItem(server.USERNAME, result.result)
+          localStorage.setItem(server.USER_TYPE, "customer")
+          commit("SET_USER_ID", result.result)
+          commit("SET_HEADER_CORE_STATE", false)
+          commit("SET_HEADER_LOGIN_STATE", true)
+          commit("SET_HEADER_ADMIN_STATE", false)
+          router.push({name: "Home"})
+        } else {
+          commit("SET_HEADER_CORE_STATE", true)
+          commit("SET_HEADER_LOGIN_STATE", false)
+          commit("SET_HEADER_ADMIN_STATE", false)
+          router.push({name: "Home"})
+        }
+      }
+    },
+    async restoreLogin ({ commit }){
+      var userid = localStorage.getItem(server.USERNAME)
+      if (userid !== null) {
+        var result = localStorage.getItem(server.USER_TYPE)
+        if (result === "admin") {
+          commit("SET_USER_ID", userid)
+          commit("SET_HEADER_CORE_STATE", false)
+          commit("SET_HEADER_LOGIN_STATE", false)
+          commit("SET_HEADER_ADMIN_STATE", true)
+          router.push({name: "HomeAdmin"})
+        } else {
+          commit("SET_USER_ID", userid)
+          commit("SET_HEADER_CORE_STATE", false)
+          commit("SET_HEADER_LOGIN_STATE", true)
+          commit("SET_HEADER_ADMIN_STATE", false)
+        }
+      } else {
+        commit("SET_HEADER_CORE_STATE", true)
+        commit("SET_HEADER_LOGIN_STATE", false)
+        commit("SET_HEADER_ADMIN_STATE", false)
+        router.push({name: "Home"})
+      }
+    },
+    async doLogout ({ commit }){
+      localStorage.removeItem(server.USERNAME)
+      commit("SET_USER_ID", "")
+      commit("SET_HEADER_CORE_STATE", true)
+      commit("SET_HEADER_LOGIN_STATE", false)
+      commit("SET_HEADER_ADMIN_STATE", false)
+    }
   }
 })

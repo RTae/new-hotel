@@ -12,11 +12,11 @@
           <v-row><p class="text">Profile</p></v-row>
             <div>
               <v-card style= "border-radius: 20px;" class="cardDetailContainer">
-                <label class="textDetail" >First name : {{ this.user.firstName }}</label>
-                <label class="textDetail">Family name : {{ this.user.familyName  }}</label>
-                <label class="textDetail">Email : {{ this.user.email }}</label>
-                <label class="textDetail">Phone Number : {{ this.user.phoneNumber }}</label>
-                <label class="textDetail">Point : {{ this.user.point }}</label>
+                <label class="textDetail" >First name : {{ user.firstName }}</label>
+                <label class="textDetail">Family name : {{ user.familyName  }}</label>
+                <label class="textDetail">Email : {{ user.email }}</label>
+                <label class="textDetail">Phone Number : {{ user.phoneNumber }}</label>
+                <label class="textDetail">Point : {{ user.point }}</label>
               </v-card>
             </div>
         </v-card>
@@ -27,17 +27,20 @@
 </template>
 
 <script>
+import api from "../../../service/api"
+import { server } from "../../../service/constants"
 export default {
   name: "Profile",
   async mounted () {
-    const result = await api.getUser(localStorage.getItem(server.USERNAME))
+    const result = await api.getCustomer(localStorage.getItem(server.USERNAME))
     if (result.data.status === "1") {
-      this.user.firstName = result.data.result[0].Firstname
-      this.user.familyName = result.data.result[0].Familyname
-      this.user.email = result.data.result[0].Email
-      this.user.phoneNumber = result.data.result[0].PhoneNumber
-      this.user.point = result.data.result[0].Point
+      this.user.firstName = result.data.result.firstname
+      this.user.familyName = result.data.result.familyname
+      this.user.email = result.data.result.email
+      this.user.phoneNumber = result.data.result.phoneNumber
+      this.user.point = result.data.result.point
     }
+    console.log(this.user)
   },
   data () {
     return {

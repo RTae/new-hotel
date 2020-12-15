@@ -24,8 +24,10 @@ export const server = {
   ROOM_SUMMARY: apiUrl+"/roomSummary",
   ROOMSFREE: apiUrl+"/getAllRoomFreeByRoomCat",
   ROOM: apiUrl+"/room",
+  LOGIN: apiUrl+"/login",
   ROOM_WITH_OUT_ID: apiUrl+"/roomWithOutID",
   CUSTOMER: apiUrl+"/customer",
+  CLEANING_GET_ALL: apiUrl+"/getAllCleaning",
   USERNAME: "username",
   USER_TYPE: "userType",
 };

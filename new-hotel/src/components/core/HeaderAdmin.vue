@@ -50,9 +50,9 @@
                       elevation="2"
                       tile
                       x-large
-                      @click="onClickManage()"
+                      @click="onClickCleaning()"
                     >
-                      Manage
+                      Cleaning
                     </v-btn>
                   </v-list-item-title>
                 </v-list-item>
@@ -68,6 +68,20 @@
                       @click="onClickReport()"
                     >
                       Report
+                    </v-btn>
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item class="buttonContainer">
+                  <v-list-item-title class="textMenu">
+                    <v-btn
+                      block
+                      color="#8FBBFE"
+                      elevation="2"
+                      tile
+                      x-large
+                      @click="onClickLogOut()"
+                    >
+                      Logout
                     </v-btn>
                   </v-list-item-title>
                 </v-list-item>
@@ -92,11 +106,17 @@ export default {
     onClickRoom(){
       this.$router.push({name:"Room"})
     },
-    onClickManage(){
-      this.$router.push({name:"Manage"})
+    onClickCleaning(){
+      this.$router.push({name:"Cleaning"})
     },
     onClickReport(){
       this.$router.push({name:"Report"})
+    },
+    onClickLogOut(){
+      this.$store.dispatch({
+          type: "doLogout"
+      });
+      this.$router.push({name:"Home"})
     }
   },
   watch: {
