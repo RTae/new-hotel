@@ -204,23 +204,15 @@ class Receipt():
             return log
 
     def readByCustomerID(self, customerID):
-        receipt = session.query(TBL_Receipts)
-        receipt = receipt.filter(TBL_Receipts.customerID==customerID)
-        if receipt.scalar() is not None :
-            receipt = self.serialize(receipt.one())
-            log = {
-                "result":receipt,
-                "msg":"",
-                "status":"1"
-            }
-            return log
-        else:
-            log = {
-                "result":"",
-                "msg":"Not found",
-                "status":"100"
-            }
-            return log
+        receipts = session.query(TBL_Receipts)
+        receipts = receipts.filter(TBL_Receipts.customerID==customerID)
+        receipts = [self.serialize(receipt) for receipt in receipts]
+        log = {
+            "result":receipts,
+            "msg":"",
+            "status":"1"
+        }
+        return log
 
 
     def readReceiptLineByReceiptID(self, receiptID):
