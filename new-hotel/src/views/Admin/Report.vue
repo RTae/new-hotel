@@ -38,9 +38,9 @@
         <v-row v-if="selectItem == 'Invoice'" style="margin-top:50px;" justify="center">
             <v-col cols="10">
                 <v-data-table
-                    :headers="headers"
-                    :items="rooms"
-                    class="elevation-10"
+                    :headers="headersInvoice"
+                    :items="invoices"
+                    class="elevation-1"
                 >
                 </v-data-table>
             </v-col>
@@ -69,6 +69,23 @@ export default {
         { text: 'Remark', value: 'remark' },
         { text: 'Total Received', value: 'totalReceived' },
       ],
+      headersInvoice: [
+        {
+          text: 'Invoice ID',
+          align: 'start',
+          value: 'invoiceID',
+        },
+        { text: 'Date Create', value: 'dateCreate' },
+        { text: 'Check in', value: 'checkIn' },
+        { text: 'Check out', value: 'checkOut' },
+        { text: 'Number of Room', value: 'numberOfRoom' },
+        { text: 'Period Of Stay', value: 'periodOfStay' },
+        { text: 'Room type', value: 'roomType' },
+        { text: 'Total', value: 'total' },
+        { text: 'Vat', value: 'vat' },
+        { text: 'Amount Due', value: 'amountDue' },
+        { text: 'Name', value: 'name' },
+      ],
       receipts: [],
       invoices: [],
     }),
@@ -82,8 +99,6 @@ export default {
         var resultInvoice = await api.summayInvoice()
         this.receipts = resultReceipt.data.result
         this.invoices = resultInvoice.data.result
-        console.log(this.receipts)
-        console.log(this.invoices)
       },
     }
   }

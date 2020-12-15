@@ -2,10 +2,127 @@
   <v-container fluid class="main" id="booking">
     <v-row class="bg" >
     <v-toolbar
-        src="../../../../dist/img/bgPayment.svg"
+        src="../../../assets/img/bgPayment.svg"
         height="1000px"
         width="100vw"   
       >
+      <v-dialog
+        v-model="modalAdd"
+        persistent
+        max-width="600px"
+        >
+          <v-card class="cardModalContainer">
+            <v-form
+                ref="form"
+                v-model="valid"
+                @submit.prevent="submitAdd"
+                lazy-validation
+                style="width:100%; height:100%"
+            >
+                <v-row>
+                    <v-col cols="4" offset="1">
+                        <label style="color:black; font-size:22px;">Room Type:</label>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-select
+                            :items="items"
+                            v-model="invoice.roomType"
+                            :rules="[v => !!v || 'Room type is required']"
+                        ></v-select>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="4" offset="1">
+                        <label style="color:black; font-size:22px">Number of Room:</label>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-text-field
+                            v-model="invoice.numberOfRoom"
+                            type="number"
+                            :min="0" 
+                            :max="10"
+                        />
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="4" offset="1">
+                        <label style="color:black; font-size:22px">Check In:</label>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-menu
+                            v-model="menuCheckIn"
+                            :close-on-content-click="false"
+                            transition="scale-transition"
+                            offset-y
+                            max-width="290px"
+                            min-width="290px"
+                        >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                v-model="invoice.dateCheckIn"
+                                persistent-hint
+                                prepend-icon="mdi-calendar"
+                                readonly
+                                v-bind="attrs"
+                                v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="invoice.dateCheckIn"
+                            no-title
+                            :min="this.today"
+                            @input="menuCheckIn = false"
+                        ></v-date-picker>
+                        </v-menu>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="4" offset="1">
+                        <label style="color:black; font-size:22px">Check out:</label>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-menu
+                            v-model="menuCheckOut"
+                            :close-on-content-click="false"
+                            transition="scale-transition"
+                            offset-y
+                            max-width="290px"
+                            min-width="290px"
+                        >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                            v-model="invoice.dateCheckOut"
+                            persistent-hint
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="invoice.dateCheckOut"
+                            no-title
+                            :min="this.invoice.dateCheckIn"
+                            @input="menuCheckOut = false"
+                        ></v-date-picker>
+                        </v-menu>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="3" offset="4">
+                        <v-btn @click="onClickCancel()" color="red" class="btnModal">
+                            <p style="margin-top:16px">Cancel</p>
+                        </v-btn>                        
+                    </v-col>
+                    <v-col cols="3" offset="1">
+                        <v-btn type="submit" color="#A0C6FF" class="btnModal">
+                            <p style="margin-top:16px">Add</p>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-form>
+          </v-card>
+      </v-dialog>
       <v-row justify="center" class="cardBigContainer">
         <v-card class="cardContainer" style="background-color:#A0C6FF; border-radius: 20px;" >
           <v-row>
@@ -13,139 +130,18 @@
               <p class="text">Booking</p>
             </v-col>
             <v-col style="margin-top: 50px; margin-right:50px;" align="end" justify="center">
-              <v-dialog
-                v-model="modalAdd"
-                persistent
-                max-width="600px"
+              <v-btn
+                color="white"
+                dark
+                fab
+                class="mx-2"
+                elevation="0"
+                @click="onClickAdd()"
               >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="white"
-                    dark
-                    fab
-                    class="mx-2"
-                    elevation="0"
-                    v-bind="attrs"
-                    v-on="on"
-                    @click="modalAdd = !modalAdd"
-                  >
-                    <span>
-                      <v-icon style="color:#6eb9f7;">add</v-icon>
-                    </span>
-                  </v-btn>
-                </template>
-                          <v-card class="cardModalContainer">
-                              <v-form
-                                  ref="form"
-                                  v-model="valid"
-                                  @submit.prevent="submitAdd"
-                                  lazy-validation
-                                  style="width:100%; height:100%"
-                              >
-                                  <v-row>
-                                      <v-col cols="4" offset="1">
-                                          <label style="color:black; font-size:22px;">Room Type:</label>
-                                      </v-col>
-                                      <v-col cols="6">
-                                          <v-select
-                                              :items="items"
-                                              v-model="invoice.roomType"
-                                              :rules="[v => !!v || 'Room type is required']"
-                                          ></v-select>
-                                      </v-col>
-                                  </v-row>
-                                  <v-row>
-                                      <v-col cols="4" offset="1">
-                                          <label style="color:black; font-size:22px">Number of Room:</label>
-                                      </v-col>
-                                      <v-col cols="6">
-                                          <v-text-field
-                                              v-model="invoice.numberOfRoom"
-                                              type="number"
-                                              :min="0" 
-                                              :max="10"
-                                          />
-                                      </v-col>
-                                  </v-row>
-                                  <v-row>
-                                      <v-col cols="4" offset="1">
-                                          <label style="color:black; font-size:22px">Check In:</label>
-                                      </v-col>
-                                      <v-col cols="6">
-                                          <v-menu
-                                              v-model="menuCheckIn"
-                                              :close-on-content-click="false"
-                                              transition="scale-transition"
-                                              offset-y
-                                              max-width="290px"
-                                              min-width="290px"
-                                          >
-                                          <template v-slot:activator="{ on, attrs }">
-                                              <v-text-field
-                                                  v-model="invoice.dateCheckIn"
-                                                  persistent-hint
-                                                  prepend-icon="mdi-calendar"
-                                                  readonly
-                                                  v-bind="attrs"
-                                                  v-on="on"
-                                              ></v-text-field>
-                                          </template>
-                                          <v-date-picker
-                                              v-model="invoice.dateCheckIn"
-                                              no-title
-                                              :min="this.today"
-                                              @input="menuCheckIn = false"
-                                          ></v-date-picker>
-                                          </v-menu>
-                                      </v-col>
-                                  </v-row>
-                                  <v-row>
-                                      <v-col cols="4" offset="1">
-                                          <label style="color:black; font-size:22px">Check out:</label>
-                                      </v-col>
-                                      <v-col cols="6">
-                                          <v-menu
-                                              v-model="menuCheckOut"
-                                              :close-on-content-click="false"
-                                              transition="scale-transition"
-                                              offset-y
-                                              max-width="290px"
-                                              min-width="290px"
-                                          >
-                                          <template v-slot:activator="{ on, attrs }">
-                                              <v-text-field
-                                              v-model="invoice.dateCheckOut"
-                                              persistent-hint
-                                              prepend-icon="mdi-calendar"
-                                              readonly
-                                              v-bind="attrs"
-                                              v-on="on"
-                                              ></v-text-field>
-                                          </template>
-                                          <v-date-picker
-                                              v-model="invoice.dateCheckOut"
-                                              no-title
-                                              :min="this.invoice.dateCheckIn"
-                                              @input="menuCheckOut = false"
-                                          ></v-date-picker>
-                                          </v-menu>
-                                      </v-col>
-                                  </v-row>
-                                  <v-row>
-                                      <v-col cols="3" offset="4">
-                                          <v-btn @click="onClickCancel()" color="red" class="btnModal">
-                                              <p style="margin-top:16px">Cancel</p>
-                                          </v-btn>                        
-                                      </v-col>
-                                      <v-col cols="3" offset="1">
-                                          <v-btn type="submit" color="#A0C6FF" class="btnModal">
-                                              <p style="margin-top:16px">Add</p>
-                                          </v-btn>
-                                      </v-col>
-                                  </v-row>
-                              </v-form>
-                          </v-card>
-                      </v-dialog>
+                <span>
+                  <v-icon style="color:#6eb9f7;">add</v-icon>
+                </span>
+              </v-btn>
             </v-col>
           </v-row>
           <v-row justify="center">
@@ -226,11 +222,9 @@
 </template>
 
 <script>
+import api from "../../../service/api"
 export default {
   name: "login",
-  mounted() {
-    this.today = new Date().toISOString().substr(0, 10)
-  },
   data () {
     return {
         today:"",
@@ -241,32 +235,108 @@ export default {
         counter: 1,
         invoices: [],
         invoice: {
-            roomType: "",
+            roomType: "Single",
             numberOfRoom: 1,
             dateCheckIn: new Date().toISOString().substr(0, 10),
-            dateCheckOut: new Date().toISOString().substr(0, 10),
+            dateCheckOut: ""
         },
         items: ["Single","Double","Suite","Delux","Premier"],
         dialog2:false,
+        roomCat: [
+            {
+                id: "rc0001",
+                name: "Single",
+                price: 1500
+            },
+            {
+                id: "rc0002",
+                name: "Double",
+                price: 2500
+            },
+            {
+                id: "rc0003",
+                name: "Suite",
+                price: 3000
+            },
+            {
+                id: "rc0004",
+                name: "Delux",
+                price: 4000
+            },
+            {
+                id: "rc0005",
+                name: "Premier",
+                price: 5000
+            },
+          ],
         };
+    },
+    mounted() {
+      this.today = new Date().toISOString().substr(0, 10)
+      const tomorrow = new Date(this.today)
+      tomorrow.setDate(tomorrow.getDate() + 1)
+      this.tomorrow = tomorrow.toISOString().substr(0, 10)
+      this.invoice.dateCheckOut = tomorrow.toISOString().substr(0, 10)
+      var invoice = this.$route.params.invoice
+      if (invoice !== undefined){
+        invoice.id = 1
+        this.counter = this.counter + 1
+        this.invoices.push(invoice)
+      }
     },
     methods: {
         onClickAdd() {
             this.modalAdd = true
         },
-        onClickNext() {
-           this.$router.push({ 
-              name: "Invoice" ,
-              userId: this.$store.getters.getUserName,
-              total: this.calculateTotal,
-          });
+        async onClickNext() {
+          this.$store.commit("SET_INVOICES", this.invoices)
+          var total = 0
+          var invoicesID = []
+          var invoices = this.invoices
+          console.log(invoices)
+          for(var i = 0; i < invoices.length; i++){
+            var invoice = invoices[i]
+            var now = new Date().toISOString().substr(0, 10)
+
+            var resultInvoice = await api.createInvoice({
+                roomCatID: invoice.typeID,
+                customerID: this.$store.getters.getUserID,
+                dateCreate: now,
+                total: invoice.total,
+                vat: invoice.total*0.07,
+                checkIn: invoice.dateCheckIn,
+                checkOut: invoice.dateCheckOut,
+                numberOfRoom: invoice.numberOfRoom
+              })
+
+            var invoiceID = resultInvoice.result
+            var roomResult = await api.roomFree(invoice.typeID, invoice.numberOfRoom)
+            var rooms = roomResult.data
+
+            for(var j = 0; j < rooms.length; j++){
+              await api.updateRoom({
+                roomID: rooms[j].roomID,
+                roomCatID: rooms[j].roomCatID,
+                status: "0",
+                cleanStatus: "1",
+              })
+
+              await api.createInvoiceLine({
+                invoiceID: invoiceID,
+                roomID: rooms[j].roomID,
+                remark: "test"
+              })
+            }
+            total = total + (invoice.total + invoice.total*0.07)
+            invoicesID.push(invoiceID)
+          }
+          this.$router.push({ name: "PaymentMethod", params: {total: total, invoicesID: invoicesID}});
         },
         onClickCancel() {
             this.modalAdd = false
         },
         onClickYes() {
-          this.$router.push({ name: "Home" 
-          });
+          this.$router.push({ name: "Home" });
         },
         submitAdd() {
             var state = this.$refs.form.validate();
@@ -283,6 +353,8 @@ export default {
                 temp.typeID = result.id
                 temp.total = temp.periodOfStay * parseInt(this.invoice.numberOfRoom) * result.price
                 temp.numberOfRoom = this.invoice.numberOfRoom
+                this.invoices.push(temp)
+                this.counter = this.counter + 1
                 this.modalAdd = false
             }
         },

@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="bookingHistory">
     <v-row class="bg">
     <v-toolbar
-        src="../../../../dist/img/bgPayment.svg"
+        src="../../../assets/img/bgPayment.svg"
         height="1000px"
         width="100vw"   
         flat
@@ -12,11 +12,11 @@
           <v-row style="width:840px;">
               <p class="text">Booking History</p></v-row>
            <v-col >
-            <div v-for="history in historys" :key="history.historyID">
+            <div v-for="history in historys" :key="history.receiptID">
               <v-card style= "border-radius: 40px;" class="cardDetailContainer" >
-                <p class="textDetail">Receipt ID : {{ history.receiptid }}</p>
-                <p class="textDetail">Amount Due : {{ history.amountdue  }}</p>
-                <p class="textDetail">Payment Method : {{ history.paymentmethod  }}</p>
+                <p class="textDetail">Receipt ID : {{ history.receiptID }}</p>
+                <p class="textDetail">Amount Due : {{ history.totalReceived  }}</p>
+                <p class="textDetail">Payment Method : {{ history.paymentMedId | ptoName }}</p>
                 <v-spacer></v-spacer>
               </v-card>
             </div>
@@ -29,20 +29,29 @@
 </template>
 
 <script>
+import api from "../../../service/api"
+import { server } from "../../../service/constants"
 export default {
   name: "bookingHistory",
-  id: "historyID",
+  async mounted() {
+    var customerID = localStorage.getItem(server.USERNAME)
+    const result = await api.getReceiptByCustomerID(customerID)
+    this.historys = result.data.result
+  },
   data () {
     return {
-      historys: [
-        {
-        receiptid: "i00001",
-        amountdue: "5000",
-        paymentmethod: "Credit card"
-        }
-      ]
+      historys: []
     }
-  }
+  },
+  filters: {
+    ptoName (value) {
+      if (value === "1     "){
+        return "Cash"
+      } else {
+        return "Credit card"
+      }
+    }
+  },
 };
 </script>
 
@@ -67,7 +76,6 @@ export default {
   color: #A0C6FF;
   border-radius: 20px;
   width: 800px;
-  height: 80px;
   margin-top: 2vh;
   display: grid;
   grid-template-columns: auto auto auto ;

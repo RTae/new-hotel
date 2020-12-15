@@ -19,6 +19,15 @@ export const register = async values => {
   }
 };
 
+export const login = async values => {
+  var bodyFormData = new FormData();
+  bodyFormData.append("email", values.email);
+  bodyFormData.append("password", values.password);
+
+  const result = await httpClient.post(server.LOGIN, bodyFormData);
+  return result.data
+}
+
 export const search = async (email) => {
   return httpClient.get(server.SEARCH + "/" + email);
 }

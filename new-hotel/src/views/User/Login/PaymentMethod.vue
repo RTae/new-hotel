@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="test">
     <v-row class="bg">
     <v-toolbar
-        src="../../../../dist/img/bgPayment.svg"
+        src="../../../assets/img/bgPayment.svg"
         height="1000px"
         width="100vw"   
         flat
@@ -12,16 +12,12 @@
           <v-row><p class="text">Order</p></v-row>
               <v-card style= "border-radius: 20px;" class="cardDetailContainer">
                 <v-col >
-                <v-row  v-for="order in orders" :key="order.id" align="center" justify="center">
-                <p class="textDetail">Room Type : {{ order.roomtype }}</p>
+                <v-row  v-for="order in $store.getters.getInvices" :key="order.id" align="center" justify="center">
+                <p class="textDetail">Room Type : {{ order.roomType }}</p>
                 <v-spacer></v-spacer>
-                <p class="textDetail">    {{ order.periodofstay }} day</p>
-                <p class="textDetail"> * {{ order.numberofroom }} room</p>
+                <p class="textDetail">{{ order.periodOfStay }} day</p>
+                <p class="textDetail">{{ order.numberOfRoom }} room</p>
                 <p class="textDetail">Total {{ order.total }} bath</p>
-                </v-row>
-                <v-row>
-                  <v-spacer></v-spacer>
-                  <p class="textDetail">Sum Total : {{ (parseInt(this.total) )}} bath</p>
                 </v-row>
                 </v-col>
               </v-card>
@@ -35,8 +31,8 @@
                 column
                 required
               >
-                <v-radio class="textradio" label="Credit Card" color="info" value="a" />
-                <v-radio class="textradio" label="Cash" color="info" value="b" />
+                <v-radio class="textradio" label="Credit Card" color="info" value="2" />
+                <v-radio class="textradio" label="Cash" color="info" value="1" />
               </v-radio-group>
             </div>
           </div>
@@ -109,49 +105,56 @@
 </template>
 
 <script>
+import api from "../../../service/api"
 export default {
   name: "Profile",
   id: "id",
   data () {
     return {
-      total:"",
-      orders: [{
-        roomtype: "Deluxe",
-        periodofstay: "5",
-        numberofroom: "1",
-        total: "5000"
+      total:0,
+      paymentmethod: {
+        name: "1"
       },
-      {
-        roomtype: "Suite",
-        periodofstay: "5",
-        numberofroom: "1",
-        total: "6000"
-      },
-      {
-        roomtype: "Premier",
-        periodofstay: "5",
-        numberofroom: "1",
-        total: "7000"
+      dialog: false,
+      invoicesID: []
       }
-      ],
-       paymentmethod: {
-        name: ""
-       },
-       dialog: false,
-    }
+  },
+  mounted() {
+    this.total = this.$route.params.total
+    this.invoicesID = this.$route.params.invoicesID
+  },
+  methods: {
+    async onClickPayment () {
+      if (this.paymentmethod.name === "1"){
+        const resultReceipt = await api.createReceipt({
+          customerID: this.$store.getters.getUserID,
+          paymentMedId: this.paymentmethod.name,
+          cuponID: "co0001",
+          dateCreate: new Date().toISOString().substr(0, 10),
+          paymentRef: "Cash",
+          totalReceived: this.total,
+          remark: "Test"
+        })
+        var receiptID = resultReceipt.result
+        this.receiptID = receiptID
+        for(var i = 0; i < this.invoicesID.length; i++){
+          var invoiceID = this.invoicesID[i]
+          const result = await api.createReceiptLine({
+            receiptID: receiptID,
+            invoiceID: invoiceID,
+            remark: "Test"
+          })
+        }
+        this.$router.push({ name: "Home" });
+      } else {
+        this.$router.push({ name: "Invoice", params: {total: this.total, invoicesID: this.invoicesID } });
+      }
     },
-    methods: {
-      onClickPayment () {
-      this.$router.push({ 
-        name: "Invoice", 
-        userId: this.$store.getters.getUserName,
-        total: this.calculateTotal,
-      });
+    onClickYes () {
+      this.$router.push({ name: "Home" });
     },
-      onClickYes () {
-      this.$router.push({ name: "Home" 
-      });
-    }
+  },
+  computed: {
   }
 };
 </script>

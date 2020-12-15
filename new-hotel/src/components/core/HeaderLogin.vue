@@ -79,6 +79,7 @@ export default {
         this.$store.dispatch({
           type: "doLogout"
         });
+        this.$router.push({name:"Home"})
       }
     }
   }

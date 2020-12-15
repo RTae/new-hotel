@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="signUp">
     <v-row class="bg">
     <v-toolbar
-        src="../../../dist/img/mainFirst.svg"
+        src="../../assets/img/mainFirst.svg"
         height="1000px"
         width="100vw"   
         flat
@@ -134,42 +134,16 @@
                 <!-- Button -->
                <v-row justify="center">
                 <div class="text-center">
-                  <v-dialog
-                    v-model="dialog"
-                    width="400px"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="#47a7f5"
-                        outlined
-                        x-large
-                        v-bind="attrs"
-                        v-on="on"
-                        :disabled="!valid" class="signUpBtn" type="submit"
-                      >
+                  <v-btn
+                      color="#47a7f5"
+                      outlined
+                      x-large
+                      :disabled="!valid" 
+                      class="signUpBtn"
+                      type="submit"
+                    >
                       Signup
-                      </v-btn>
-                    </template>
-              
-                    <v-card>
-                      <v-card-title class="cardTitle">
-                        Successfully Register
-                      </v-card-title>
-                      <v-divider></v-divider>
-              
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          color="primary"
-                          text
-                          @click="onClickOk()"
-                          block
-                        >
-                          Ok
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                    </v-btn>
                 </div>
               </v-row> 
             </v-form>
@@ -178,6 +152,12 @@
       </v-row>
     </v-toolbar>  
     </v-row>
+    <v-overlay :value="$store.getters.getLoadingState">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -214,35 +194,24 @@ export default {
       this.$router.push({ name: "Home" 
         });
     },
-    async submitRegister () {
+    submitRegister () {
       this.$refs.FirstName.focus();
       var state = this.$refs.form.validate();
-      if (this.user.email === this.emailCon) {
-        if (this.user.password === this.passwordCon) {
-          if (state) {
-            this.eduTypeMapValue(this.eduValue)
-            this.$store.dispatch({
-              type: "doRegister",
-              firstname: this.user.firstname,
-              familyname: this.user.familyname,
-              email: this.user.email,
-              password: this.user.password,
-              phonenumber: this.user.phonenumber
-            });
-          }
-        } else {
+      if (state) {
+          this.$store.commit("SET_LOADING_STATE", true)
           this.$store.dispatch({
-            type: "dialogPopup",
-            value: true,
-            msg: "Password must be same"
+            type: "doRegister",
+            firstname: this.user.firstname,
+            familyname: this.user.familyname,
+            email: this.user.email,
+            password: this.user.password,
+            phonenumber: this.user.phonenumber,
+            creditCardNumber: "",
+            point: "100"
           });
-        }
-      } else {
-        this.$store.dispatch({
-          type: "dialogPopup",
-          value: true,
-          msg: "Email must be same"
-        });
+          this.$store.commit("SET_LOADING_STATE", false)
+          this.$router.push({name: "Login"})
+
       }
     }
   }

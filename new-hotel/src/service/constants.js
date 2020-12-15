@@ -16,6 +16,7 @@ export const server = {
   INVOICE_LINE: apiUrl+"/invoiceLine",
   INVOICE_SUMMARY: apiUrl+"/summaryInvoice",
   RECEIPT: apiUrl+"/receiptWithoutID",
+  GET_RECEIPT_BY_CUSTOMER_ID: apiUrl+"/readByCustomerID",
   RECEIPT_LINE: apiUrl+"/receiptLine",
   RECEIPT_REPORT_BY_RECEIPTID: apiUrl+"/showReceiptReportByReceiptID",
   RECEIPT_REPORT_LINE_BY_RECEIPTID: apiUrl+"/showReceiptReportByReceiptIDLine",
@@ -24,8 +25,10 @@ export const server = {
   ROOM_SUMMARY: apiUrl+"/roomSummary",
   ROOMSFREE: apiUrl+"/getAllRoomFreeByRoomCat",
   ROOM: apiUrl+"/room",
+  LOGIN: apiUrl+"/login",
   ROOM_WITH_OUT_ID: apiUrl+"/roomWithOutID",
   CUSTOMER: apiUrl+"/customer",
+  CLEANING_GET_ALL: apiUrl+"/getAllCleaning",
   USERNAME: "username",
   USER_TYPE: "userType",
 };

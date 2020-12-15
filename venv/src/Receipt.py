@@ -203,6 +203,18 @@ class Receipt():
             }
             return log
 
+    def readByCustomerID(self, customerID):
+        receipts = session.query(TBL_Receipts)
+        receipts = receipts.filter(TBL_Receipts.customerID==customerID)
+        receipts = [self.serialize(receipt) for receipt in receipts]
+        log = {
+            "result":receipts,
+            "msg":"",
+            "status":"1"
+        }
+        return log
+
+
     def readReceiptLineByReceiptID(self, receiptID):
         receiptLines = session.query(TBL_ReceiptsLineItem)
         receiptLines = receiptLines.filter(TBL_ReceiptsLineItem.receiptID==receiptID)
