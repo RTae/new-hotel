@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="main" id="order">
+  <v-container fluid class="main" id="test">
     <v-row class="bg">
     <v-toolbar
         src="../../../assets/img/bgPayment.svg"
@@ -162,16 +162,11 @@ export default {
 <style scoped>
 .main {
   background-color: #C0D9FF;
-  height: 1010px;
+  height: 1000px;
 }
 
 .bg {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  justify-content: center;
-  height: 980px;
+  height: 100%;
   width: 100vw;
 }
 .cardContainer {

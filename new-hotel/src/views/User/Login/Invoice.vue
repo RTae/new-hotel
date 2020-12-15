@@ -211,7 +211,7 @@
                           dark
                           width="180px" 
                           color="#7FB2FF"
-                          @click="onClickFinnish()"
+                          @click="onClickFinish()"
                           style="margin-bottom:20px magin-right:20px;"
                           >Finish
                           </v-btn>
@@ -231,8 +231,13 @@
 import api from "../../../service/api"
 export default {
   name: "Invoice",
+  mounted() {
+  this.today = new Date().toISOString().substr(0, 10)
+  },
   data () {
     return {
+      today:"",
+      calculateTotal:"",
       expireDate:"",
       nameOnCard:"",
       creaditNumber:"",
@@ -281,7 +286,7 @@ export default {
     onClickCancel() {
       this.dialogCancel = true
     },
-    onClickFinnish () {
+    onClickFinish () {
       this.$router.push({ name: "Home" });
     },
     onClickYes () {

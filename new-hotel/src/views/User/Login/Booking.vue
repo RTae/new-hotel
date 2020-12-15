@@ -241,7 +241,6 @@ export default {
             dateCheckOut: ""
         },
         items: ["Single","Double","Suite","Delux","Premier"],
-        dialog1:false,
         dialog2:false,
         roomCat: [
             {
